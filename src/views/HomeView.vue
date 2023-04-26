@@ -162,11 +162,9 @@ export default {
         SideBar
     },
     methods: {},
-    mounted() {
-        // Verifica se o usuário está acessando a página de um celular
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
-        if (isMobile) {
-            this.drawer = false;
+    created() {
+        if (window.innerWidth < 768) { // define a largura limite 
+            this.drawer = false; // define drawer como false se a largura for menor que 768px
         }
     }
 };
