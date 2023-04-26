@@ -7,7 +7,7 @@
         <v-card flat color="#151515" class="rounded-xl mx-4 py-10">
             <v-list flat class="" dark>
                 <v-list-item-group v-model="selectedItem">
-                    <v-list-item v-for="(item, i) in items" :key="i" active-class="border" v-slot="{ active }"
+                    <v-list-item v-for="(item, i) in items" :key="i" active-class="border" v-slot="{ active }" @click="redirectToItem(item.url)" 
                         :ripple="false">
                         <v-list-item-content>
                             <v-icon v-text="item.icon" :color="active ? 'white' : 'grey lighten-1'"></v-icon>
@@ -30,11 +30,11 @@ export default {
             localDrawer: this.drawer,
             selectedItem: 0,
             items: [
-                { icon: "mdi-home-outline" },
-                { icon: "mdi-lock-open-outline" },
-                { icon: "mdi-account-circle-outline" },
-                { icon: "mdi-credit-card-chip-outline" },
-                { icon: "mdi-chevron-triple-up" },
+                { icon: "mdi-home-outline", url: '/' },
+                { icon: "mdi-lock-open-outline",  url: '/acessos' },
+                { icon: "mdi-account-circle-outline", url: '/perfil' },
+                { icon: "mdi-credit-card-chip-outline", url: '/pagamentos' },
+                { icon: "mdi-chevron-triple-up", url: '/ranking' }
             ],
         };
     },
@@ -46,7 +46,10 @@ export default {
     methods: {
         selectItem() {
             this.$emit("update:drawer", false);
-            // adiciona qualquer outra lógica que desejar
+        },
+         redirectToItem(url) {
+            // navegar pelo router
+            this.$router.push(url);
         },
     },
 };
