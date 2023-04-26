@@ -48,8 +48,8 @@
                       <h6 class="text-center">Qual tipo de conta você precisa?</h6>
                     </v-card-text>
                     <div class="text-center">
-                      <v-btn tile outlined dark @click="step++">CRIADOR(A)</v-btn>
-                    </div><br/>
+                      <v-btn style="margin-bottom: 4px;" tile outlined dark @click="step++">CRIADOR(A)</v-btn>
+                    </div>
                       <div class="text-center">
                         <v-btn tile outlined dark @click="step++">FÃ</v-btn>
                       </div>
@@ -62,7 +62,7 @@
                 <v-col cols="12" md="6" class="purple rounded-br-xl">
                   <div style="  text-align: center; padding: 180px 0;">
                     <v-card-text class="white--text">
-                      <h3 class="text-center ">Login-in</h3>
+                      <h3 class="text-center ">Faça o login em sua conta</h3>
                       <h6 class="text-center">Entre em sua conta e continue produzindo :)</h6>
                     </v-card-text>
                     <div class="text-center">
