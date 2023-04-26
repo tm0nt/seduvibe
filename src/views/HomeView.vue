@@ -123,7 +123,7 @@ export default {
                 date: "153 Imagens | 200 Vídeos",
                 marque: "Taiane Martins",
                 pay1: "BRASIL",
-                avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+                avatar: "",
             },
             {
                 image: "https://conteudo.imguol.com.br/c/entretenimento/bb/2020/03/17/jade-picon-e-uma-das-maiores-influenciadoras-teens-do-brasil-1584491745731_v2_3x4.jpg",
@@ -133,7 +133,7 @@ export default {
                 date: "153 Imagens | 200 Vídeos",
                 marque: "Taiane Martins",
                 pay1: "BRASIL",
-                avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+                avatar: "",
             },
             {
                 image: "https://conteudo.imguol.com.br/c/entretenimento/bb/2020/03/17/jade-picon-e-uma-das-maiores-influenciadoras-teens-do-brasil-1584491745731_v2_3x4.jpg",
@@ -143,7 +143,7 @@ export default {
                 date: "153 Imagens | 200 Vídeos",
                 marque: "Taiane Martins",
                 pay1: "BRASIL",
-                avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+                avatar: "",
             },
                 {
                 image: "https://conteudo.imguol.com.br/c/entretenimento/bb/2020/03/17/jade-picon-e-uma-das-maiores-influenciadoras-teens-do-brasil-1584491745731_v2_3x4.jpg",
@@ -153,7 +153,7 @@ export default {
                 date: "153 Imagens | 200 Vídeos",
                 marque: "Taiane Martins",
                 pay1: "BRASIL",
-                avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+                avatar: "",
             },
         ],
 
@@ -162,6 +162,13 @@ export default {
         SideBar
     },
     methods: {},
+    mounted() {
+        // Verifica se o usuário está acessando a página de um celular
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+        if (isMobile) {
+            this.drawer = false;
+        }
+    }
 };
 </script>
 <style scoped>
