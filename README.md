@@ -1,4 +1,4 @@
-# seduvibe_original
+# seduvibe
 
 ## Project setup
 ```
