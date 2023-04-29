@@ -41,17 +41,12 @@
                 <v-toolbar-title class="grey--text ml-4">Tags</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-chip class="ma-1 d-none d-sm-flex" color="purple" label text-color="white" dark>
-                    <v-avatar color="white" rounded class="mr-2">
-                        <v-img src="" contain></v-img>
-                    </v-avatar>
-                    Novinhas
+                    <v-icon>mdi-cancel</v-icon>
+                    &nbsp;Novinhas
                 </v-chip>
                 <v-chip class="ma-1 d-none d-sm-flex" color="purple" label text-color="white" dark>
-                    <v-avatar color="white" rounded class="mr-2">
-                        <v-img src="2.png" contain></v-img>
-                    </v-avatar>
-
-                    Gamer
+                <v-icon>mdi-glasses</v-icon>
+                    &nbsp;Nerd
                 </v-chip>
                 <v-spacer></v-spacer>
                 <v-btn color="purple" class="mr-2" outlined>

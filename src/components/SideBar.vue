@@ -1,23 +1,28 @@
 <template>
     <v-navigation-drawer v-model="localDrawer" app color="#212121" mini-variant mini-variant-width="110">
         <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="85">
-                <v-img class="mt-5" src="../assets/logo2.png" height="auto" max-width="50px"></v-img>
+            <v-img class="mt-5" src="../assets/logo2.png" height="auto" max-width="50px"></v-img>
         </v-avatar>
 
         <v-card flat color="#151515" class="rounded-xl mx-4 py-10">
             <v-list flat class="" dark>
                 <v-list-item-group v-model="selectedItem">
-                    <v-list-item v-for="(item, i) in items" :key="i" active-class="border" v-slot="{ active }" @click="redirectToItem(item.url)" 
-                        :ripple="false">
+                    <v-list-item v-for="(item, i) in items" :key="i" active-class="border" exact :to="item.url"
+                        :class="{ active: item.active }">
                         <v-list-item-content>
-                            <v-icon v-text="item.icon" :color="active ? 'white' : 'grey lighten-1'"></v-icon>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-text="item.icon" :color="item.active ? 'white' : 'grey lighten-1'"
+                                        v-on="on"></v-icon>
+                                </template>
+                                <span>{{ item.title }}</span>
+                            </v-tooltip>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
         </v-card>
-
-        </v-navigation-drawer>
+    </v-navigation-drawer>
 </template>
 
 <script>
@@ -30,28 +35,30 @@ export default {
             localDrawer: this.drawer,
             selectedItem: 0,
             items: [
-                { icon: "mdi-home-outline", url: '/' },
-                { icon: "mdi-lock-open-outline",  url: '/acessos' },
-                { icon: "mdi-account-circle-outline", url: '/perfil' },
-                { icon: "mdi-credit-card-chip-outline", url: '/pagamentos' },
-                { icon: "mdi-chevron-triple-up", url: '/ranking' }
-            ],
+                { icon: 'mdi-home-outline', url: '/home', title: 'Home', active: false },
+                { icon: 'mdi-lock-open-outline', url: '/acessos', title: 'Acessos', active: false },
+                { icon: 'mdi-account-circle-outline', url: '/perfil', title: 'Perfil', active: false },
+                { icon: 'mdi-credit-card-chip-outline', url: '/pagamentos', title: 'Pagamentos', active: false },
+                { icon: 'mdi-chevron-triple-up', url: '/ranking', title: 'Ranking', active: false }
+            ]
         };
     },
     watch: {
         drawer(newValue) {
             this.localDrawer = newValue;
         },
+        $route(newRoute) {
+            // define a propriedade "active" o menu com base na rota atual
+            this.items.forEach(item => {
+                item.active = newRoute.path === item.url;
+            });
+        }
     },
     methods: {
         selectItem() {
-            this.$emit("update:drawer", false);
-        },
-         redirectToItem(url) {
-            // navegar pelo router
-            this.$router.push(url);
-        },
-    },
+            this.$emit('update:drawer', false);
+        }
+    }
 };
 </script>
 
@@ -60,5 +67,6 @@ export default {
     margin: 0px 8px;
     background: purple;
     border-radius: 15px;
-    text-decoration: none;}
+    text-decoration: none;
+}
 </style>
