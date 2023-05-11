@@ -1,8 +1,8 @@
-<template >
+<template style="background-color:black;">
   <v-container>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="10">
-        <v-card class="elevation-6 mt-10" color="white">
+        <v-card class="elevation-6 mt-10" color="#212121" dark>
           <v-window v-model="step">
             <v-window-item :value="1">
               <v-row>
@@ -13,8 +13,8 @@
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
 
-                        <v-text-field label="Email, usuário ou telefone"  color="purple" autocomplete="false" class="meu-vtf-personalizado mt-16" v-model="email"/>
-                        <v-text-field label="Senha"  color="purple"  autocomplete="false" type="password" v-model="password"/>
+                        <v-text-field label="Email, usuário ou telefone"  color="purple" autocomplete="false" class="meu-vtf-personalizado mt-16"  />
+                        <v-text-field label="Senha"  color="purple"  autocomplete="false" type="password" />
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-checkbox label="Lembre-se" class="mt-n1" color="purple"> </v-checkbox>
@@ -23,7 +23,7 @@
                             <span class="caption purple--text">Esqueceu a senha?</span>
                           </v-col>
                         </v-row>
-                        <v-btn color="purple" dark block tile @click="login">ENTRAR</v-btn>
+                        <v-btn color="purple" dark block tile>ENTRAR</v-btn>
 
                         <h5 class="text-center  grey--text mt-4 mb-3">Ou</h5>
                         <div class="d-flex  justify-space-between align-center mx-10 mb-16">
@@ -48,8 +48,8 @@
                       <h6 class="text-center">Qual tipo de conta você precisa?</h6>
                     </v-card-text>
                     <div class="text-center">
-                      <v-btn style="margin-bottom: 4px;" tile outlined dark @click="step++">CRIADOR(A)</v-btn>
-                    </div>
+                      <v-btn tile outlined dark @click="step++">CRIADOR(A)</v-btn>
+                    </div><br/>
                       <div class="text-center">
                         <v-btn tile outlined dark @click="step++">FÃ</v-btn>
                       </div>
@@ -62,7 +62,7 @@
                 <v-col cols="12" md="6" class="purple rounded-br-xl">
                   <div style="  text-align: center; padding: 180px 0;">
                     <v-card-text class="white--text">
-                      <h3 class="text-center ">Faça o login em sua conta</h3>
+                      <h3 class="text-center ">Login-in</h3>
                       <h6 class="text-center">Entre em sua conta e continue produzindo :)</h6>
                     </v-card-text>
                     <div class="text-center">
@@ -79,13 +79,12 @@
                       <v-col cols="12" sm="8">
                         <v-row>
                           <v-col cols="12" sm="12">
-                            <v-text-field label="Seu nome"  color="purple" autocomplete="false" class="mt-4" v-model="name"/>
-                            <v-text-field label="Usuário"  color="purple" autocomplete="false" v-model="user"/>
+                            <v-text-field label="Seu nome"  color="purple" autocomplete="false" class="mt-4"/>
+                            <v-text-field label="Usuário"  color="purple" autocomplete="false"/>
                           </v-col>
                         </v-row>
-                        <v-text-field label="Email"  color="purple" autocomplete="false" v-model="email"/>
-                        <v-text-field label="Senha"  color="purple" autocomplete="false" type="password" v-model="password"/>
-                        
+                        <v-text-field label="Email"  color="purple" autocomplete="false" />
+                        <v-text-field label="Senha"  color="purple" autocomplete="false" type="password" />
                         <v-row>
                           <v-col cols="12" sm="7">
                             <v-checkbox label="Aceito os termos" class="mt-n1" color="purple"> </v-checkbox>
@@ -94,7 +93,7 @@
                             <span class="caption purple--text ml-n4">Termos e serviços</span>
                           </v-col>
                         </v-row>
-                        <v-btn color="purple" dark block tile @click="register">Criar conta</v-btn>
+                        <v-btn color="purple" dark block tile>Criar conta</v-btn>
 
                         <h5 class="text-center  grey--text mt-4 mb-3">Ou crie uma conta com</h5>
                         <div class="d-flex  justify-space-between align-center mx-10 mb-11">
@@ -144,59 +143,3 @@ export default {
 }
 
 </style>
-<script>
-import router from '../router/index.js'
-
-export default {
-  data() {
-    return {
-      name: '',
-      email: '',
-      password: '',
-    }
-  },
-  methods: {
-    async login() {
-      const response = await fetch('http://localhost:8081/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password
-        }),
-        credentials: 'include'
-      })
-      const data = await response.json()
-        localStorage.setItem('token', data.token)
-        console.log(data.token)
-        if(data.token !=null){
-          router.push('/home') 
-        }else{
-          alert("Error: Incorrect password or email!");
-        }
-    },
-    async register() {
-      const response = await fetch('http://localhost:8081/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: this.name,
-          email: this.email,
-          password: this.password
-        }),
-        credentials: 'include'
-      })
-      const data = await response.json()
-      if(data.success){
-        alert("User registered successfully!")
-      }else{
-        alert("Error: "+data.message);
-      }
-    }
-  }
-}
-</script>
