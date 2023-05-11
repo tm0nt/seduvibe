@@ -7,6 +7,9 @@ import PagamentosView from "../views/PagamentosView.vue";
 import AcessosView from "../views/AcessosView.vue";
 import RankingView from "../views/RankingView.vue";
 import PerfilCreator from "../components/PerfilCreator.vue";
+import MyDashCreator from "../components/MyDashCreator.vue";
+
+
 
 Vue.use(VueRouter);
 
@@ -27,7 +30,7 @@ const routes = [
     path: "/perfil",
     name: "perfil",
     component: PerfilView,
-    meta: { title: "Perfil" },
+    meta: { title: "Meu perfil" },
   },
   {
     path: "/acessos",
@@ -53,6 +56,13 @@ const routes = [
     component: PerfilCreator,
     meta: { title: "Nome modelo" },
   },
+  {
+    path: "/dashboard",
+    name: "dashboardCreator",
+    component: MyDashCreator,
+    meta: { title: "Meu perfil" },
+  },
+  
 ];
 
 const router = new VueRouter({
