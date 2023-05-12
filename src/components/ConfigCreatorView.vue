@@ -184,129 +184,22 @@
           class="d-flex justify-center"
         >
         </v-app-bar>
-
-        <h3 class="white--text mt-2">Publicações</h3>
       </v-container>
-
-      <v-card class="mx-auto my-8" max-width="100%" dark>
-        <!-- Cabeçalho da publicação -->
-        <v-card-title>
-          <v-spacer></v-spacer>
-          <v-menu offset-y>
-            <template v-slot:activator="{ on }">
-              <v-btn icon v-on="on">
-                <v-icon>mdi-dots-horizontal</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-list-item-title>Denunciar</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-card-title>
-        <!-- Imagem da publicação -->
-        <v-card-media>
-          <v-img src="/img/post.jpg"></v-img>
-        </v-card-media>
-        <!-- Ações da publicação -->
-        <v-card-actions>
-          <v-btn icon>
-            <v-icon color="pink">mdi-heart-outline</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-comment-outline</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-share-variant-outline</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-bookmark-outline</v-icon>
-          </v-btn>
-        </v-card-actions>
-        <!-- Legenda da publicação -->
-        <v-card-text>
-          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        </v-card-text>
-        <!-- Comentários da publicação -->
-        <v-card-text>
-          <v-list dense>
-            <v-list-item v-for="(comment, index) in comments" :key="index">
-              <v-list-item-avatar>
-                <v-img src="/img/avatar.jpg"></v-img>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="font-weight-bold"
-                  >Nome do usuário</v-list-item-title
-                >
-                <v-list-item-subtitle>{{ comment }}</v-list-item-subtitle>
-              </v-list-item-content>
-              <v-row class="d-flex justify-end">
-                <v-col cols="auto">
-                  <v-icon size="16">mdi-heart</v-icon>
-                </v-col>
-                <v-col cols="auto">
-                  <v-icon size="16">mdi-delete</v-icon>
-                </v-col>
-              </v-row>
-            </v-list-item>
-          </v-list>
-        </v-card-text>
-
-        <!-- Formulário de comentário -->
-        <v-card-actions>
-          <v-avatar size="32">
-            <v-img src="/img/avatar.jpg"></v-img>
-          </v-avatar>
-          <v-form
-            class="flex-grow-1"
-            ref="commentForm"
-            v-on:submit.prevent="addComment"
-          >
-            <v-textarea
-              v-model="newComment"
-              label="Adicione um comentário"
-              :rules="[rules.comment]"
-              required
-            ></v-textarea>
-          </v-form>
-          <v-btn
-            color="purple white--text"
-            @click="submitComment"
-            :disabled="submittingComment"
-          >
-            Enviar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <v-list color="#232323" max-width="400" dark>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="selectItem(index)"
+        >
+          <v-list-item-content>
+            <v-list-item-title
+              :class="{ 'selected-item': selected === index }"
+              >{{ item }}</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </div>
-    <v-btn
-      fab
-      dark
-      color="purple"
-      bottom
-      right
-      fixed
-      @click="showOptions = !showOptions"
-    >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
-    <v-overlay v-if="showOptions" @click="showOptions = false">
-      <v-card class="mx-auto" max-width="500">
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in options"
-            :key="index"
-            @click="handleOptionClick(item)"
-          >
-            <v-list-item-content>
-              <v-list-item-title>{{ item }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </v-overlay>
   </v-app>
 </template>
 
@@ -322,32 +215,22 @@ export default {
       isOpen: false,
       coverModal: false,
       coverTitle: "Enviar capa",
-      options: ["Criar nova publicação"],
       selectedFile: null,
       file: null,
-      menu: false,
+      selected: null,
       isEditModalOpen: false,
       editText: "",
       selection: 1,
       drawer: true,
       showOptions: false,
-      newComment: "",
-      submittingComment: false,
-      comments: [
-        "Comentário 1",
-        "Comentário 2",
-        "Comentário 3",
-        "Comentário 4",
-        "Comentário 5",
+      options: ["Criar nova publicação"],
+      items: [
+        "Sua conta",
+        "Valores ",
+        "Informações Pessoais",
+        "Cartões",
+        "Indicação",
       ],
-      rules: {
-        comment: [
-          (v) => !!v || "O comentário é obrigatório",
-          (v) =>
-            (v && v.length <= 100) ||
-            "O comentário não pode ter mais de 100 caracteres",
-        ],
-      },
     };
   },
   components: {
@@ -373,11 +256,8 @@ export default {
       }
       this.showOptions = false;
     },
-    addComment() {
-      if (this.newComment) {
-        this.comments.push(this.newComment);
-        this.newComment = "";
-      }
+    navigateTo(route) {
+      this.$router.push(route);
     },
     openCoverModal() {
       this.coverModal = true;
@@ -402,6 +282,7 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
+
     saveEditedText() {
       const newText = this.editText.trim();
       if (newText) {
@@ -409,20 +290,6 @@ export default {
       }
       this.closeEditModal();
     },
-    submitComment() {
-      if (!this.submittingComment) {
-        this.$refs.commentForm.validate().then((valid) => {
-          if (valid) {
-            this.submittingComment = true;
-            setTimeout(() => {
-              this.addComment();
-              this.submittingComment = false;
-            }, 1000);
-          }
-        });
-      }
-    },
-
     openModal() {
       this.dialog = true;
     },

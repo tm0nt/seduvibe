@@ -8,6 +8,11 @@ import AcessosView from "../views/AcessosView.vue";
 import RankingView from "../views/RankingView.vue";
 import PerfilCreator from "../components/PerfilCreator.vue";
 import MyDashCreator from "../components/MyDashCreator.vue";
+import Analytics from "../views/AnalyticsView.vue";
+import ConfigCreatorView from "../components/ConfigCreatorView.vue";
+
+
+
 
 
 
@@ -26,6 +31,19 @@ const routes = [
     component: HomeView,
     meta: { title: "Feed" },
   },
+    {
+    path: "/analytics",
+    name: "Analytics",
+    component: Analytics,
+    meta: { title: "Analytics" },
+  },
+      {
+    path: "/config",
+    name: "Configurações",
+    component: ConfigCreatorView,
+    meta: { title: "Configurações" },
+  },
+  
   {
     path: "/perfil",
     name: "perfil",

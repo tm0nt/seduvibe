@@ -143,6 +143,7 @@
             </v-list-item>
           </v-list>
         </v-card-text>
+
         <!-- Formulário de comentário -->
         <v-card-actions>
           <v-avatar size="32">
