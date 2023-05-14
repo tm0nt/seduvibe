@@ -10,9 +10,11 @@ import PerfilCreator from "../components/PerfilCreator.vue";
 import MyDashCreator from "../components/MyDashCreator.vue";
 import Analytics from "../views/AnalyticsView.vue";
 import ConfigCreatorView from "../components/ConfigCreatorView.vue";
-
-
-
+import AllAccount from "../components/analytics/menu/EverythingAccountView.vue";
+import Chat from "../components/analytics/menu/ChatView.vue";
+import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
+import Wallet from "../components/analytics/menu/WalletView.vue";
+import Views from "../components/analytics/menu/ViewsView.vue";
 
 
 
@@ -80,7 +82,37 @@ const routes = [
     component: MyDashCreator,
     meta: { title: "Meu perfil" },
   },
-  
+    {
+    path: "/wallet",
+    name: "wallet",
+    component: Wallet,
+    meta: { title: "Carteira" },
+  },
+      {
+    path: "/views",
+    name: "views",
+    component: Views,
+    meta: { title: "Dados de visualização" },
+  },
+        {
+    path: "/chat",
+    name: "chat",
+    component: Chat,
+    meta: { title: "Chat" },
+    
+  },
+          {
+    path: "/all",
+    name: "all",
+    component: AllAccount,
+            meta: { title: "Dados" },
+  },
+    {
+    path: "/recorrent",
+    name: "recorrent",
+    component: Recorrente,
+    meta: { title: "Próximos pagamentos" },
+  },
 ];
 
 const router = new VueRouter({

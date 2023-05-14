@@ -15,9 +15,11 @@
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
+          :to="item.path"
           active-class="border"
           v-slot="{ active }"
           :ripple="false"
+          :value="i"
         >
           <v-list-item-icon>
             <v-icon
@@ -53,16 +55,17 @@ export default {
     selectedItem: 0,
     drawer: null,
     items: [
-      { icon: "fas fa-bars" },
-      { icon: "far fa-compass" },
-      { icon: "fas fa-wallet" },
-      { icon: "far fa-comment-dots" },
-      { icon: "far fa-calendar-alt" },
-      { icon: "far fa-file-alt" },
+      { icon: "fas fa-bars", path: "/analytics" },
+      { icon: "far fa-compass", path: "/views" },
+      { icon: "fas fa-wallet", path: "/wallet" },
+      { icon: "far fa-comment-dots", path: "/chat" },
+      { icon: "far fa-calendar-alt", path: "/recorrent" },
+      { icon: "far fa-file-alt", path: "/all" },
     ],
   }),
 };
 </script>
+
 <style>
 .border {
   margin-left: 12px;

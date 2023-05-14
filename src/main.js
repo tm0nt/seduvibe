@@ -3,13 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-import { VSlideGroup, VSlideGroupItem } from "vuetify/lib";
-import 'chart.js';
-import 'hchs-vue-charts';
+import { Line, mixins } from 'vue-chartjs'
 
-
-Vue.component("v-slide-group", VSlideGroup);
-Vue.component("v-slide-group-item", VSlideGroupItem);
 
 Vue.config.productionTip = false;
 
@@ -19,3 +14,14 @@ new Vue({
   vuetify,
   render: (h) => h(App),
 }).$mount("#app");
+
+
+Vue.component('line-chart', {
+  extends: Line,
+  mixins: [mixins.reactiveProp],
+  props: ['chartData', 'options'],
+  mounted () {
+    this.renderChart(this.chartData, this.options)
+  }
+})
+

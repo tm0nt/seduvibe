@@ -17,9 +17,6 @@ export default new Vuetify({
       light: {
         background: "white",
       },
-      roxo: {
-        background: "purple",
-      },
     },
   },
 });
