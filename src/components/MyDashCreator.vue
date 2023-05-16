@@ -41,12 +41,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="purple" class="white--text" @click="uploadCover"
-              >Enviar</v-btn
-            >
-            <v-btn color="red" class="white--text" @click="closeCoverModal"
+            <v-btn class="purple--text" text @click="closeCoverModal"
               >Cancelar</v-btn
             >
+            <v-btn class="purple--text" text @click="uploadCover">Enviar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -90,7 +88,7 @@
                 </v-avatar>
 
                 <template>
-                  <v-dialog v-model="dialog" max-width="500">
+                  <v-dialog v-model="dialog" dark max-width="500">
                     <v-card>
                       <v-card-title>Alterar foto do perfil</v-card-title>
                       <v-card-text>
@@ -102,17 +100,11 @@
                         ></v-file-input>
                       </v-card-text>
                       <v-card-actions>
-                        <v-btn
-                          color="purple"
-                          class="white--text"
-                          @click="saveFile"
-                          >Enviar</v-btn
-                        >
-                        <v-btn
-                          color="red"
-                          class="white--text"
-                          @click="closeModal"
+                        <v-btn class="purple--text" text @click="closeModal"
                           >Cancelar</v-btn
+                        >
+                        <v-btn class="purple--text" @click="saveFile" text
+                          >Enviar</v-btn
                         >
                       </v-card-actions>
                     </v-card>
@@ -130,7 +122,7 @@
                 >fa-pen</v-icon
               >
             </p>
-            <v-dialog v-model="isEditModalOpen" max-width="500">
+            <v-dialog dark v-model="isEditModalOpen" max-width="500">
               <v-card>
                 <v-card-title>Editar bio</v-card-title>
                 <v-card-text>
@@ -140,14 +132,11 @@
                   ></v-text-field>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn
-                    color="purple"
-                    class="white--text"
-                    @click="saveEditedText"
-                    >Salvar</v-btn
-                  >
-                  <v-btn color="red" class="white--text" @click="closeEditModal"
+                  <v-btn text class="purple--text" @click="closeEditModal"
                     >Cancelar</v-btn
+                  >
+                  <v-btn class="purple--text" @click="saveEditedText" text
+                    >Salvar</v-btn
                   >
                 </v-card-actions>
               </v-card>
@@ -165,16 +154,20 @@
             </v-row>
           </v-col>
           <v-col cols="auto" class="ml-auto white--text">
-            <v-btn color="purple" class="white--text">
-              <v-icon size="12" class="mr-2">fa-gear</v-icon>
-              Configurações
-            </v-btn>
+            <router-link to="/config">
+              <v-btn color="purple" class="white--text">
+                <v-icon size="12" class="mr-2">fa-gear</v-icon>
+                Configurações
+              </v-btn>
+            </router-link>
           </v-col>
           <v-col cols="auto" class="ml-1 white--text">
-            <v-btn color="white" class="black--text">
-              <v-icon size="12" class="mr-2">fa-chart-simple</v-icon>
-              Analytics
-            </v-btn>
+            <router-link to="/analytics">
+              <v-btn color="white" class="black--text">
+                <v-icon size="12" class="mr-2">fa-chart-simple</v-icon>
+                Analytics
+              </v-btn>
+            </router-link>
           </v-col>
         </v-row>
         <v-app-bar

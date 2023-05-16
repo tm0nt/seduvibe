@@ -49,42 +49,46 @@
             </v-card>
           </v-card>
         </v-col>
-        <v-list color="#222222" class="mt-5">
-          <v-list-item
-            class="white--text"
-            v-for="(item, index) in items"
-            :key="index"
-            @click="showContent(index)"
-            :class="{ active: activeIndex === index }"
-          >
+      </v-row>
+      <v-card class="mt-10" dark color="purple">
+        <v-card-title>
+          <v-toolbar-title>Selecione o tipo de transferência</v-toolbar-title>
+        </v-card-title>
+        <v-list>
+          <v-list-item v-for="(item, index) in items" :key="item.title">
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title
+                v-text="item.title"
+                @click="showContent(index)"
+              ></v-list-item-title>
+              <v-expand-transition>
+                <div v-if="activeIndex === index">
+                  <v-form v-if="item.formType === 'pix'" ref="pixForm">
+                    <PixForm />
+                  </v-form>
+                  <v-form v-if="item.formType === 'ted'" ref="tedForm">
+                    <TedForm />
+                  </v-form>
+                </div>
+              </v-expand-transition>
             </v-list-item-content>
           </v-list-item>
         </v-list>
-
-        <v-row>
-          <v-col v-if="activeIndex !== null" cols="12">
-            <v-card color="#232323">
-              <v-card-text class="white--text">{{
-                items[activeIndex].content
-              }}</v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-row>
+      </v-card>
     </v-container>
   </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
 import SideBar from "../SidebarView.vue";
+import PixForm from "./PixForm.vue";
+import TedForm from "./TedForm.vue";
+
 export default {
   data: () => ({
     items: [
-      { title: "Transferência via Pix", content: "Conteúdo do item 1" },
-      { title: "Transferência via Ted", content: "Conteúdo do item 2" },
+      { title: "Transferência via Pix", formType: "pix" },
+      { title: "Transferência via Ted", formType: "ted" },
     ],
     activeIndex: null,
   }),
@@ -99,6 +103,8 @@ export default {
   },
   components: {
     SideBar,
+    PixForm,
+    TedForm,
   },
 };
 </script>

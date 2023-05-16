@@ -22,7 +22,7 @@
           Alterar capa
         </v-btn>
       </v-col>
-      <v-dialog v-model="coverModal" max-width="500">
+      <v-dialog v-model="coverModal" dark max-width="500">
         <v-card>
           <v-card-title>
             <span class="headline">{{ coverTitle }}</span>
@@ -41,12 +41,11 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="purple" class="white--text" @click="uploadCover"
-              >Enviar</v-btn
-            >
-            <v-btn color="red" class="white--text" @click="closeCoverModal"
+
+            <v-btn class="purple--text" text @click="closeCoverModal"
               >Cancelar</v-btn
             >
+            <v-btn class="purple--text" text @click="uploadCover">Salvar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -90,7 +89,7 @@
                 </v-avatar>
 
                 <template>
-                  <v-dialog v-model="dialog" max-width="500">
+                  <v-dialog v-model="dialog" dark max-width="500">
                     <v-card>
                       <v-card-title>Alterar foto do perfil</v-card-title>
                       <v-card-text>
@@ -102,17 +101,11 @@
                         ></v-file-input>
                       </v-card-text>
                       <v-card-actions>
-                        <v-btn
-                          color="purple"
-                          class="white--text"
-                          @click="saveFile"
-                          >Enviar</v-btn
-                        >
-                        <v-btn
-                          color="red"
-                          class="white--text"
-                          @click="closeModal"
+                        <v-btn class="purple--text" @click="closeModal" text
                           >Cancelar</v-btn
+                        >
+                        <v-btn class="purple--text" @click="saveFile" text
+                          >Salvar</v-btn
                         >
                       </v-card-actions>
                     </v-card>
@@ -130,7 +123,7 @@
                 >fa-pen</v-icon
               >
             </p>
-            <v-dialog v-model="isEditModalOpen" max-width="500">
+            <v-dialog dark v-model="isEditModalOpen" max-width="500">
               <v-card>
                 <v-card-title>Editar bio</v-card-title>
                 <v-card-text>
@@ -140,14 +133,11 @@
                   ></v-text-field>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn
-                    color="purple"
-                    class="white--text"
-                    @click="saveEditedText"
-                    >Salvar</v-btn
-                  >
-                  <v-btn color="red" class="white--text" @click="closeEditModal"
+                  <v-btn class="purple--text" @click="closeEditModal" text
                     >Cancelar</v-btn
+                  >
+                  <v-btn class="purple--text" @click="saveEditedText" text
+                    >Salvar</v-btn
                   >
                 </v-card-actions>
               </v-card>
@@ -165,16 +155,20 @@
             </v-row>
           </v-col>
           <v-col cols="auto" class="ml-auto white--text">
-            <v-btn color="purple" class="white--text">
-              <v-icon size="12" class="mr-2">fa-gear</v-icon>
-              Configurações
-            </v-btn>
+            <router-link to="/dashboard">
+              <v-btn color="purple" class="white--text">
+                <v-icon size="12" class="mr-2">fa-home</v-icon>
+                Dashboard
+              </v-btn>
+            </router-link>
           </v-col>
           <v-col cols="auto" class="ml-1 white--text">
-            <v-btn color="white" class="black--text">
-              <v-icon size="12" class="mr-2">fa-chart-simple</v-icon>
-              Analytics
-            </v-btn>
+            <router-link to="/analytics">
+              <v-btn color="white" class="black--text">
+                <v-icon size="12" class="mr-2">fa-chart-simple</v-icon>
+                Analytics
+              </v-btn>
+            </router-link>
           </v-col>
         </v-row>
         <v-app-bar
@@ -185,26 +179,58 @@
         >
         </v-app-bar>
       </v-container>
-      <v-list color="#232323" max-width="400" dark>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-          @click="selectItem(index)"
-        >
-          <v-list-item-content>
-            <v-list-item-title
-              :class="{ 'selected-item': selected === index }"
-              >{{ item }}</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="6">
+            <v-list color="#212121" max-width="400" dark>
+              <v-list-item
+                v-for="(item, index) in items"
+                :key="index"
+                @click="selectItem(index)"
+                :class="{ purple: selectedItem === index }"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>{{ item }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+          <v-col cols="6">
+            <div class="content-container ml-5">
+              <template v-if="selectedItem === 0">
+                <MyAccount></MyAccount>
+              </template>
+
+              <template v-else-if="selectedItem === 1">
+                <ValoresView></ValoresView>
+              </template>
+
+              <template v-else-if="selectedItem === 2">
+                <InfoPessoal></InfoPessoal>
+              </template>
+
+              <template v-else-if="selectedItem === 3">
+                <CardAndBankAccount></CardAndBankAccount>
+              </template>
+
+              <template v-else-if="selectedItem === 4">
+                <IndicacaoView></IndicacaoView>
+              </template>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </v-app>
 </template>
 
 <script>
 import SideBar from "../components/SideBar.vue";
+import CardAndBankAccount from "./CardAndBankAccount.vue";
+import IndicacaoView from "./IndicacaoView.vue";
+import InfoPessoal from "./InfoPessoal.vue";
+import MyAccount from "./MyAccount.vue";
+import ValoresView from "./ValoresView.vue";
 
 export default {
   name: "HomeView",
@@ -217,6 +243,7 @@ export default {
       coverTitle: "Enviar capa",
       selectedFile: null,
       file: null,
+      selectedItem: null,
       selected: null,
       isEditModalOpen: false,
       editText: "",
@@ -228,13 +255,18 @@ export default {
         "Sua conta",
         "Valores ",
         "Informações Pessoais",
-        "Cartões",
+        "Contas bancárias",
         "Indicação",
       ],
     };
   },
   components: {
     SideBar,
+    CardAndBankAccount,
+    MyAccount,
+    ValoresView,
+    IndicacaoView,
+    InfoPessoal,
   },
   created() {
     if (window.innerWidth < 768) {
@@ -261,6 +293,10 @@ export default {
     },
     openCoverModal() {
       this.coverModal = true;
+    },
+    selectItem(index) {
+      this.selectedItem = index;
+      this.selected = index;
     },
     menuItemClicked(item) {
       console.log(`Você clicou na opção ${item}`);
@@ -347,5 +383,8 @@ export default {
 .back {
   background: purple !important;
   color: white !important;
+}
+.active {
+  background-color: purple !important;
 }
 </style>
