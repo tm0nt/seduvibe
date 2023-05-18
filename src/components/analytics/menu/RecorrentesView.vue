@@ -4,35 +4,11 @@
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
     <SideBar />
-    <v-container>
+    <v-container fluid fill-height>
       <v-row>
-        <v-col cols="12" sm="8">
-          <v-row>
-            <v-col cols="12" sm="12">
-              <v-col cols="12" sm="4">
-                <v-card color="#242426" class="rounded-lg mx-2" flat>
-                  <v-app-bar flat color="rgba(0, 0, 0, 0)">
-                    <span class="caption grey--text mt-n6">Assinantes</span>
-                  </v-app-bar>
-                  <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
-                    <h4 class="white--text">512166</h4>
-                    <span class="caption grey--text ml-2"> +1489/dia </span>
-                  </v-app-bar>
-
-                  <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
-                    <v-progress-linear
-                      color="purple"
-                      height="1"
-                      value="100"
-                    ></v-progress-linear>
-                  </v-app-bar>
-                  <v-card-text class="pt-0 mt-n4">
-                    <span
-                      class="text-caption grey--text font-weight-light"
-                    ></span>
-                  </v-card-text>
-                </v-card>
-              </v-col>
+        <v-col>
+          <v-row align="center">
+            <v-col>
               <h2 class="white--text">Próximos pagamentos</h2>
               <v-data-table
                 :items="items"
@@ -63,19 +39,19 @@
                 <template v-slot:item="{ item }">
                   <tr>
                     <td
-                      class="text-white"
+                      class="text-white text-xs-center"
                       :style="{ backgroundColor: '#222222' }"
                     >
                       {{ item.usuario }}
                     </td>
                     <td
-                      class="text-white"
+                      class="text-white text-xs-center"
                       :style="{ backgroundColor: '#222222' }"
                     >
                       {{ item.vencimento }}
                     </td>
                     <td
-                      class="text-white"
+                      class="text-white text-xs-center"
                       :style="{ backgroundColor: '#222222' }"
                     >
                       {{ item.servico }}
@@ -86,11 +62,12 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" sm="4"> </v-col>
       </v-row>
     </v-container>
   </v-app>
 </template>
+
+<!-- Restante do código -->
 
 <script>
 // @ is an alias to /src

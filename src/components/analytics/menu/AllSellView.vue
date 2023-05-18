@@ -6,14 +6,81 @@
     <SideBar />
     <v-container>
       <v-row>
-        <v-col cols="12" sm="8">
-          <v-row>
-            <v-col cols="12" sm="12"> </v-col>
-            <v-col cols="12" sm="12"> </v-col>
-            <v-col cols="12" sm="12"> </v-col>
-          </v-row>
-        </v-col>
-        <v-col cols="12" sm="4"> </v-col>
+        <template>
+          <div>
+            <v-card>
+              <v-card-title class="purple">
+                <v-icon class="icon">mdi-account-group</v-icon>
+                <span>Total de Assinantes</span>
+              </v-card-title>
+              <v-progress-linear
+                class="progress"
+                color="purple"
+                :value="100"
+              ></v-progress-linear>
+              <v-card-text class="info">{{ totalAssinantes }}</v-card-text>
+            </v-card>
+
+            <v-card>
+              <v-card-title class="purple">
+                <v-icon class="icon">mdi-eye</v-icon>
+                <span>Número de Visualizações</span>
+              </v-card-title>
+              <v-progress-linear
+                class="progress"
+                color="purple"
+                :value="100"
+              ></v-progress-linear>
+              <v-card-text class="info">{{ numeroVisualizacoes }}</v-card-text>
+            </v-card>
+
+            <v-card>
+              <v-card-title class="purple">
+                <v-icon class="icon">mdi-emoticon-happy-outline</v-icon>
+                <span>Total de Vibe+</span>
+              </v-card-title>
+              <v-progress-linear
+                class="progress"
+                color="purple"
+                :value="100"
+              ></v-progress-linear>
+              <v-card-text class="info">{{ totalVibe }}</v-card-text>
+            </v-card>
+          </div>
+        </template>
+
+        <script>
+          export default {
+            data() {
+              return {
+                totalAssinantes: 10000, // Exemplo de dado
+                numeroVisualizacoes: 500000, // Exemplo de dado
+                totalVibe: 15000, // Exemplo de dado
+              };
+            },
+          };
+        </script>
+
+        <style scoped>
+          .purple {
+            background-color: #232323;
+            color: white;
+          }
+
+          .icon {
+            margin-right: 8px;
+          }
+
+          .progress {
+            margin-top: 16px;
+          }
+
+          .info {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+          }
+        </style>
       </v-row>
     </v-container>
   </v-app>
