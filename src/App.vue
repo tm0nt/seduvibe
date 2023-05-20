@@ -7,11 +7,14 @@
 </template>
 
 <script>
+import FloatingButton from "./components/FloattingButton.vue";
 export default {
   name: "App",
 
   data: () => ({
-    //
+    components: {
+      FloatingButton,
+    },
   }),
 };
 </script>

@@ -6,6 +6,7 @@ import PerfilView from "../views/PerfilView.vue";
 import PagamentosView from "../views/PagamentosView.vue";
 import AcessosView from "../views/AcessosView.vue";
 import RankingView from "../views/RankingView.vue";
+import RankingViewUser from "../components/RankingUser.vue";
 import PerfilCreator from "../components/PerfilCreator.vue";
 import MyDashCreator from "../components/MyDashCreator.vue";
 import Analytics from "../views/AnalyticsView.vue";
@@ -32,6 +33,12 @@ const routes = [
     name: "Home",
     component: HomeView,
     meta: { title: "Feed" },
+  },
+  {
+    path: "/rankingUser",
+    name: "RankingUser",
+    component: RankingViewUser,
+    meta: { title: "Ranking" },
   },
     {
     path: "/analytics",
