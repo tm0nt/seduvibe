@@ -71,6 +71,7 @@
 <script>
 import SideBar from "../components/SideBar.vue";
 import CardView from "../components/CardView.vue";
+import Assinaturas from "../components/AssinaturasView.vue";
 import ConfigView from "../components/ConfigView.vue";
 import FavoritosView from "../components/FavoritosView.vue";
 
@@ -92,6 +93,7 @@ export default {
     CardView,
     ConfigView,
     FavoritosView,
+    Assinaturas,
   },
   computed: {
     currentComponent() {
