@@ -19,11 +19,11 @@
             label="Pesquise por usuários..."
             dark
             prepend-inner-icon="mdi-magnify"
-            color="white"
+            color="purple"
             flat
             class="pt-5"
             :class="{ 'd-sm-flex': $vuetify.breakpoint.smAndUp }"
-            background-color="purple"
+            background-color="#252525"
             rounded
             outlined
             ref="searchField"
@@ -63,7 +63,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <div>
-          <v-btn color="purple" class="mr-2 white--text" @click="openModal">
+          <v-btn color="purple" class="mr-5 white--text" @click="openModal">
             <v-icon left>fas fa-filter</v-icon>
             Filtros
           </v-btn>
@@ -106,9 +106,6 @@
         </div>
       </v-toolbar>
       <v-app-bar dark color="rgba(0,0,0,0)" flat class="mt-5">
-        <v-btn icon @click="scrollTabs('right')" class="arrow-button">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
         <v-tabs
           v-model="activeTab"
           color="purple"
@@ -121,8 +118,7 @@
           <v-tab
             v-for="tab in tabs"
             :key="tab.id"
-            class="withoutupercase custom-tab"
-            :class="{ 'v-tab--active': activeTab === tab.id }"
+            class="withoutupercase"
             @click="centerActiveTab(tab.id)"
           >
             {{ tab.title }}
@@ -136,8 +132,8 @@
         <v-spacer></v-spacer>
         <v-chip
           class="ma-sm-1 d-flex mr-2"
-          :color="chipSelected ? 'purple' : 'white'"
-          :text-color="chipSelected ? 'white' : 'black'"
+          :color="chipSelected ? 'purple' : '#303030'"
+          :text-color="chipSelected ? 'white' : 'grey'"
           :dark="chipSelected"
           :style="{
             'font-size': '10px',
@@ -153,21 +149,17 @@
 
         <v-spacer></v-spacer>
       </v-toolbar>
-      <v-row class="mt-n14">
+      <v-row>
         <v-col
           cols="12"
           xs="12"
-          sm="6"
-          md="4"
+          sm="8"
+          md="3"
           lg="3"
           v-for="(vibe, i) in seduvibe"
           :key="i"
         >
-          <v-card
-            class="mx-auto my-12 rounded-xl"
-            max-width="374"
-            color="#151515"
-          >
+          <v-card class="mx-auto my-12 rounded-xl" color="#151515">
             <v-img width="100%" :src="vibe.image" tile class="blurred-image">
             </v-img>
             <div
@@ -198,14 +190,14 @@
                 </div>
               </v-avatar>
             </v-toolbar>
-            <v-card-title class="text-h6 white--text">
+            <v-card-title class="text-subtitle-1 white--text">
               Taiane Martins&nbsp;
               <v-icon small color="purple">mdi-check-decagram</v-icon>
             </v-card-title>
             <v-card-title
               class="grey--text text-grey-purple-1 caption mt-n6 font-italic"
             >
-              {{ vibe.assinantes }}
+              {{ vibe.descricao }}
             </v-card-title>
           </v-card>
         </v-col>
@@ -244,28 +236,28 @@ export default {
           "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
         pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
         price: "R$ 465",
-        assinantes: "153.562 Visualizações",
+        descricao: "1.512.452 Assinantes",
       },
       {
         image:
           "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
         pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
         price: "R$ 465",
-        assinantes: "153.562 Visualizações",
+        descricao: "1.512.452 Assinantes",
       },
       {
         image:
           "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
         pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
         price: "R$ 465",
-        assinantes: "153.562 Visualizações",
+        descricao: "1.512.452 Assinantes",
       },
       {
         image:
           "https://eql.com.br/wp-content/uploads/2022/02/Abre-JadePicon-BigBrotherBrasil-160222-Divulgacao3-1024x576.jpg",
         pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
         price: "R$ 465",
-        assinantes: "1.153.562 Visualizações",
+        descricao: "1.512.452 Assinantes",
       },
     ],
   }),
@@ -380,7 +372,7 @@ export default {
 .circle-avatar {
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid purple !important;
+  border: 3px solid #151515 !important;
 }
 .circle-image {
   border-radius: 50%;
