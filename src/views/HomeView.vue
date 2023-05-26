@@ -106,10 +106,13 @@
         </div>
       </v-toolbar>
       <v-app-bar dark color="rgba(0,0,0,0)" flat class="mt-5">
+        <v-btn icon @click="moveTab('left')">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+
         <v-tabs
           v-model="activeTab"
           color="purple"
-          grow
           class="align-center"
           ref="tabs"
         >
@@ -124,6 +127,10 @@
             {{ tab.title }}
           </v-tab>
         </v-tabs>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="moveTab('right')">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
       </v-app-bar>
       <v-divider color="grey"></v-divider>
       <v-toolbar flat color="rgba(0,0,0,0)">
@@ -213,7 +220,7 @@ export default {
   name: "HomeView",
   data: () => ({
     selection: 1,
-    activeTab: 1,
+    activeTab: 0,
     modalOpen: false,
     genres: ["Opção 1", "Opção 2", "Opção 3"], // Substitua pelas opções de gênero reais
     selectedGenre: "",
@@ -265,6 +272,15 @@ export default {
     SideBar,
   },
   methods: {
+    moveTab(direction) {
+      if (direction === "left") {
+        this.activeTab =
+          (this.activeTab - 1 + this.tabs.length) % this.tabs.length;
+      } else if (direction === "right") {
+        this.activeTab = (this.activeTab + 1) % this.tabs.length;
+      }
+    },
+
     openModal() {
       this.modalOpen = true;
     },
@@ -283,61 +299,11 @@ export default {
     centerActiveTab(tabId) {
       this.activeTab = tabId;
     },
-    scrollTabs(direction) {
-      const tabsContainer =
-        this.$refs.tabs.$el.querySelector(".v-tabs__container");
-      if (tabsContainer) {
-        const scrollDistance = tabsContainer.offsetWidth / 2;
-        if (direction === "right") {
-          tabsContainer.scrollLeft += scrollDistance;
-        } else if (direction === "left") {
-          tabsContainer.scrollLeft -= scrollDistance;
-        }
-      }
-    },
     created() {
       if (window.innerWidth < 768) {
         // define a largura limite
         this.drawer = false; // define drawer como false se a largura for menor que 768px
       }
-    },
-    filterResults() {
-      if (this.searchQuery) {
-        // Lógica para filtrar os resultados com base na searchQuery
-        // Substitua o exemplo abaixo com a sua lógica de filtro real
-        this.filteredResults = this.users.filter((user) =>
-          user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-        );
-      } else {
-        this.filteredResults = [];
-      }
-    },
-    selectResult(result) {
-      // Lógica para lidar com a seleção de um resultado
-      console.log("Resultado selecionado:", result);
-    },
-    getPositionX() {
-      // Lógica para determinar a posição X do v-menu
-      // Você pode retornar um valor fixo ('left', 'right', 'center')
-      // ou calcular dinamicamente com base nas dimensões do campo de pesquisa
-      return "left";
-    },
-    getPositionY() {
-      // Lógica para determinar a posição Y do v-menu
-      // Você pode retornar um valor fixo ('top', 'bottom', 'center')
-      // ou calcular dinamicamente com base nas dimensões do campo de pesquisa
-      return "bottom";
-    },
-  },
-  computed: {
-    users() {
-      // Exemplo de lista de usuários (substitua com seus próprios dados)
-      return [
-        { id: 1, name: "Usuário 1", avatar: "url-avatar-1" },
-        { id: 2, name: "Usuário 2", avatar: "url-avatar-2" },
-        { id: 3, name: "Usuário 3", avatar: "url-avatar-3" },
-        // ...
-      ];
     },
   },
 };
@@ -363,10 +329,6 @@ export default {
 .three {
   width: 50px;
   height: 50px;
-}
-.align-center {
-  display: flex;
-  align-items: center;
 }
 
 .circle-avatar {
