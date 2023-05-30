@@ -8,20 +8,6 @@
           Vamos lá, analisar metricamente sua conta!
         </p>
       </v-col>
-
-      <v-col cols="12" md="5" class="text-center d-none d-md-block">
-        <v-text-field
-          label="Faça pesquisas por aqui"
-          filled
-          prepend-inner-icon="mdi-magnify"
-          dense
-          solo
-          flat
-          background-color="#1D1C21"
-          dark
-          class="ml-5"
-        ></v-text-field>
-      </v-col>
     </v-row>
   </v-app-bar>
 </template>

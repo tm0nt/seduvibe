@@ -9,59 +9,70 @@
             </v-btn>
             <h2 class="white--text">R$ 8.779,58</h2>
             <h6 class="grey--text">Saldo disponível</h6>
-            <v-btn color="purple" dark class="withoutupercase mt-2"
+            <v-btn
+              color="purple"
+              dark
+              class="withoutupercase mt-2"
+              @click="openConfirmationDialog"
               >Saque rápido</v-btn
             >
           </v-card>
         </v-card>
+        <v-dialog v-model="showConfirmationDialog" max-width="400" dark>
+          <v-card>
+            <v-card-title class="headline">Confirmar Saque Rápido</v-card-title>
+            <v-card-text
+              >Tem certeza de que deseja fazer um saque rápido? Todos os saques
+              rápidos são feitas via pix para o CPF cadastrado.</v-card-text
+            >
+            <v-card-actions>
+              <v-btn color="purple" text @click="closeConfirmationDialog"
+                >Cancelar</v-btn
+              >
+              <v-btn color="purple" text @click="performQuickWithdrawal"
+                >Confirmar</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
 
       <v-col cols="12" sm="4">
         <v-card color="#242426" class="rounded-lg mx-2" flat>
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
-            <span class="caption grey--text mt-n6">Vendas</span>
+            <span class="caption grey--text mt-n6">Vendas hoje</span>
           </v-app-bar>
           <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
-            <h4 class="white--text">96,50%</h4>
-            <span class="caption grey--text ml-2"> + 6.7% </span>
+            <h4 class="white--text">23</h4>
           </v-app-bar>
 
           <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
             <v-progress-linear
               color="purple"
-              height="6"
-              value="45"
+              height="4"
+              value="100"
             ></v-progress-linear>
           </v-app-bar>
-          <v-card-text class="pt-0 mt-n4">
-            <span class="text-caption grey--text font-weight-light"
-              >Meta mensal</span
-            >
-          </v-card-text>
+          <v-card-text class="pt-0 mt-n4"> </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="4">
         <v-card color="#242426" class="rounded-lg mx-2" flat>
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
-            <span class="caption grey--text mt-n6">Vendas</span>
+            <span class="caption grey--text mt-n6">Vendas semanal</span>
           </v-app-bar>
           <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
-            <h4 class="white--text">96,50%</h4>
-            <span class="caption grey--text ml-2"> + 6.7% </span>
+            <h4 class="white--text">35</h4>
           </v-app-bar>
 
           <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
             <v-progress-linear
               color="purple"
-              height="6"
-              value="45"
+              height="4"
+              value="100"
             ></v-progress-linear>
           </v-app-bar>
-          <v-card-text class="pt-0 mt-n4">
-            <span class="text-caption grey--text font-weight-light"
-              >Meta anual</span
-            >
-          </v-card-text>
+          <v-card-text class="pt-0 mt-n4"> </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -70,7 +81,25 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    showConfirmationDialog: false,
+  }),
+  methods: {
+    openConfirmationDialog() {
+      this.showConfirmationDialog = true;
+    },
+    closeConfirmationDialog() {
+      this.showConfirmationDialog = false;
+    },
+    performQuickWithdrawal() {
+      // Coloque aqui a lógica para realizar o saque rápido
+      // Você pode adicionar a lógica de negócio que for necessária neste método
+      // Por exemplo, chamar uma API ou atualizar valores no componente
+      // Após realizar o saque, feche o modal de confirmação
+      this.closeConfirmationDialog();
+    },
+  },
 };
 </script>
+
 <style></style>

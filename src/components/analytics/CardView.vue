@@ -1,27 +1,27 @@
 <template>
   <v-card color="#202022" class="rounded-lg mt-n3 pb-1" flat>
     <v-toolbar flat color="transparent">
-      <v-toolbar-title class="white--text mt-n2">Sua conta</v-toolbar-title>
+      <v-toolbar-title class="white--text mt-n2"
+        >Enviamos para você</v-toolbar-title
+      >
     </v-toolbar>
     <v-card color="purple" class="rounded-lg mx-2 pa-1 mt-n3" flat>
       <v-toolbar flat color="transparent">
         <v-toolbar-title class="white--text caption">
-          Conta universal
+          Último saque feito
         </v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
 
-      <span class="white--text mt-3 ml-4 caption">Já enviamos para você</span>
+      <span class="white--text mt-3 ml-4 caption"
+        >Enviado via Pix - 03/12/2000</span
+      >
 
       <h2 class="white--text ml-4">R$ 4.799,85</h2>
 
-      <v-card-text class="pt-0 mt-4">
-        <span class="white--text font-weight-light"
-          >Itaú unibanco | Ag: 4565 Conta: 756256-52</span
-        >
-      </v-card-text>
+      <v-card-text class="pt-0 mt-4"> </v-card-text>
     </v-card>
-    <v-toolbar flat color="transparent" class="mt-n2">
+    <v-toolbar flat color="transparent" class="mt-n3">
       <v-toolbar-title class="white--text">Conversas </v-toolbar-title>
       <v-chip color="purple" text-color="white" class="ml-2">2</v-chip>
     </v-toolbar>
@@ -46,18 +46,16 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
-    <v-card color="purple" class="rounded-lg mx-2 pa-1 mt-n3" flat>
+    <v-card color="purple" class="rounded-lg mx-2 pa-1 mt-n1" flat>
       <h2 class="white--text ml-4">Torne-se VibePlus</h2>
 
       <span class="white--text mt-4 ml-4 caption"
-        >Alcance o máximo de pessoas</span
+        >Tenha um pacote completo que irá</span
       ><br />
-      <span class="white--text ml-4 caption">possíveis! </span>
+      <span class="white--text ml-4 caption">alavancar suas vendas! </span>
 
       <v-card-text class="pt-0 mt-5">
-        <v-btn color="white" white class="withoutupercase mt-2"
-          >Mensal de R$ 199,90</v-btn
-        >
+        <v-btn color="white" white class="withoutupercase mt-2">Ver mais</v-btn>
       </v-card-text>
     </v-card>
   </v-card>

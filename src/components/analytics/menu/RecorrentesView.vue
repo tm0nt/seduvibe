@@ -1,65 +1,41 @@
 <template>
-  <v-app
-    id="inspire"
-    :style="{ background: $vuetify.theme.themes.dark.background }"
-  >
-    <v-container>
+  <v-app id="inspire">
+    <v-container fluid>
       <Navbar />
       <SideBar />
       <v-row>
         <v-col>
           <v-row align="center">
-            <v-col>
+            <v-col class="col">
               <h2 class="white--text">Próximos pagamentos</h2>
-              <v-data-table
-                :items="items"
-                :footer-props="{
-                  showFirstLastPage: true,
-                  'items-per-page-text': 'Usuários por página',
-                }"
-                class="purple darken-4"
-                dark
-              >
-                <template v-slot:header="{ classes }">
-                  <thead :class="classes">
-                    <tr>
-                      <th
-                        v-for="header in headers"
-                        :key="header.text"
-                        class="text-white"
-                        :style="{
-                          backgroundColor: '#6B1F96',
-                          color: '#FFFFFF',
-                        }"
-                      >
-                        {{ header.text }}
-                      </th>
-                    </tr>
-                  </thead>
-                </template>
-                <template v-slot:item="{ item }">
-                  <tr>
-                    <td
-                      class="text-white text-xs-center"
-                      :style="{ backgroundColor: '#222222' }"
-                    >
-                      {{ item.usuario }}
-                    </td>
-                    <td
-                      class="text-white text-xs-center"
-                      :style="{ backgroundColor: '#222222' }"
-                    >
-                      {{ item.vencimento }}
-                    </td>
-                    <td
-                      class="text-white text-xs-center"
-                      :style="{ backgroundColor: '#222222' }"
-                    >
-                      {{ item.servico }}
-                    </td>
-                  </tr>
-                </template>
-              </v-data-table>
+              <v-card class="custom-table">
+                <v-simple-table dark dense>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th
+                          v-for="header in headers"
+                          :key="header.text"
+                          class="text-white"
+                          :style="{
+                            backgroundColor: '#6B1F96',
+                            color: '#FFFFFF',
+                          }"
+                        >
+                          {{ header.text }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in items" :key="item.usuario">
+                        <td class="text-white">{{ item.usuario }}</td>
+                        <td class="text-white">{{ item.vencimento }}</td>
+                        <td class="text-white">{{ item.servico }}</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
             </v-col>
           </v-row>
         </v-col>
@@ -68,10 +44,7 @@
   </v-app>
 </template>
 
-<!-- Restante do código -->
-
 <script>
-// @ is an alias to /src
 import SideBar from "../SidebarView.vue";
 import Navbar from "../NavbarView.vue";
 
@@ -131,12 +104,34 @@ export default {
   },
 };
 </script>
+
 <style>
-.v-btn.withoutupercase {
-  text-transform: none !important;
+.col {
+  width: 100%;
 }
-.v-btn:not(.v-btn--round).v-size--small {
-  min-width: 30px !important;
-  padding: 0 5px !important;
+
+.custom-table {
+  margin-top: 20px;
+}
+
+.custom-table td,
+.custom-table th {
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #6b1f96;
+  color: #ffffff;
+}
+
+.custom-table td,
+.custom-table th {
+  padding: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  .custom-table {
+    overflow-x: auto;
+  }
 }
 </style>

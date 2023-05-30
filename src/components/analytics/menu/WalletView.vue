@@ -82,6 +82,39 @@
         Todas as transferências serão enviadas para o CPF cadastrado na
         plataforma.
       </p>
+      <v-row align="center">
+        <v-col class="col">
+          <h2 class="white--text">Histórico de saque</h2>
+          <v-card class="custom-table">
+            <v-simple-table dark dense>
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th
+                      v-for="header in headers"
+                      :key="header.text"
+                      class="text-white"
+                      :style="{
+                        backgroundColor: '#6B1F96',
+                        color: '#FFFFFF',
+                      }"
+                    >
+                      {{ header.text }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in items" :key="item.usuario">
+                    <td class="text-white">{{ item.usuario }}</td>
+                    <td class="text-white">{{ item.vencimento }}</td>
+                    <td class="text-white">{{ item.servico }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -94,6 +127,11 @@ import Navbar from "../NavbarView.vue";
 
 export default {
   data: () => ({
+    headers: [
+      { text: "Data", value: "usuario" },
+      { text: "Valor", value: "vencimento" },
+      { text: "Estado", value: "servico" },
+    ],
     items: [
       { title: "Transferência via Pix", formType: "pix" },
       { title: "Transferência via Ted", formType: "ted" },
@@ -114,6 +152,9 @@ export default {
     SideBar,
     PixForm,
     TedForm,
+  },
+  mounted() {
+    this.generateData();
   },
 };
 </script>

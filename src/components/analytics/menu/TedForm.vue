@@ -54,7 +54,13 @@
         />
       </v-col>
     </v-row>
-    <v-alert v-if="cpf === ''" type="error" dismissible class="mt-4">
+    <v-alert
+      v-if="cpf === ''"
+      type="error"
+      dismissible
+      class="mt-4"
+      color="#940020"
+    >
       Antes de pedir um saque é necessário cadastrar seu CPF nas configurações
       do perfil ou
       <router-link to="config" class="custom-router-link"
@@ -125,7 +131,7 @@ export default {
 
 <style>
 .custom-router-link {
-  color: black !important;
+  color: #151515 !important;
   text-decoration: none;
 }
 

@@ -7,35 +7,64 @@
       <Navbar />
       <SideBar />
       <v-row>
-        <v-col cols="12" sm="4">
+        <v-col cols="6" sm="4">
           <v-card color="#242426" class="rounded-lg mx-2" flat>
-            <v-app-bar flat color="rgba(0, 0, 0, 0)">
-              <span class="caption grey--text mt-n6">Total de assinaturas</span>
-            </v-app-bar>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-app-bar
+                  flat
+                  color="rgba(0, 0, 0, 0)"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <span class="caption grey--text mt-n6"
+                    >Assinaturas totais</span
+                  >
+                </v-app-bar>
+              </template>
+              <span
+                >Este é total de assinaturas que seu perfil já recebeu desde que
+                foi criado.</span
+              >
+            </v-tooltip>
             <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
               <h4 class="white--text">565.565</h4>
-              <span class="caption grey--text ml-2"> + 125 </span>
-            </v-app-bar>
-
-            <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
-              <v-progress-linear
-                color="purple"
-                height="3"
-                value="100"
-              ></v-progress-linear>
-            </v-app-bar>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="4">
-          <v-card color="#242426" class="rounded-lg mx-2" flat>
-            <v-app-bar flat color="rgba(0, 0, 0, 0)">
-              <span class="caption grey--text mt-n6"
-                >Número de visualizações</span
+              <span class="caption grey--text ml-2">
+                + 125 <span style="font-size: 6.5pt">/dia</span></span
               >
             </v-app-bar>
+
+            <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
+              <v-progress-linear
+                color="purple"
+                height="3"
+                value="100"
+              ></v-progress-linear>
+            </v-app-bar>
+          </v-card>
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-card color="#242426" class="rounded-lg mx-2" flat>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-app-bar
+                  flat
+                  color="rgba(0, 0, 0, 0)"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <span class="caption grey--text mt-n6">Vistos totais</span>
+                </v-app-bar>
+              </template>
+              <span
+                >Este é o total de visualizações que seu perfil já recebeu</span
+              >
+            </v-tooltip>
             <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
               <h4 class="white--text">565.565</h4>
-              <span class="caption grey--text ml-2"> + 125 </span>
+              <span class="caption grey--text ml-2">
+                + 125 <span style="font-size: 6.5pt">/dia</span></span
+              >
             </v-app-bar>
 
             <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
@@ -49,12 +78,29 @@
         </v-col>
         <v-col cols="12" sm="4">
           <v-card color="#242426" class="rounded-lg mx-2" flat>
-            <v-app-bar flat color="rgba(0, 0, 0, 0)">
-              <span class="caption grey--text mt-n6">Assinaturas ativas</span>
-            </v-app-bar>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-app-bar
+                  flat
+                  color="rgba(0, 0, 0, 0)"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <span class="caption grey--text mt-n6"
+                    >Assinaturas ativas</span
+                  >
+                </v-app-bar>
+              </template>
+              <span
+                >Esta é quantidade de assinaturas ativas existentes dentro do
+                seu perfil.</span
+              >
+            </v-tooltip>
             <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n12">
               <h4 class="white--text">565.565</h4>
-              <span class="caption grey--text ml-2"> + 125 </span>
+              <span class="caption grey--text ml-2">
+                + 125<span style="font-size: 6.5pt">/dia</span></span
+              >
             </v-app-bar>
 
             <v-app-bar flat color="rgba(0, 0, 0, 0)" class="mt-n10">
@@ -72,7 +118,7 @@
           <v-card color="#242426" class="rounded-lg mx-2" flat>
             <v-app-bar flat color="rgba(0, 0, 0, 0)">
               <span class="caption grey--text mt-n6"
-                >Relação de visualizações, assinantes e ex-assinantes</span
+                >Relação de vistos, assinantes ativos e assinantes totais</span
               >
             </v-app-bar>
 
