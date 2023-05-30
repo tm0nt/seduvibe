@@ -1,7 +1,7 @@
 <template>
   <v-card color="#202022" class="rounded-lg" flat>
     <v-row>
-      <v-col cols="12" sm="4">
+      <v-col cols="6" sm="6">
         <v-card color="#202022" class="rounded-lg" flat>
           <v-card color="transparent" class="rounded-lg mx-2" flat>
             <v-btn color="purple" small>
@@ -18,6 +18,7 @@
             >
           </v-card>
         </v-card>
+
         <v-dialog v-model="showConfirmationDialog" max-width="400" dark>
           <v-card>
             <v-card-title class="headline">Confirmar Saque Rápido</v-card-title>
@@ -36,8 +37,18 @@
           </v-card>
         </v-dialog>
       </v-col>
-
-      <v-col cols="12" sm="4">
+      <v-col cols="6" sm="6">
+        <v-card color="#202022" class="rounded-lg" flat>
+          <v-card color="transparent" class="rounded-lg mx-2" flat>
+            <v-btn color="#404040" small>
+              <v-icon color="white">far fa-dollar-sign</v-icon>
+            </v-btn>
+            <h2 class="white--text">R$ 1.779,58</h2>
+            <h6 class="grey--text">Seu saldo hoje</h6>
+          </v-card>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6">
         <v-card color="#242426" class="rounded-lg mx-2" flat>
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <span class="caption grey--text mt-n6">Vendas hoje</span>
@@ -56,7 +67,7 @@
           <v-card-text class="pt-0 mt-n4"> </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="6">
         <v-card color="#242426" class="rounded-lg mx-2" flat>
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <span class="caption grey--text mt-n6">Vendas semanal</span>

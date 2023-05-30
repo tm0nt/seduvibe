@@ -19,7 +19,7 @@
         <v-col cols="12" sm="6">
           <v-card color="#242426" class="rounded-lg mx-2 pa-2 mt-n3" flat>
             <span class="caption grey--text mt-n6">Pix</span><br />
-            <h6 class="white--text mt-4">Recibido</h6>
+            <h6 class="white--text mt-4">Recebido</h6>
 
             <h4 class="white--text">R$ 328.85</h4>
             <h6 class="white--text mt-4">Ver tudo</h6>
