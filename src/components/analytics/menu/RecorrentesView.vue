@@ -3,8 +3,9 @@
     id="inspire"
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
-    <SideBar />
-    <v-container fluid fill-height>
+    <v-container>
+      <Navbar />
+      <SideBar />
       <v-row>
         <v-col>
           <v-row align="center">
@@ -72,6 +73,8 @@
 <script>
 // @ is an alias to /src
 import SideBar from "../SidebarView.vue";
+import Navbar from "../NavbarView.vue";
+
 export default {
   data() {
     return {
@@ -88,6 +91,7 @@ export default {
   },
   components: {
     SideBar,
+    Navbar,
   },
   methods: {
     generateData() {

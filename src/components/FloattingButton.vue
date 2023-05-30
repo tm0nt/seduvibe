@@ -44,6 +44,6 @@ export default {
 .back-button {
   position: fixed;
   left: 20px; /* Ajuste a posição esquerda conforme necessário */
-  bottom: 20px; /* Ajuste a posição inferior conforme necessário */
+  bottom: 50px; /* Ajuste a posição inferior conforme necessário */
 }
 </style>

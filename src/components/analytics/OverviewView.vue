@@ -2,17 +2,20 @@
   <v-card color="#202022" class="rounded-lg" flat>
     <v-row>
       <v-col cols="12" sm="4">
-        <v-card color="transparent" class="rounded-lg mx-2" flat>
-          <v-btn color="purple" small>
-            <v-icon color="white">far fa-dollar-sign</v-icon>
-          </v-btn>
-          <h2 class="white--text">R$ 8.779,58</h2>
-          <h6 class="grey--text">Saldo disponível</h6>
-          <v-btn color="purple" dark class="withoutupercase mt-2"
-            >Pedir saque
-          </v-btn>
+        <v-card color="#202022" class="rounded-lg" flat>
+          <v-card color="transparent" class="rounded-lg mx-2" flat>
+            <v-btn color="purple" small>
+              <v-icon color="white">far fa-dollar-sign</v-icon>
+            </v-btn>
+            <h2 class="white--text">R$ 8.779,58</h2>
+            <h6 class="grey--text">Saldo disponível</h6>
+            <v-btn color="purple" dark class="withoutupercase mt-2"
+              >Saque rápido</v-btn
+            >
+          </v-card>
         </v-card>
       </v-col>
+
       <v-col cols="12" sm="4">
         <v-card color="#242426" class="rounded-lg mx-2" flat>
           <v-app-bar flat color="rgba(0, 0, 0, 0)">

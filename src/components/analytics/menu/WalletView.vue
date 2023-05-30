@@ -3,8 +3,9 @@
     id="inspire"
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
-    <SideBar />
     <v-container>
+      <Navbar />
+      <SideBar />
       <v-row
         justify="center"
         align="center"
@@ -12,7 +13,7 @@
         style="max-height: 100vh"
       >
         <v-col cols="12" sm="4">
-          <v-card color="#202022" class="rounded-lg mt-10" flat>
+          <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="purple" small>
                 <v-icon color="white">far fa-dollar-sign</v-icon>
@@ -27,7 +28,7 @@
         </v-col>
 
         <v-col cols="12" sm="4">
-          <v-card color="#202022" class="rounded-lg mt-10" flat>
+          <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="grey" small>
                 <v-icon color="white">far fa-dollar-sign</v-icon>
@@ -39,7 +40,7 @@
         </v-col>
 
         <v-col cols="12" sm="4">
-          <v-card color="#202022" class="rounded-lg mt-10" flat>
+          <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="red" small>
                 <v-icon color="white">far fa-dollar-sign</v-icon>
@@ -83,6 +84,7 @@
 import SideBar from "../SidebarView.vue";
 import PixForm from "./PixForm.vue";
 import TedForm from "./TedForm.vue";
+import Navbar from "../NavbarView.vue";
 
 export default {
   data: () => ({
@@ -102,6 +104,7 @@ export default {
     },
   },
   components: {
+    Navbar,
     SideBar,
     PixForm,
     TedForm,

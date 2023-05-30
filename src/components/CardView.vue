@@ -9,11 +9,7 @@
                 >Seu cartão</v-toolbar-title
               >
             </v-toolbar>
-            <v-card
-              color="#242426"
-              class="rounded-lg mx-2 pa-1 mt-n3 gradient flip"
-              flat
-            >
+            <v-card color="#303030" class="rounded-lg mx-2 pa-1 mt-n3" flat>
               <v-toolbar flat color="transparent">
                 <v-toolbar-title class="grey--text caption">
                   Mastercard
@@ -35,12 +31,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm6>
-          <v-card
-            dark
-            color="$vuetify.theme.themes.dark.background"
-            class="rounded-lg mx-2 pa-1 mt-n3 gradient flip fill-height"
-            flat
-          >
+          <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-n3" flat>
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="white--text">Histórico</v-toolbar-title>
               <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
@@ -118,14 +109,6 @@ export default {
 };
 </script>
 <style>
-.gradient {
-  background: purple;
-  background: radial-gradient(circle, purple 0%, rgba(52, 36, 69, 1) 100%);
-}
-.flip {
-  transform-style: preserve-3d;
-  transition: all 0.8s ease;
-}
 body,
 html {
   background-color: #212121;

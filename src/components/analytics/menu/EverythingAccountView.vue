@@ -3,11 +3,12 @@
     id="inspire"
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
-    <SideBar />
     <v-container>
+      <Navbar />
+      <SideBar />
       <v-row>
         <v-col cols="12" sm="4">
-          <v-card color="#242426" class="rounded-lg mx-2 mt-10" flat>
+          <v-card color="#242426" class="rounded-lg mx-2" flat>
             <v-app-bar flat color="rgba(0, 0, 0, 0)">
               <span class="caption grey--text mt-n6">Total de assinaturas</span>
             </v-app-bar>
@@ -26,7 +27,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card color="#242426" class="rounded-lg mx-2 mt-10" flat>
+          <v-card color="#242426" class="rounded-lg mx-2" flat>
             <v-app-bar flat color="rgba(0, 0, 0, 0)">
               <span class="caption grey--text mt-n6"
                 >Número de visualizações</span
@@ -47,7 +48,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card color="#242426" class="rounded-lg mx-2 mt-10" flat>
+          <v-card color="#242426" class="rounded-lg mx-2" flat>
             <v-app-bar flat color="rgba(0, 0, 0, 0)">
               <span class="caption grey--text mt-n6">Assinaturas ativas</span>
             </v-app-bar>
@@ -68,7 +69,7 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-card color="#242426" class="rounded-lg mx-2 mt-10" flat>
+          <v-card color="#242426" class="rounded-lg mx-2" flat>
             <v-app-bar flat color="rgba(0, 0, 0, 0)">
               <span class="caption grey--text mt-n6"
                 >Relação de visualizações, assinantes e ex-assinantes</span
@@ -87,6 +88,8 @@
 
 <script>
 import SideBar from "../SidebarView.vue";
+import Navbar from "../NavbarView.vue";
+
 import {
   Chart,
   LinearScale,
@@ -105,6 +108,7 @@ export default {
   },
   components: {
     SideBar,
+    Navbar,
   },
   mounted() {
     this.registerLinearScale();

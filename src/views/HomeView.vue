@@ -14,8 +14,9 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-flex xs6 sm6 md4 lg6>
-          <v-text-field
+          <v-autocomplete
             v-model="searchQuery"
+            :items="filteredUsers"
             label="Pesquise por usuários..."
             dark
             prepend-inner-icon="mdi-magnify"
@@ -28,38 +29,23 @@
             outlined
             ref="searchField"
             @input="filterResults"
-          ></v-text-field>
-          <v-menu
-            v-model="menuOpen"
-            :close-on-content-click="false"
-            :position-x="getPositionX"
-            :position-y="getPositionY"
+            item-text="name"
+            item-value="id"
+            hide-no-data
+            hide-selected
+            return-object
           >
-            <v-list v-if="filteredResults.length > 0">
-              <v-list-item
-                v-for="result in filteredResults"
-                :key="result.id"
-                @click="selectResult(result)"
-              >
-                <v-list-item-avatar>
-                  <v-img :src="result.avatar"></v-img>
-                </v-list-item-avatar>
+            <template v-slot:item="{ item }">
+              <v-list-item>
+                <v-avatar size="32">
+                  <img :src="item.avatarUrl" alt="Avatar" />
+                </v-avatar>
                 <v-list-item-content>
-                  <v-list-item-title class="white--text">{{
-                    result.name
-                  }}</v-list-item-title>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-            </v-list>
-            <v-alert
-              v-else-if="searchQuery.length > 0"
-              color="purple"
-              dark
-              outlined
-            >
-              Nenhum resultado encontrado.
-            </v-alert>
-          </v-menu>
+            </template>
+          </v-autocomplete>
         </v-flex>
         <v-spacer></v-spacer>
         <div>

@@ -24,12 +24,14 @@
                           color="purple"
                           autocomplete="false"
                           class="meu-vtf-personalizado mt-16"
+                          v-model="email"
                         />
                         <v-text-field
                           label="Senha"
                           color="purple"
                           autocomplete="false"
                           type="password"
+                          v-model="password"
                         />
                         <v-row>
                           <v-col cols="12" sm="6">
@@ -41,8 +43,9 @@
                             </v-checkbox>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <a href="#" @click="openModal">
-                              <span class="caption purple--text"
+                            <a @click="openModal">
+                              <span
+                                class="caption purple--text font-weight-bold text-decoration-none"
                                 >Esqueceu a senha?</span
                               >
                             </a>
@@ -119,7 +122,9 @@
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
-                        <v-btn color="purple" dark block tile>ENTRAR</v-btn>
+                        <v-btn color="purple" dark block tile @click="entrar"
+                          >ENTRAR</v-btn
+                        >
 
                         <h5 class="text-center grey--text mt-4 mb-3">Ou</h5>
                         <div
@@ -197,32 +202,53 @@
                             />
                           </v-col>
                         </v-row>
-                        <v-text-field
-                          label="Email"
-                          color="purple"
-                          autocomplete="false"
-                        />
-                        <v-text-field
-                          v-model="senha"
-                          :rules="rules"
-                          label="Nova senha"
-                          :type="mostrarSenha ? 'text' : 'password'"
-                          :append-icon="
-                            mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
-                          "
-                          @click:append="toggleMostrarSenha"
-                        ></v-text-field>
+                        <v-row>
+                          <v-col cols="6">
+                            <v-select
+                              v-model="genero"
+                              :items="generos"
+                              label="Gênero"
+                              color="purple"
+                            ></v-select>
+                          </v-col>
 
-                        <v-text-field
-                          v-model="senhaConfirmacao"
-                          :rules="rules"
-                          label="Confirmar senha"
-                          :type="mostrarSenha ? 'text' : 'password'"
-                          :append-icon="
-                            mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
-                          "
-                          @click:append="toggleMostrarSenha"
-                        ></v-text-field>
+                          <v-col cols="6">
+                            <v-text-field
+                              label="Email"
+                              color="purple"
+                              autocomplete="false"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+
+                        <v-row>
+                          <v-col cols="6">
+                            <v-text-field
+                              v-model="senha"
+                              :rules="rules"
+                              label="Nova senha"
+                              :type="mostrarSenha ? 'text' : 'password'"
+                              :append-icon="
+                                mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
+                              "
+                              @click:append="toggleMostrarSenha"
+                            ></v-text-field>
+                          </v-col>
+
+                          <v-col cols="6">
+                            <v-text-field
+                              v-model="senhaConfirmacao"
+                              :rules="rules"
+                              label="Confirmar senha"
+                              :type="mostrarSenha ? 'text' : 'password'"
+                              :append-icon="
+                                mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
+                              "
+                              @click:append="toggleMostrarSenha"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+
                         <v-row>
                           <v-col cols="12" sm="7">
                             <v-checkbox
@@ -233,7 +259,9 @@
                             </v-checkbox>
                           </v-col>
                           <v-col cols="12" sm="5">
-                            <span class="caption purple--text ml-n4"
+                            <span
+                              class="caption purple--text ml-n4 font-weight-bold"
+                              @click="termos"
                               >Termos e serviços</span
                             >
                           </v-col>
@@ -272,13 +300,17 @@
 </template>
 
 <script>
+import { fazerChamadaAPI } from "../assets/login.js";
+
 export default {
   data: () => ({
     step: 1,
     criador: false,
     modalOpen: false,
     email: "",
+    password: "",
     modalCodigoAberto: false,
+    generos: ["Homem", "Mulher", "LGBTQIA+"],
     codigoVerificacao: "",
     codigoVerificacaoRules: [
       (v) => !!v || "O código de verificação é obrigatório",
@@ -295,6 +327,11 @@ export default {
     source: String,
   },
   methods: {
+    entrar() {
+      fazerChamadaAPI(this.email, this.password).then((responseData) => {
+        console.log(responseData); // Imprime a resposta da API
+      });
+    },
     handleInput(index) {
       const nextInputIndex = index < 5 ? index + 1 : 5;
       const nextInput = this.$refs.verificationInput[nextInputIndex];

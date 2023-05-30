@@ -5,27 +5,25 @@
     <div class="purple-bg">
       <v-col>
         <v-btn
-          class="back purple--text mb-2 mr-2"
+          class="mb-2 mr-2"
           outlined
-          color="purple"
+          color="white"
           @click="openCoverModal"
           style="
             position: absolute;
             bottom: 0;
             right: 0;
             z-index: 1;
-            border-radius: 20px;
-            padding: 10px;
+            border-radius: 50px;
           "
         >
-          <v-icon left>mdi-image-outline</v-icon>
-          Alterar capa
+          <v-icon left class="ml-2">mdi-camera</v-icon>
         </v-btn>
       </v-col>
-      <v-dialog v-model="coverModal" max-width="500">
+      <v-dialog v-model="coverModal" max-width="500" dark>
         <v-card>
           <v-card-title>
-            <span class="headline">{{ coverTitle }}</span>
+            <span class="headline white--text">{{ coverTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-row>
@@ -33,7 +31,7 @@
                 <v-file-input
                   v-model="selectedFile"
                   label="Selecionar a imagem"
-                  color="purple"
+                  color="white"
                   accept="image/*"
                 ></v-file-input>
               </v-col>
@@ -205,18 +203,12 @@
         <!-- Ações da publicação -->
         <v-card-actions>
           <v-btn icon>
-            <v-icon color="pink">mdi-heart-outline</v-icon>
+            <v-icon color="purple">mdi-heart-outline</v-icon>
           </v-btn>
           <v-btn icon>
             <v-icon>mdi-comment-outline</v-icon>
           </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-share-variant-outline</v-icon>
-          </v-btn>
           <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-bookmark-outline</v-icon>
-          </v-btn>
         </v-card-actions>
         <!-- Legenda da publicação -->
         <v-card-text>
@@ -237,10 +229,10 @@
               </v-list-item-content>
               <v-row class="d-flex justify-end">
                 <v-col cols="auto">
-                  <v-icon size="16">mdi-heart</v-icon>
+                  <v-icon size="16" color="purple">mdi-heart</v-icon>
                 </v-col>
                 <v-col cols="auto">
-                  <v-icon size="16">mdi-delete</v-icon>
+                  <v-icon size="16" color="grey">mdi-delete</v-icon>
                 </v-col>
               </v-row>
             </v-list-item>
@@ -276,9 +268,10 @@
     </div>
     <v-btn
       fab
-      dark
-      color="purple"
+      white
+      color="white"
       bottom
+      class="mb-15"
       right
       fixed
       @click="showOptions = !showOptions"

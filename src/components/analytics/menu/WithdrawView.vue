@@ -3,6 +3,7 @@
     id="inspire"
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
+    <Navbar />
     <SideBar />
     <v-container>
       <v-row>
@@ -78,10 +79,13 @@
 <script>
 // @ is an alias to /src
 import SideBar from "../SidebarView.vue";
+import Navbar from "../NavbarView.vue";
+
 export default {
   data: () => ({}),
   components: {
     SideBar,
+    Navbar,
   },
 };
 </script>

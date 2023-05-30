@@ -51,12 +51,12 @@
                 v-text="experience.subtitle"
                 class="grey--text"
               ></v-list-item-subtitle>
-              <h6 class="white--text mt-4">Ver tudo</h6>
             </v-list-item-content>
             <v-list-item-action>
               <h5 class="white--text">{{ experience.price }}</h5>
             </v-list-item-action>
           </v-list-item>
+          <h6 class="white--text mt-4">Ver tudo</h6>
         </v-list>
       </v-card>
     </v-col>

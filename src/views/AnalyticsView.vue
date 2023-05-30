@@ -12,9 +12,7 @@
             <v-col cols="12" sm="12">
               <Overview />
             </v-col>
-            <v-col cols="12" sm="12">
-              <Money />
-            </v-col>
+
             <v-col cols="12" sm="12">
               <Payment />
             </v-col>
@@ -33,7 +31,6 @@
 import SideBar from "../components/analytics/SidebarView.vue";
 import Navbar from "../components/analytics/NavbarView.vue";
 import Overview from "../components/analytics/OverviewView.vue";
-import Money from "../components/analytics/MoneyView.vue";
 import Payment from "../components/analytics/PaymentView.vue";
 import Card from "../components/analytics/CardView.vue";
 export default {
@@ -42,7 +39,6 @@ export default {
     SideBar,
     Navbar,
     Overview,
-    Money,
     Payment,
     Card,
   },
