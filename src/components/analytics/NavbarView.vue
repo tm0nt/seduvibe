@@ -5,7 +5,7 @@
         <h4 class="white--text mt-n3">Bom dia, Laís Silva</h4>
         <br />
         <p class="grey--text caption mt-n5">
-          Vamos lá, analisar metricamente sua conta!
+          {{ pageTitle }}
         </p>
       </v-col>
     </v-row>
@@ -14,6 +14,12 @@
 
 <script>
 export default {
+  props: {
+    pageTitle: {
+      type: String,
+      required: true,
+    },
+  },
   data: () => ({}),
 };
 </script>

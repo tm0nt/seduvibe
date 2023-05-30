@@ -3,7 +3,7 @@
     <v-col cols="12" sm="6">
       <v-toolbar flat color="transparent" class="mt-n5">
         <v-toolbar-title class="white--text">Relatório</v-toolbar-title>
-        <v-chip color="purple" text-color="white" class="ml-2">2</v-chip>
+        <v-chip color="purple" text-color="white" class="ml-2 mb-2">2</v-chip>
       </v-toolbar>
       <v-row>
         <v-col cols="12" sm="6">
@@ -32,7 +32,7 @@
         <v-toolbar-title class="white--text">Últimas vendas</v-toolbar-title>
         <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
       </v-toolbar>
-      <v-card color="#242426" class="rounded-lg mr-2 mt-n3" flat>
+      <v-card color="#242426" class="rounded-lg mr-2 mt-n8" flat>
         <h5 class="white--text ml-3 mt-5">Usuário</h5>
         <v-list class="mt-n2" color="transparent" dense>
           <v-list-item
