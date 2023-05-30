@@ -21,7 +21,7 @@
 
       <v-card-text class="pt-0 mt-4"> </v-card-text>
     </v-card>
-    <v-toolbar flat color="transparent" class="mt-n3">
+    <v-toolbar flat color="transparent" class="mt-n1">
       <v-toolbar-title class="white--text">Conversas </v-toolbar-title>
       <v-chip color="purple" text-color="white" class="ml-2">2</v-chip>
     </v-toolbar>
@@ -46,7 +46,7 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
-    <v-card color="purple" class="rounded-lg mx-2 pa-1 mt-n1" flat>
+    <v-card color="purple" class="rounded-lg mx-2 pa-1" flat>
       <h2 class="white--text ml-4">Torne-se VibePlus</h2>
 
       <span class="white--text mt-4 ml-4 caption"

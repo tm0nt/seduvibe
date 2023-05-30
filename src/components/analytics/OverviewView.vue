@@ -21,10 +21,10 @@
 
         <v-dialog v-model="showConfirmationDialog" max-width="400" dark>
           <v-card>
-            <v-card-title class="headline">Confirmar Saque Rápido</v-card-title>
+            <v-card-title class="headline">Confirmar saque-rápido</v-card-title>
             <v-card-text
-              >Tem certeza de que deseja fazer um saque rápido? Todos os saques
-              rápidos são feitas via pix para o CPF cadastrado.</v-card-text
+              >Todos os saques serão feitos via Pix diretamente no CPF
+              cadastrado na plataforma.</v-card-text
             >
             <v-card-actions>
               <v-btn color="purple" text @click="closeConfirmationDialog"
