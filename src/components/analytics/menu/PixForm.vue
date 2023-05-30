@@ -2,7 +2,7 @@
   <v-container>
     <v-text-field label="Nome completo" />
     <v-text-field
-      label="Cpf"
+      label="CPF"
       v-model="cpf"
       value="111.222.333-44"
       readonly
@@ -27,10 +27,14 @@
     />
 
     <v-btn color="purple">Enviar</v-btn>
-    <p class="grey--text mt-2 text-subtitle-1" style="font-size: 10px">
-      Todas as transferências via pix serão enviadas pela chave CPF, crie uma
-      chave com seu CPF no seu banco antes de pedir o saque.
-    </p>
+    <v-alert v-if="cpf === ''" type="error" dismissible class="mt-4">
+      Antes de pedir um saque é necessário cadastrar seu CPF nas configurações
+      do perfil ou
+      <router-link to="/config" class="custom-router-link"
+        >clique aqui</router-link
+      >
+      para cadastrar.
+    </v-alert>
   </v-container>
 </template>
 
@@ -38,7 +42,7 @@
 export default {
   data() {
     return {
-      cpf: "111.222.333-45",
+      cpf: "",
       valor: "",
       valorRule: [(v) => !!v || "Valor é obrigatório"],
     };
@@ -53,3 +57,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.custom-router-link {
+  color: black !important;
+  text-decoration: none;
+}
+
+.custom-router-link .custom-router-link-text {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>

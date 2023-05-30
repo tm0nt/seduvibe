@@ -1,35 +1,40 @@
 <template>
   <v-container>
-    <v-text-field label="Nome completo" />
-    <v-row color="purple">
-      <v-col cols="3">
+    <v-row>
+      <v-col cols="6">
+        <v-text-field label="Nome completo" />
+      </v-col>
+      <v-col cols="6">
         <v-text-field
           v-model="cpf"
           label="CPF"
-          :rules="[rules.required, rules.cpf]"
-          @input="formatCPF"
+          value="111.222.333-44"
+          readonly
+          disabled
           maxlength="14"
         ></v-text-field>
       </v-col>
-      <v-col cols="3">
+    </v-row>
+    <v-row color="purple">
+      <v-col cols="4">
         <v-text-field label="Conta" maxlength="10" />
       </v-col>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-text-field label="Agência" maxlength="14" />
       </v-col>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-select label="Tipo" :items="['Poupança', 'Conta Corrente']" />
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="6">
         <v-select
           v-model="selectedBank"
           :items="bankList"
           label="Selecione um banco"
         />
       </v-col>
-      <v-col cols="3">
+      <v-col cols="6">
         <v-text-field
           label="Valor"
           v-model="valor"
@@ -49,6 +54,14 @@
         />
       </v-col>
     </v-row>
+    <v-alert v-if="cpf === ''" type="error" dismissible class="mt-4">
+      Antes de pedir um saque é necessário cadastrar seu CPF nas configurações
+      do perfil ou
+      <router-link to="config" class="custom-router-link"
+        >clique aqui</router-link
+      >
+      para cadastrar.
+    </v-alert>
     <v-btn color="purple">Enviar</v-btn>
   </v-container>
 </template>
@@ -58,7 +71,7 @@ export default {
   components: {},
   data() {
     return {
-      cpf: "",
+      cpf: "111.222.333-44",
       valor: "",
       valorRule: [(v) => !!v || "Valor é obrigatório"],
       rules: {
@@ -109,3 +122,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.custom-router-link {
+  color: black !important;
+  text-decoration: none;
+}
+
+.custom-router-link .custom-router-link-text {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>

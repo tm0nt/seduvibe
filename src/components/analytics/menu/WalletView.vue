@@ -12,7 +12,7 @@
         class="d-flex"
         style="max-height: 100vh"
       >
-        <v-col cols="12" sm="4">
+        <v-col cols="6" sm="6" md="4">
           <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="purple" small>
@@ -20,14 +20,11 @@
               </v-btn>
               <h2 class="white--text">R$ 8.779,58</h2>
               <h6 class="grey--text">Saldo disponível</h6>
-              <v-btn color="purple" dark class="withoutupercase mt-2"
-                >Saque rápido</v-btn
-              >
             </v-card>
           </v-card>
         </v-col>
 
-        <v-col cols="12" sm="4">
+        <v-col cols="6" sm="6" md="4">
           <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="grey" small>
@@ -38,8 +35,12 @@
             </v-card>
           </v-card>
         </v-col>
-
-        <v-col cols="12" sm="4">
+        <v-col
+          cols="12"
+          sm="4"
+          md="4"
+          class="d-flex align-center justify-center"
+        >
           <v-card color="#202022" class="rounded-lg" flat>
             <v-card color="transparent" class="rounded-lg mx-2" flat>
               <v-btn color="red" small>
@@ -51,6 +52,7 @@
           </v-card>
         </v-col>
       </v-row>
+
       <v-card class="mt-10" dark color="purple">
         <v-card-title>
           <v-toolbar-title>Selecione o tipo de transferência</v-toolbar-title>
@@ -76,6 +78,10 @@
           </v-list-item>
         </v-list>
       </v-card>
+      <p class="grey--text mt-2 text-subtitle-1" style="font-size: 10px">
+        Todas as transferências serão enviadas para o CPF cadastrado na
+        plataforma.
+      </p>
     </v-container>
   </v-app>
 </template>
