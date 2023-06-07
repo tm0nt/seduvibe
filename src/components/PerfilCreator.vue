@@ -17,7 +17,7 @@
         <v-row align="center">
           <v-col cols="auto">
             <v-row align="center">
-              <v-col cols="auto">
+              <v-col md="2" xs="1" sm="1">
                 <v-avatar size="150" color="white" :border="'5px solid white'">
                   <v-img
                     src="/img/avatar.jpg"
@@ -26,29 +26,34 @@
                   ></v-img>
                 </v-avatar>
               </v-col>
-              <v-col cols="auto">
-                <h2 class="text-center white--text mt-15">Laís Alves</h2>
-                <h5 class="grey--text">@laisalves</h5>
+              <v-col cols="6" md="8" sm="10" xs="10">
+                <div style="display: inline-block; margin-top: 80px">
+                  <h2 class="white--text">Laís Alves</h2>
+                  <h5 class="grey--text">@laisalves</h5>
+                  <v-btn color="purple" class="mt-3 white--text"> Vibe+ </v-btn>
+
+                  <p class="bio mt-5 white--text"></p>
+                </div>
               </v-col>
+              <v-row align="center" class="mt-5 d-flex justify-center">
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-facebook-f</v-icon>
+                </v-col>
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-twitter</v-icon>
+                </v-col>
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-instagram</v-icon>
+                </v-col>
+              </v-row>
             </v-row>
-            <p class="mt-5 white--text">
-              Assine meu conteúdo para ver videos exclusivos!!!
-            </p>
             <v-row>
-              <v-col cols="auto">
-                <v-icon class="purple--text mr-4">fab fa-facebook-f</v-icon>
-              </v-col>
-              <v-col cols="auto">
-                <v-icon class="purple--text mr-4">fab fa-twitter</v-icon>
-              </v-col>
-              <v-col cols="auto">
-                <v-icon class="purple--text">fab fa-instagram</v-icon>
+              <v-col md="10" xs="11" sm="11">
+                <p class="mt-5 white--text">
+                  Assine meu conteúdo para ver videos exclusivos!!!
+                </p>
               </v-col>
             </v-row>
-          </v-col>
-          <v-col cols="auto" class="ml-auto white--text">
-            <v-icon class="white--text mr-5">mdi-heart</v-icon>
-            <v-btn color="purple" class="white--text"> Vibe+ </v-btn>
           </v-col>
         </v-row>
         <v-app-bar

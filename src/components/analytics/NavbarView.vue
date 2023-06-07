@@ -4,9 +4,7 @@
       <v-col cols="12" md="3" class="text-center text-md-left">
         <h4 class="white--text mt-n3">Bom dia, Laís Silva</h4>
         <br />
-        <p class="grey--text caption mt-n5">
-          {{ pageTitle }}
-        </p>
+        <p class="grey--text caption mt-n5">Analise sua conta metricamente!</p>
       </v-col>
     </v-row>
   </v-app-bar>
@@ -14,12 +12,6 @@
 
 <script>
 export default {
-  props: {
-    pageTitle: {
-      type: String,
-      required: true,
-    },
-  },
   data: () => ({}),
 };
 </script>

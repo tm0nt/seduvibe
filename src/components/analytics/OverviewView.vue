@@ -1,9 +1,5 @@
 <template>
   <v-card color="#202022" class="rounded-lg" flat>
-    <navbar-view
-      :page-title="'Vamos analisar sua conta metricamente!'"
-    ></navbar-view>
-
     <v-row>
       <v-col cols="6" sm="6">
         <v-card color="#202022" class="rounded-lg" flat>
@@ -102,6 +98,7 @@ export default {
   methods: {
     openConfirmationDialog() {
       this.showConfirmationDialog = true;
+      console.log(this.pageTitle);
     },
     closeConfirmationDialog() {
       this.showConfirmationDialog = false;

@@ -20,34 +20,6 @@
           <v-icon left class="ml-2">mdi-camera</v-icon>
         </v-btn>
       </v-col>
-      <v-dialog v-model="coverModal" max-width="500" dark>
-        <v-card>
-          <v-card-title>
-            <span class="headline white--text">{{ coverTitle }}</span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-file-input
-                  v-model="selectedFile"
-                  label="Selecionar a imagem"
-                  color="white"
-                  accept="image/*"
-                ></v-file-input>
-              </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="purple--text" text @click="closeCoverModal"
-              >Cancelar</v-btn
-            >
-            <v-btn class="purple--text" text @click="uploadCover">Enviar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <div class="cover"></div>
-
       <v-container>
         <v-toolbar flat color="rgba(0,0,0,0)" class="toolbar-mobile">
           <v-btn
@@ -63,11 +35,11 @@
         <v-row align="center">
           <v-col cols="auto">
             <v-row align="center">
-              <v-col cols="auto">
+              <v-col md="2" sm="1" xs="1">
                 <v-avatar
                   size="150"
                   :border="{ width: '5px', style: 'solid', color: 'black' }"
-                  class="avatar-border"
+                  class="avatar-border mt-n10"
                   @mouseenter="showIcon = true"
                   @mouseleave="showIcon = false"
                 >
@@ -84,74 +56,40 @@
                     mdi-camera
                   </v-icon>
                 </v-avatar>
-
-                <template>
-                  <v-dialog v-model="dialog" dark max-width="500">
-                    <v-card>
-                      <v-card-title>Alterar foto do perfil</v-card-title>
-                      <v-card-text>
-                        <v-file-input
-                          label="Selecione uma imagem"
-                          v-model="file"
-                          color="purple"
-                          accept="image/*"
-                        ></v-file-input>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-btn class="purple--text" text @click="closeModal"
-                          >Cancelar</v-btn
-                        >
-                        <v-btn class="purple--text" @click="saveFile" text
-                          >Enviar</v-btn
-                        >
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </template>
               </v-col>
-              <v-col cols="auto">
-                <h2 class="text-center white--text mt-15">Laís Alves</h2>
-                <h5 class="grey--text">@laisalves</h5>
+              <v-col cols="6" md="8" sm="11" xs="11">
+                <div style="display: inline-block; margin-top: 60px">
+                  <h2 class="white--text">Laís Alves</h2>
+                  <h5 class="grey--text">@laisalves</h5>
+                  <p class="bio mt-5 white--text">
+                    Assine meu conteúdo para ver videos exclusivos!!!&nbsp;
+                    <v-icon
+                      size="18"
+                      class="mr-4 grey--text"
+                      @click="openEditModal"
+                    >
+                      fa-pen
+                    </v-icon>
+                  </p>
+                </div>
               </v-col>
-            </v-row>
-            <p class="bio mt-5 white--text">
-              Assine meu conteúdo para ver videos exclusivos!!!&nbsp;
-              <v-icon size="18" class="mr-4 grey--text" @click="openEditModal"
-                >fa-pen</v-icon
-              >
-            </p>
-            <v-dialog dark v-model="isEditModalOpen" max-width="500">
-              <v-card>
-                <v-card-title>Editar bio</v-card-title>
-                <v-card-text>
-                  <v-text-field
-                    v-model="editText"
-                    color="purple"
-                  ></v-text-field>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn text class="purple--text" @click="closeEditModal"
-                    >Cancelar</v-btn
-                  >
-                  <v-btn class="purple--text" @click="saveEditedText" text
-                    >Salvar</v-btn
-                  >
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-row>
-              <v-col cols="auto">
-                <v-icon class="purple--text mr-4">fab fa-facebook-f</v-icon>
-              </v-col>
-              <v-col cols="auto">
-                <v-icon class="purple--text mr-4">fab fa-twitter</v-icon>
-              </v-col>
-              <v-col cols="auto">
-                <v-icon class="purple--text">fab fa-instagram</v-icon>
-              </v-col>
+              <v-row align="center" class="d-flex justify-center">
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-facebook-f</v-icon>
+                </v-col>
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-twitter</v-icon>
+                </v-col>
+                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                  <v-icon class="purple--text">fab fa-instagram</v-icon>
+                </v-col>
+              </v-row>
             </v-row>
           </v-col>
-          <v-col cols="auto" class="ml-auto white--text">
+        </v-row>
+
+        <v-row class="white--text text-center">
+          <v-col cols="2">
             <router-link to="/config">
               <v-btn color="purple" class="white--text">
                 <v-icon size="12" class="mr-2">fa-gear</v-icon>
@@ -159,7 +97,7 @@
               </v-btn>
             </router-link>
           </v-col>
-          <v-col cols="auto" class="ml-1 white--text">
+          <v-col cols="10" class="text-right justify-end">
             <router-link to="/analytics">
               <v-btn color="white" class="black--text">
                 <v-icon size="12" class="mr-2">fa-chart-simple</v-icon>
@@ -293,6 +231,69 @@
         </v-list>
       </v-card>
     </v-overlay>
+    <template>
+      <v-dialog v-model="dialog" dark max-width="500">
+        <v-card>
+          <v-card-title>Alterar foto do perfil</v-card-title>
+          <v-card-text>
+            <v-file-input
+              label="Selecione uma imagem"
+              v-model="file"
+              color="purple"
+              accept="image/*"
+            ></v-file-input>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn class="purple--text" text @click="closeModal"
+              >Cancelar</v-btn
+            >
+            <v-btn class="purple--text" @click="saveFile" text>Enviar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </template>
+    <v-dialog dark v-model="isEditModalOpen" max-width="500">
+      <v-card>
+        <v-card-title>Editar bio</v-card-title>
+        <v-card-text>
+          <v-text-field v-model="editText" color="purple"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text class="purple--text" @click="closeEditModal"
+            >Cancelar</v-btn
+          >
+          <v-btn class="purple--text" @click="saveEditedText" text
+            >Salvar</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="coverModal" max-width="500" dark>
+      <v-card>
+        <v-card-title>
+          <span class="headline white--text">{{ coverTitle }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+              <v-file-input
+                v-model="selectedFile"
+                label="Selecionar a imagem"
+                color="white"
+                accept="image/*"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="purple--text" text @click="closeCoverModal"
+            >Cancelar</v-btn
+          >
+          <v-btn class="purple--text" text @click="uploadCover">Enviar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -433,13 +434,11 @@ export default {
   z-index: 1;
   background: url("https://saibadetudo.com.br/wp-content/uploads/2022/04/capa-insta-2-min-10.jpg");
   background-size: cover;
-  /* define um valor maior que o z-index do v-toolbar */
 }
 
 .toolbar-mobile {
   position: relative;
   z-index: 2;
-  /* define um valor menor que o z-index da div purple-bg */
 }
 
 .avatar-border {

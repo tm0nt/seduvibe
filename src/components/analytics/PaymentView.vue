@@ -30,7 +30,7 @@
     <v-col cols="12" sm="6">
       <v-toolbar flat color="transparent" class="mt-n5">
         <v-toolbar-title class="white--text">Últimas vendas</v-toolbar-title>
-        <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
+        <v-chip color="purple" text-color="white" class="ml-2 mt-n2">12</v-chip>
       </v-toolbar>
       <v-card color="#242426" class="rounded-lg mr-2 mt-n8" flat>
         <h5 class="white--text ml-3 mt-5">Usuário</h5>
@@ -66,6 +66,7 @@
 <script>
 export default {
   data() {
+    console.log(this.pageTitle);
     return {
       experiences: [
         {
