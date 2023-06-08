@@ -5,6 +5,7 @@ import HomeView from "../views/HomeView.vue";
 import PerfilView from "../views/PerfilView.vue";
 import PagamentosView from "../views/PagamentosView.vue";
 import AcessosView from "../views/AcessosView.vue";
+import NovaSenha from "../components/nova_senha/NovaSenhaView.vue";
 import RankingView from "../views/RankingView.vue";
 import VibePlusAssinatura from "../views/AssineVibePlusView.vue";
 import RankingViewUser from "../components/RankingUser.vue";
@@ -24,13 +25,13 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "login",
     component: LoginView,
     meta: { title: "Seduvibe - Exclusividade e liberdade" },
   },
   {
-    path: "/home",
+    path: "/",
     name: "Home",
     component: HomeView,
     meta: { title: "Feed" },
@@ -40,6 +41,12 @@ const routes = [
     name: "VibePlus",
     component: VibePlusAssinatura,
     meta: { title: "Assine agora" },
+  },
+    {
+    path: "/reset",
+    name: "Resetar senha",
+    component: NovaSenha,
+    meta: { title: "Redefinição de senha" },
   },
   {
     path: "/rankingUser",

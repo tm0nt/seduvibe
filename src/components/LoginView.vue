@@ -2,6 +2,10 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="10">
+        <v-alert v-if="isPasswordChanged" type="success"
+          >Senha alterada com sucesso!</v-alert
+        >
+
         <v-card class="elevation-6 mt-10 my-custom-card" color="#212121" dark>
           <v-window v-model="step">
             <v-window-item :value="1">
@@ -269,6 +273,8 @@ export default {
     step: 1,
     criador: false,
     modalOpen: false,
+    isPasswordChanged: false,
+
     email: "",
     modalCodigoAberto: false,
     codigoVerificacao: "",
@@ -286,6 +292,9 @@ export default {
   props: {
     source: String,
   },
+  mounted() {
+    this.checkSuccessQueryParam();
+  },
   methods: {
     handleInput(index) {
       const nextInputIndex = index < 5 ? index + 1 : 5;
@@ -297,6 +306,12 @@ export default {
     toggleMostrarSenha() {
       this.mostrarSenha = !this.mostrarSenha;
     },
+    checkSuccessQueryParam() {
+      const query = this.$route.query;
+      if (query.success && query.success === "true") {
+        this.isPasswordChanged = true;
+      }
+    },
     openModal() {
       this.modalOpen = true;
     },
@@ -304,10 +319,14 @@ export default {
       this.modalCodigoAberto = true;
     },
     verificarCodigo() {
-      if (this.$refs.form.validate()) {
-        // Aqui você pode adicionar a lógica para verificar o código de verificação
-        // Por exemplo, enviar uma requisição ao servidor para verificar se o código está correto
-        // Dependendo do resultado da verificação, você pode exibir uma mensagem de sucesso ou erro para o usuário
+      // Lógica para verificar se o código é verdadeiro
+      const codigoVerificado = true; // Exemplo: código sempre é verdadeiro
+
+      if (codigoVerificado) {
+        // Redirecionar para a página "/novasenha"
+        this.$router.push("/reset");
+      } else {
+        // Código inválido, exibir mensagem de erro ou tomar ação apropriada
       }
     },
     recuperarPorEmail() {
