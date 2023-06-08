@@ -6,6 +6,7 @@ import PerfilView from "../views/PerfilView.vue";
 import PagamentosView from "../views/PagamentosView.vue";
 import AcessosView from "../views/AcessosView.vue";
 import RankingView from "../views/RankingView.vue";
+import VibePlusAssinatura from "../views/AssineVibePlusView.vue";
 import RankingViewUser from "../components/RankingUser.vue";
 import PerfilCreator from "../components/PerfilCreator.vue";
 import MyDashCreator from "../components/MyDashCreator.vue";
@@ -33,6 +34,12 @@ const routes = [
     name: "Home",
     component: HomeView,
     meta: { title: "Feed" },
+  },
+  {
+    path: "/assine",
+    name: "VibePlus",
+    component: VibePlusAssinatura,
+    meta: { title: "Assine agora" },
   },
   {
     path: "/rankingUser",

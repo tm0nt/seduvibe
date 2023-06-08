@@ -4,7 +4,7 @@
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
     <v-container>
-      <Navbar />
+      <Navbar :introduction_page="intro" />
       <SideBar />
       <v-row
         justify="center"
@@ -137,6 +137,7 @@ export default {
       { title: "Transferência via Ted", formType: "ted" },
     ],
     activeIndex: null,
+    intro: "Aqui você pode fazer saques e consultar seu histórico de saque.",
   }),
   methods: {
     navigate(to) {

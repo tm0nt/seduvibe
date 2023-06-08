@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-container fluid>
-      <Navbar />
+      <Navbar :introduction_page="intro" />
       <SideBar />
       <v-row>
         <v-col>
@@ -51,6 +51,7 @@ import Navbar from "../NavbarView.vue";
 export default {
   data() {
     return {
+      intro: "Analise e consulte suas assinaturas em recorrência ativa.",
       headers: [
         { text: "Usuário", value: "usuario" },
         { text: "Vencimento", value: "vencimento" },

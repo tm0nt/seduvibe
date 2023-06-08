@@ -5,7 +5,7 @@
   >
     <SideBar />
     <v-container>
-      <Navbar />
+      <Navbar :introduction_page="intro" />
       <v-row>
         <v-col cols="12" sm="8">
           <v-row>
@@ -34,7 +34,9 @@ import Overview from "../components/analytics/OverviewView.vue";
 import Payment from "../components/analytics/PaymentView.vue";
 import Card from "../components/analytics/CardView.vue";
 export default {
-  data: () => ({}),
+  data: () => ({
+    intro: "Vamos analisar sua conta metricamente!",
+  }),
   components: {
     SideBar,
     Navbar,

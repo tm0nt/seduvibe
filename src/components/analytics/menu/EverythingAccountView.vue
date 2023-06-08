@@ -4,7 +4,7 @@
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
     <v-container>
-      <Navbar />
+      <Navbar :introduction_page="intro" />
       <SideBar />
       <v-row>
         <v-col cols="6" sm="4">
@@ -149,6 +149,7 @@ import {
 export default {
   data() {
     return {
+      intro: "Analise em gráfico todas as assinaturas e vistos do seu perfil.",
       lineChart: null,
     };
   },

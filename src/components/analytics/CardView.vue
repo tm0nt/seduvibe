@@ -55,7 +55,11 @@
       <span class="white--text ml-4 caption">alavancar suas vendas! </span>
 
       <v-card-text class="pt-0 mt-5">
-        <v-btn color="white" white class="withoutupercase mt-2">Ver mais</v-btn>
+        <router-link to="/assine">
+          <v-btn color="white" white class="withoutupercase mt-2"
+            >Ver mais</v-btn
+          >
+        </router-link>
       </v-card-text>
     </v-card>
   </v-card>
