@@ -2,6 +2,9 @@
   <v-container class="fill-height">
     <v-row align="center" justify="center" class="fill-height">
       <v-col cols="12" sm="8" md="4">
+        <v-alert v-if="isPasswordNotChange" type="danger"
+          >Aconteceu algum erro e a senha não foi alterada!</v-alert
+        >
         <v-card
           class="elevation-0 mt-10 my-custom-card"
           color="#212121"
@@ -53,6 +56,7 @@ export default {
       novaSenha: "",
       confirmarSenha: "",
       showNovaSenha: false,
+      isPasswordNotChange: false,
       showConfirmarSenha: false,
     };
   },
