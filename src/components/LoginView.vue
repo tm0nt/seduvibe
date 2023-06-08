@@ -32,8 +32,12 @@
                         <v-text-field
                           label="Senha"
                           color="purple"
-                          autocomplete="false"
-                          type="password"
+                          autocomplete="off"
+                          :append-icon="
+                            showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                          "
+                          :type="showPassword ? 'text' : 'password'"
+                          @click:append="showPassword = !showPassword"
                         />
                         <v-row>
                           <v-col cols="12" sm="6" class="mb-2">
@@ -204,7 +208,7 @@
                           label="Nova senha"
                           :type="mostrarSenha ? 'text' : 'password'"
                           :append-icon="
-                            mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
+                            mostrarSenha ? 'mdi-eye' : 'mdi-eye-off'
                           "
                           @click:append="toggleMostrarSenha"
                         ></v-text-field>
@@ -273,6 +277,8 @@ export default {
     step: 1,
     criador: false,
     modalOpen: false,
+    showPassword: false,
+
     isPasswordChanged: false,
 
     email: "",
