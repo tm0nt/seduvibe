@@ -1,3 +1,5 @@
+3 / 3 Aqui está o código atualizado da sua caixa de pesquisa que mostra os
+resultados dinamicamente com v-avatar, nome e usuário: html Copy code
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar :drawer.sync="drawer" />
@@ -13,8 +15,9 @@
           <v-icon>mdi-menu</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-flex xs6 sm6 md4 lg6>
+        <v-flex xs6 sm6 md4 lg6 dark>
           <v-autocomplete
+            style="background-color: #212121 !important"
             v-model="searchQuery"
             :items="filteredUsers"
             label="Pesquise por usuários..."
@@ -22,73 +25,47 @@
             prepend-inner-icon="mdi-magnify"
             color="purple"
             flat
-            class="pt-5"
+            class="custom-autocomplete pt-5"
             :class="{ 'd-sm-flex': $vuetify.breakpoint.smAndUp }"
-            background-color="#252525"
             rounded
             outlined
-            ref="searchField"
-            @input="filterResults"
-            item-text="name"
-            item-value="id"
             hide-no-data
-            hide-selected
+            hide-details
+            :menu-props="{ transition: false }"
+            item-text="username"
+            item-value="username"
             return-object
+            :search-input.sync="isSearching"
           >
             <template v-slot:item="{ item }">
-              <v-list-item>
-                <v-avatar size="32">
-                  <img :src="item.avatarUrl" alt="Avatar" />
-                </v-avatar>
+              <v-list-item
+                class="mt-1 custom-item"
+                style="background: #f1f1f1 !important; border-radius: 200px"
+              >
+                <v-list-item-avatar>
+                  <v-img :src="item.avatar"></v-img>
+                </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                  <v-list-item-title class="purple--text">{{
+                    item.name
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle class="grey--text"
+                    >@{{ item.username }}</v-list-item-subtitle
+                  >
                 </v-list-item-content>
               </v-list-item>
             </template>
           </v-autocomplete>
         </v-flex>
+
         <v-spacer></v-spacer>
         <div>
-          <v-btn color="purple" class="mr-5 white--text" @click="openModal">
-            <v-icon left>fas fa-filter</v-icon>
-            Filtros
+          <v-btn color="purple" class="white--text" @click="openModal">
+            <v-icon class="{'text-center': isMobile}" size="18"
+              >fas fa-filter</v-icon
+            >
+            <span class="hidden-sm-and-down">&nbsp;Filtros</span>
           </v-btn>
-
-          <v-dialog v-model="modalOpen" max-width="500" dark>
-            <v-card>
-              <v-card-title>
-                <span class="headline">Filtros</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12">
-                      <v-select
-                        v-model="selectedGenre"
-                        :items="genres"
-                        label="Gênero"
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-slider
-                        v-model="priceRange"
-                        min="0"
-                        max="100"
-                        label="Preço"
-                        color="purple"
-                        thumb-label
-                        tick-labels
-                      ></v-slider>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="purple" text @click="applyFilters">Aplicar</v-btn>
-                <v-btn color="purple" text @click="closeModal">Fechar</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
         </div>
       </v-toolbar>
       <v-app-bar dark color="rgba(0,0,0,0)" flat class="mt-5">
@@ -100,6 +77,7 @@
           v-model="activeTab"
           color="purple"
           class="align-center"
+          :class="{ 'full-width-tabs': isMobile }"
           ref="tabs"
         >
           <v-tabs-slider color="purple"></v-tabs-slider>
@@ -113,7 +91,9 @@
             {{ tab.title }}
           </v-tab>
         </v-tabs>
+
         <v-spacer></v-spacer>
+
         <v-btn icon @click="moveTab('right')">
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
@@ -196,6 +176,41 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="modalOpen" max-width="500" dark>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Filtros</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-select
+                  v-model="selectedGenre"
+                  :items="genres"
+                  label="Gênero"
+                ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-slider
+                  v-model="priceRange"
+                  min="0"
+                  max="100"
+                  label="Preço"
+                  color="purple"
+                  thumb-label
+                  tick-labels
+                ></v-slider>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="purple" text @click="applyFilters">Aplicar</v-btn>
+          <v-btn color="purple" text @click="closeModal">Fechar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -205,7 +220,6 @@ import SideBar from "../components/SideBar.vue";
 export default {
   name: "HomeView",
   data: () => ({
-    selection: 1,
     activeTab: 0,
     modalOpen: false,
     genres: ["Opção 1", "Opção 2", "Opção 3"], // Substitua pelas opções de gênero reais
@@ -213,15 +227,39 @@ export default {
     chipSelected: false,
     priceRange: [0, 100], // Defina os valores mínimos e máximos do slider conforme necessário
     searchQuery: "",
-    menuOpen: false,
+    users: [
+      {
+        name: "Marisa",
+        username: "marisaalves",
+        avatar:
+          "https://pbs.twimg.com/profile_images/1661725430255058945/NVTA7VA7_400x400.jpg",
+      },
+      {
+        name: "Marcela Lima",
+        username: "marcelalima",
+        avatar:
+          "https://static1.purebreak.com.br/articles/5/11/08/65/@/505074-jade-picon-rejeita-comentarios-sobre-sua-diapo-2.jpg",
+      },
+      {
+        name: "Emme White",
+        username: "emmewhite",
+        avatar:
+          "https://akns-images.eonline.com/eol_images/Entire_Site/2022715/rs_600x600-220815145922-15.08.22-600x600-JadePicon-Instagram.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top",
+      },
 
+      {
+        name: "Lais Silva",
+        username: "laissilva",
+        avatar:
+          "https://www.bnews.com.br/media/_versions/abril_2023/jade-picon-bastidores_widemd.jpg",
+      },
+    ],
     tabs: [
       { id: 1, title: "Perfis verificados" },
       { id: 2, title: "Mais visitados" },
       { id: 3, title: "Novos perfis" },
       { id: 4, title: "Ranking" },
     ],
-    filteredResults: [],
     drawer: true,
     seduvibe: [
       {
@@ -285,12 +323,21 @@ export default {
     centerActiveTab(tabId) {
       this.activeTab = tabId;
     },
-    created() {
-      if (window.innerWidth < 768) {
-        // define a largura limite
-        this.drawer = false; // define drawer como false se a largura for menor que 768px
-      }
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          user.username.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     },
+  },
+  created() {
+    if (window.innerWidth < 768) {
+      // define a largura limite
+      this.drawer = false; // define drawer como false se a largura for menor que 768px
+    }
   },
 };
 </script>
@@ -335,5 +382,14 @@ export default {
   width: 50px;
   height: 25px;
   background: rgb(87, 1, 87);
+}
+.full-width-tabs {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .full-width-tabs {
+    width: unset;
+  }
 }
 </style>
