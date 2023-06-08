@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="credit-card" min-width="500">
+    <v-card class="credit-card">
       <v-card-text>
         <div class="credit-card-content white--text font-weight-bold">
           <div class="credit-card-chip"></div>
@@ -9,12 +9,12 @@
               <div class="credit-card-info-value">{{ numeroCartao }}</div>
             </div>
             <div class="credit-card-info-row">
-              <div class="credit-card-info-label">Nome do titular:</div>
-              <div class="credit-card-info-value">{{ nomeTitular }}</div>
+              <div class="credit-card-info-label">
+                Nome do titular: {{ nomeTitular }}
+              </div>
             </div>
             <div class="credit-card-info-row">
-              <div class="credit-card-info-label">Tipo:</div>
-              <div class="credit-card-info-value">{{ Tipo }}</div>
+              <div class="credit-card-info-label">Tipo: {{ Tipo }}</div>
             </div>
           </div>
         </div>
@@ -48,10 +48,9 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" class="text-center">
-                <v-btn color="purple" dark>Salvar Alterações</v-btn>
-              </v-col>
+              <v-col cols="12" class="text-center"> </v-col>
             </v-row>
+            <v-btn color="purple" class="white--text">Salvar Alterações</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -63,7 +62,7 @@
 export default {
   data() {
     return {
-      numeroCartao: "Agẽncia 5656 Conta 556626",
+      numeroCartao: "Caixa Economica Federal",
       nomeTitular: "Lais Maria",
       Tipo: "Poupança",
     };
@@ -73,28 +72,21 @@ export default {
 
 <style scoped>
 .credit-card {
-  width: 360px;
+  width: 100%;
   background-color: purple;
   color: white;
   font-family: Arial, sans-serif;
 }
 
 .credit-card-content {
-  padding: 24px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.credit-card-chip {
-  width: 50px;
-  height: 35px;
-  background-image: url(https://img3.gratispng.com/dy/822a0fb6195a85a617c0ee6e034b1f46/L0KzQYm3U8MxN6d9fZH0aYP2gLBuTflxcJDzfZ9sb33zhcXskr1qa5Dzi59yboTod8PolPVlNZRuitVAaYT2PbTvigB0NaRuhZ9sYYLng368gfJmPpU9SaptN0m7QXA6U8UxPmE7SaMAMkK3Qoq6UcM2P2o6RuJ3Zx==/kisspng-iphone-computer-icons-integrated-circuits-chips-sim-cards-5abe6d818d7981.3350606115224293135795.png);
-  background-size: cover;
-}
-
 .credit-card-info {
   flex-grow: 1;
-  margin-left: 24px;
+  margin-left: 1px;
 }
 
 .credit-card-info-row {
@@ -104,14 +96,5 @@ export default {
 
 .credit-card-info-label {
   flex-grow: 1;
-}
-
-.credit-card-logo {
-  width: 60px;
-}
-
-.credit-card-logo img {
-  max-width: 100%;
-  height: auto;
 }
 </style>

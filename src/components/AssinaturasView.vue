@@ -2,7 +2,7 @@
   <v-sheet
     class="mx-auto sheet-no-border"
     elevation="0"
-    max-width="800"
+    max-width="100%"
     color="#212121"
     dark
   >

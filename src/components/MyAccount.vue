@@ -39,10 +39,13 @@
       dark
       prefix="@"
     ></v-text-field>
-    <v-btn color="purple" dark @click="salvarAlteracoes"
-      >Salvar Alterações</v-btn
-    >
-    <v-btn style="float: right" white @click="openDialog">Alterar Senha</v-btn>
+
+    <div class="btn-container">
+      <v-btn color="purple" class="mr-2" dark @click="salvarAlteracoes"
+        >Salvar Alterações</v-btn
+      >
+      <v-btn white @click="openDialog">Alterar Senha</v-btn>
+    </div>
 
     <v-dialog v-model="dialog" max-width="500px">
       <v-card dark>
@@ -71,6 +74,14 @@
     </v-dialog>
   </div>
 </template>
+
+<style>
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+</style>
 
 <script>
 export default {

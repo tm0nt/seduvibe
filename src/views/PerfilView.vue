@@ -31,8 +31,9 @@
             v-model="selectedTab"
             class="d-flex justify-center flex-column"
             centered
-            scrollable
-            style="max-width: 600px"
+            fixed-tabs
+            show-arrows
+            style="max-width: 100vw"
           >
             <v-tabs-slider color="purple"></v-tabs-slider>
             <v-tab class="withoutupercase">Pagamentos</v-tab>
@@ -80,7 +81,7 @@ export default {
   data: () => ({
     selection: 1,
     drawer: true,
-    selectedTab: 0,
+    selectedTab: null,
     tabs: [
       { title: "Pagamentos", component: "CardView" },
       { title: "Assinaturas", component: "Assinaturas" },
@@ -94,6 +95,22 @@ export default {
     ConfigView,
     FavoritosView,
     Assinaturas,
+  },
+  methods: {
+    centerSelectedTab() {
+      const tabsContainer = document.querySelector(".v-tabs-bar");
+      const selectedTabElement = document.querySelector(".v-tab--active");
+
+      if (tabsContainer && selectedTabElement) {
+        const containerWidth = tabsContainer.offsetWidth;
+        const tabOffsetLeft = selectedTabElement.offsetLeft;
+        const tabWidth = selectedTabElement.offsetWidth;
+        const scrollOffset =
+          tabOffsetLeft - (containerWidth / 2 - tabWidth / 2);
+
+        tabsContainer.scrollLeft += scrollOffset;
+      }
+    },
   },
   computed: {
     currentComponent() {

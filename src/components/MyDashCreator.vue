@@ -88,7 +88,7 @@
           </v-col>
         </v-row>
 
-        <v-row class="white--text text-center">
+        <v-row class="mt-2 white--text text-center">
           <v-col cols="2">
             <router-link to="/config">
               <v-btn color="purple" class="white--text">

@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="6">
         <v-card class="mb-4" color="#212121" dark>
-          <v-card-title class="pa-2 white--text">
-            <v-icon left>mdi-account-multiple</v-icon>
-            <span class="headline">{{ numeroIndicacoes }}</span>
+          <v-card-title class="pa-2">
+            <v-icon color="purple" left>mdi-account-multiple</v-icon>
+            <span class="headline white--text">{{ numeroIndicacoes }}</span>
           </v-card-title>
           <v-card-subtitle class="pa-2 white--text"
             >Número de Indicações</v-card-subtitle
@@ -15,8 +15,8 @@
       <v-col cols="6">
         <v-card class="mb-4" color="#212121" dark>
           <v-card-title class="pa-2 white--text">
-            <v-icon left>mdi-currency-usd</v-icon>
-            <span class="headline">{{ valorComissao }}</span>
+            <v-icon color="purple" left>mdi-currency-usd</v-icon>
+            <span class="headline white--text">{{ valorComissao }}</span>
           </v-card-title>
           <v-card-subtitle class="pa-2 white--text">Comissão</v-card-subtitle>
         </v-card>
@@ -27,8 +27,8 @@
         <v-text-field
           v-model="linkCopiado"
           disabled
+          color="purple"
           outlined
-          color="#212121"
           dark
         ></v-text-field>
         <v-tooltip bottom>

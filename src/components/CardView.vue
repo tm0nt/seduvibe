@@ -34,7 +34,9 @@
           <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-n3" flat>
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="white--text">Histórico</v-toolbar-title>
-              <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
+              <v-chip color="#505050" text-color="white" class="ml-2"
+                >12</v-chip
+              >
             </v-toolbar>
             <h5 class="white--text ml-2">Experiências recentes</h5>
             <v-list class="mt-n2 rounded-lg mx-2" color="transparent" dense>
