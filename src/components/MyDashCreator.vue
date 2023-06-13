@@ -209,28 +209,14 @@
       white
       color="purple"
       bottom
-      class="mb-15"
+      class="mb-10 mr-5"
       right
       fixed
       @click="showOptions = !showOptions"
     >
       <v-icon color="white">mdi-plus</v-icon>
     </v-btn>
-    <v-overlay v-if="showOptions" @click="showOptions = false">
-      <v-card class="mx-auto" max-width="500">
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in options"
-            :key="index"
-            @click="handleOptionClick(item)"
-          >
-            <v-list-item-content>
-              <v-list-item-title>{{ item }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </v-overlay>
+    <PublicacaoPost v-if="showOptions"></PublicacaoPost>
     <template>
       <v-dialog v-model="dialog" dark max-width="500">
         <v-card>
@@ -298,6 +284,7 @@
 </template>
 
 <script>
+import PublicacaoPost from "./PublicacaoPost.vue";
 import SideBar from "../components/SideBar.vue";
 
 export default {
@@ -339,6 +326,7 @@ export default {
   },
   components: {
     SideBar,
+    PublicacaoPost,
   },
   created() {
     if (window.innerWidth < 768) {
