@@ -212,11 +212,55 @@
       class="mb-10 mr-5"
       right
       fixed
-      @click="dialogpost = true"
+      @click="openPublicacaoModal"
     >
       <v-icon color="white">mdi-plus</v-icon>
     </v-btn>
-    <PublicacaoPost v-if="dialogpost"></PublicacaoPost>
+
+    <v-dialog v-model="publicacaoModal" max-width="80%">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Envio de Arquivos para Publicação</span>
+          <v-btn icon @click="closePublicacaoModal">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+            label="Legenda"
+            v-model="publicacaoCaption"
+          ></v-text-field>
+
+          <v-file-input
+            label="Arquivo"
+            v-model="publicacaoSelectedFile"
+            show-size
+            @change="previewPublicacaoFile"
+          ></v-file-input>
+          <v-img
+            v-if="publicacaoPreviewUrl"
+            :src="publicacaoPreviewUrl"
+            width="200"
+          ></v-img>
+
+          <v-switch
+            v-model="publicacaoExclusivePack"
+            label="Pack Exclusivo"
+          ></v-switch>
+          <v-text-field
+            v-if="publicacaoExclusivePack"
+            label="Valor"
+            v-model="publicacaoExclusiveValue"
+            :rules="[currencyRule]"
+            suffix="BRL"
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="purple" @click="publishPublicacao">PUBLICAR</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <template>
       <v-dialog v-model="dialog" dark max-width="500">
         <v-card>
@@ -284,7 +328,6 @@
 </template>
 
 <script>
-import PublicacaoPost from "./PublicacaoPost.vue";
 import SideBar from "../components/SideBar.vue";
 
 export default {
@@ -299,6 +342,16 @@ export default {
       options: ["Criar nova publicação"],
       selectedFile: null,
       file: null,
+      publicacaoModal: false,
+      publicacaoCaption: "",
+      publicacaoSelectedFile: null,
+      publicacaoPreviewUrl: null,
+      publicacaoExclusivePack: false,
+      publicacaoExclusiveValue: null,
+      currencyRule: [
+        (v) => !!v || "Valor é obrigatório",
+        (v) => /^\d+(\.\d{1,2})?$/.test(v) || "Valor inválido",
+      ],
       menu: false,
       isEditModalOpen: false,
       editText: "",
@@ -326,7 +379,6 @@ export default {
   },
   components: {
     SideBar,
-    PublicacaoPost,
   },
   created() {
     if (window.innerWidth < 768) {
@@ -338,6 +390,29 @@ export default {
     });
   },
   methods: {
+    openPublicacaoModal() {
+      this.publicacaoModal = true;
+    },
+    closePublicacaoModal() {
+      this.publicacaoModal = false;
+      this.publicacaoCaption = "";
+      this.publicacaoSelectedFile = null;
+      this.publicacaoPreviewUrl = null;
+      this.publicacaoExclusivePack = false;
+      this.publicacaoExclusiveValue = null;
+    },
+    previewPublicacaoFile() {
+      const file = this.publicacaoSelectedFile;
+      if (file) {
+        this.publicacaoPreviewUrl = URL.createObjectURL(file);
+      } else {
+        this.publicacaoPreviewUrl = null;
+      }
+    },
+    publishPublicacao() {
+      // Lógica para enviar os dados e fechar o modal
+      this.closePublicacaoModal();
+    },
     handleOptionClick(option) {
       switch (option) {
         case "Criar nova publicação":
