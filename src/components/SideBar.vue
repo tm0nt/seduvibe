@@ -57,7 +57,7 @@ export default {
       items: [
         {
           icon: "mdi-home-outline",
-          url: "/home",
+          url: "/",
           title: "Home",
           active: false,
         },
