@@ -23,13 +23,6 @@ import VibePlus from "../components/vibeplus/VibePlus.vue";
 import TermosServico from "../components/info/TermosDeServico.vue";
 import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
 
-
-
-
-
-
-
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -45,37 +38,37 @@ const routes = [
     component: HomeView,
     meta: { title: "Feed" },
   },
-    {
+  {
     path: "/termos-de-servico",
     name: "Termos de Servico",
     component: TermosServico,
     meta: { title: "Termos de serviço" },
-  },  {
+  },
+  {
     path: "/o-que-e-vibe",
     name: "O que é Vibe+",
     component: VibePlusInfo,
     meta: { title: "O que é Vibe+?" },
   },
-    {
+  {
     path: "/vibe",
     name: "Assine Vibe+",
     component: VibePlus,
     meta: { title: "Vibe+" },
   },
-    {
+  {
     path: "/noaccount",
     name: "Sem Conta",
     component: SemConta,
     meta: { title: "Está sem conta?" },
   },
   {
-  
     path: "/assine",
     name: "VibePlus",
     component: VibePlusAssinatura,
     meta: { title: "Assine agora" },
   },
-    {
+  {
     path: "/reset",
     name: "Resetar senha",
     component: NovaSenha,
@@ -87,19 +80,19 @@ const routes = [
     component: RankingViewUser,
     meta: { title: "Ranking" },
   },
-    {
+  {
     path: "/analytics",
     name: "Analytics",
     component: Analytics,
     meta: { title: "Analytics" },
   },
-      {
+  {
     path: "/config",
     name: "Configurações",
     component: ConfigCreatorView,
     meta: { title: "Configurações" },
   },
-  
+
   {
     path: "/perfil",
     name: "perfil",
@@ -136,32 +129,31 @@ const routes = [
     component: MyDashCreator,
     meta: { title: "Meu perfil" },
   },
-    {
+  {
     path: "/wallet",
     name: "wallet",
     component: Wallet,
     meta: { title: "Carteira" },
   },
-      {
+  {
     path: "/views",
     name: "views",
     component: Views,
     meta: { title: "Dados de visualização" },
   },
-        {
+  {
     path: "/chat",
     name: "chat",
     component: Chat,
     meta: { title: "Chat" },
-    
   },
-          {
+  {
     path: "/all",
     name: "all",
     component: AllAccount,
-            meta: { title: "Dados" },
+    meta: { title: "Dados" },
   },
-    {
+  {
     path: "/recorrent",
     name: "recorrent",
     component: Recorrente,

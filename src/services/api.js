@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const enviarDados = (name, email, user, creator, phone, genero, password) => {
   const dados = {
@@ -8,10 +8,10 @@ const enviarDados = (name, email, user, creator, phone, genero, password) => {
     creator: creator,
     phone: phone,
     genero: genero,
-    password: password
+    password: password,
   };
 
-  return axios.post('http://3.95.187.233:3333/register', dados);
+  return axios.post("http://3.95.187.233:3333/register", dados);
 };
 
 export default enviarDados;
