@@ -15,19 +15,35 @@
                   Mastercard
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-icon color="grey" class="">fab fa-cc-mastercard</v-icon>
+                <v-icon color="grey" class="icon">fab fa-cc-mastercard</v-icon>
               </v-toolbar>
-
               <span class="grey--text mt-3 ml-4 caption">RAFAEL F SANTOS</span>
               <v-card-text class="pt-0 mt-4">
                 <span class="white--text font-weight-light"
                   >**** **** **** 6774</span
                 >
               </v-card-text>
-              <v-icon color="grey" class="ml-4 mb-2"
-                >fa-regular fa-pen-to-square</v-icon
-              >
+              <v-icon color="grey" class="ml-4 mb-2 icon" @click="toggleInputs">
+                {{ showInputs ? "close" : "fa-regular fa-pen-to-square" }}
+              </v-icon>
             </v-card>
+
+            <v-row v-if="showInputs" class="mt-4">
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                v-for="(input, index) in inputs"
+                :key="index"
+              >
+                <v-text-field
+                  v-model="input.value"
+                  :label="input.label"
+                  outlined
+                  dark
+                ></v-text-field>
+              </v-col>
+            </v-row>
           </v-card>
         </v-col>
         <v-col cols="12" sm6>
@@ -72,44 +88,60 @@
 
 <script>
 export default {
-  data: () => ({
-    chats: [
-      {
-        img: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        subtitle: "Allright then, see you later !",
-        title: "Esther Howard",
-        date: "12/06/03",
-      },
-      {
-        img: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        subtitle: "Allright then, see you later ! ",
-        title: "Floyd Miles",
-        date: "12/06/03",
-      },
-      {
-        img: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        subtitle: "Allright then, see you later ! ",
-        title: "Brooklyn Simmons",
-        date: "12/06/03",
-      },
-    ],
-    experiences: [
-      {
-        img: "spotify.png",
-        subtitle: "Mensal",
-        title: "Larissa Manoela",
-        price: "-$49.59",
-      },
-      {
-        img: "netflix.png",
-        subtitle: "Anual",
-        title: "Emme White",
-        price: "-$106.58",
-      },
-    ],
-  }),
+  data() {
+    return {
+      showInputs: false,
+      inputs: [
+        { value: "", label: "Nome do titular" },
+        { value: "", label: "Número do cartão" },
+        { value: "", label: "Vencimento" },
+        { value: "", label: "Código de segurança" },
+      ],
+
+      chats: [
+        {
+          img: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+          subtitle: "Allright then, see you later !",
+          title: "Esther Howard",
+          date: "12/06/03",
+        },
+        {
+          img: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          subtitle: "Allright then, see you later !",
+          title: "Floyd Miles",
+          date: "12/06/03",
+        },
+        {
+          img: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+          subtitle: "Allright then, see you later !",
+          title: "Brooklyn Simmons",
+          date: "12/06/03",
+        },
+      ],
+      experiences: [
+        {
+          img: "spotify.png",
+          subtitle: "Mensal",
+          title: "Larissa Manoela",
+          price: "-$49.59",
+        },
+        {
+          img: "netflix.png",
+          subtitle: "Anual",
+          title: "Emme White",
+          price: "-$106.58",
+        },
+      ],
+    };
+  },
+  methods: {
+    toggleInputs() {
+      this.showInputs = !this.showInputs;
+    },
+  },
 };
 </script>
+
 <style>
 body,
 html {
