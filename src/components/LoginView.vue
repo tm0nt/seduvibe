@@ -26,18 +26,20 @@
                         <v-text-field
                           label="Email, usuário ou telefone"
                           color="purple"
-                          autocomplete="false"
+                          autocomplete="on"
                           class="meu-vtf-personalizado mt-16"
+                          :rules="rules"
                         />
                         <v-text-field
                           label="Senha"
                           color="purple"
-                          autocomplete="off"
+                          autocomplete="on"
                           :append-icon="
                             showPassword ? 'mdi-eye' : 'mdi-eye-off'
                           "
                           :type="showPassword ? 'text' : 'password'"
                           @click:append="showPassword = !showPassword"
+                          :rules="rules"
                         />
                         <v-row>
                           <v-col cols="12" sm="6" class="mb-2">
@@ -176,71 +178,106 @@
                     </h6>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
-                        <v-row>
-                          <v-col cols="12" sm="12">
-                            <v-checkbox
-                              v-model="criador"
-                              label="Sou criador(a)"
-                              color="purple"
-                            ></v-checkbox>
-                            <v-text-field
-                              label="Seu nome"
-                              color="purple"
-                              autocomplete="false"
-                              class="mt-4"
-                            />
-                            <v-text-field
-                              label="Usuário"
-                              prefix="@"
-                              color="purple"
-                              autocomplete="false"
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-text-field
-                          label="Email"
-                          color="purple"
-                          autocomplete="false"
-                        />
-                        <v-text-field
-                          v-model="senha"
-                          :rules="rules"
-                          label="Nova senha"
-                          :type="mostrarSenha ? 'text' : 'password'"
-                          :append-icon="
-                            mostrarSenha ? 'mdi-eye' : 'mdi-eye-off'
-                          "
-                          @click:append="toggleMostrarSenha"
-                        ></v-text-field>
-
-                        <v-text-field
-                          v-model="senhaConfirmacao"
-                          :rules="rules"
-                          label="Confirmar senha"
-                          :type="mostrarSenha ? 'text' : 'password'"
-                          :append-icon="
-                            mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'
-                          "
-                          @click:append="toggleMostrarSenha"
-                        ></v-text-field>
-                        <v-row>
-                          <v-col cols="12" sm="7">
-                            <v-checkbox
-                              label="Aceito os termos"
-                              class="mt-n1"
-                              color="purple"
-                            >
-                            </v-checkbox>
-                          </v-col>
-                          <v-col cols="12" sm="5">
-                            <span class="caption purple--text ml-n4"
-                              >Termos e serviços</span
-                            >
-                          </v-col>
-                        </v-row>
-                        <v-btn color="purple" dark block tile
-                          >Criar conta</v-btn
+                        <v-form
+                          ref="form"
+                          v-model="isFormValid"
+                          @submit.prevent="enviar"
                         >
+                          <v-row>
+                            <v-col cols="12" sm="12">
+                              <v-checkbox
+                                v-model="criador"
+                                label="Sou criador(a)"
+                                color="purple"
+                              ></v-checkbox>
+                              <v-text-field
+                                label="Seu nome"
+                                color="purple"
+                                v-model="nome"
+                                autocomplete="off"
+                                class="mt-4"
+                                :rules="rules"
+                              ></v-text-field>
+                              <v-row>
+                                <v-col cols="6">
+                                  <v-select
+                                    v-model="genero"
+                                    :items="generoOptions"
+                                    label="Gênero"
+                                    color="purple"
+                                    autocomplete="off"
+                                    :rules="rules"
+                                  ></v-select>
+                                </v-col>
+                                <v-col cols="6">
+                                  <v-text-field
+                                    label="Celular"
+                                    v-model="celular"
+                                    color="purple"
+                                    autocomplete="off"
+                                    :rules="rules"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col cols="6">
+                                  <v-text-field
+                                    label="Usuário"
+                                    prefix="@"
+                                    v-model="usuario"
+                                    color="purple"
+                                    autocomplete="off"
+                                    :rules="rules"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="6">
+                                  <v-text-field
+                                    label="Email"
+                                    color="purple"
+                                    v-model="email"
+                                    autocomplete="off"
+                                    :rules="rules"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-text-field
+                                v-model="senha"
+                                label="Sua senha"
+                                color="purple"
+                                :type="mostrarSenha ? 'text' : 'password'"
+                                :append-icon="
+                                  mostrarSenha ? 'mdi-eye' : 'mdi-eye-off'
+                                "
+                                @click:append="toggleMostrarSenha"
+                                :rules="rules"
+                              ></v-text-field>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="12" sm="7">
+                              <v-checkbox
+                                v-model="termosAceitos"
+                                label="Aceito os termos"
+                                class="mt-n1"
+                                color="purple"
+                                :rules="rules"
+                              ></v-checkbox>
+                            </v-col>
+                            <v-col cols="12" sm="5">
+                              <span class="caption purple--text ml-n4"
+                                >Termos e serviços</span
+                              >
+                            </v-col>
+                          </v-row>
+
+                          <v-btn color="purple" dark block tile type="submit">
+                            Criar conta
+                          </v-btn>
+                        </v-form>
 
                         <h5 class="text-center grey--text mt-4 mb-3">
                           Ou crie uma conta com
@@ -272,36 +309,88 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  data: () => ({
-    step: 1,
-    criador: false,
-    modalOpen: false,
-    showPassword: false,
+  data() {
+    return {
+      step: 1,
+      criador: 0,
+      modalOpen: false,
+      isFormValid: true,
 
-    isPasswordChanged: false,
-
-    email: "",
-    modalCodigoAberto: false,
-    codigoVerificacao: "",
-    codigoVerificacaoRules: [
-      (v) => !!v || "O código de verificação é obrigatório",
-      (v) =>
-        (v && v.length === 6) || "O código de verificação deve ter 6 dígitos",
-    ],
-    celular: "",
-    senha: "",
-    senhaConfirmacao: "",
-    rules: [(v) => !!v || "O campo é obrigatório"],
-    mostrarSenha: false,
-  }),
+      showPassword: false,
+      opcaoRecuperacao: null,
+      senhaConfirmacao: "",
+      genero: null,
+      generoOptions: [
+        "Masculino",
+        "Feminino",
+        "Não binário",
+        "Agênero",
+        "Bigênero",
+        "Gênero fluido",
+        "Pangênero",
+        "Transexual",
+        "Outro",
+      ],
+      nome: "",
+      celular: "",
+      usuario: "",
+      rules: [(value) => !!value || "Preenchimento obrigatório"],
+      email: "",
+      senha: "",
+      termosAceitos: false,
+      isPasswordChanged: false,
+      modalCodigoAberto: false,
+      codigoVerificacao: "",
+      codigoVerificacaoRules: [
+        (v) => !!v || "O código de verificação é obrigatório",
+        (v) =>
+          (v && v.length === 6) || "O código de verificação deve ter 6 dígitos",
+      ],
+      mostrarSenha: false,
+    };
+  },
   props: {
     source: String,
   },
   mounted() {
     this.checkSuccessQueryParam();
   },
+  criadorValue() {
+    return this.criador ? 1 : 0;
+  },
   methods: {
+    enviar() {
+      this.$nextTick(() => {
+        if (this.$refs.form.validate) {
+          // Os campos são válidos, você pode enviar o formulário para a API
+          const formData = {
+            criador: this.termosAceitos ? 1 : 0,
+            nome: this.nome,
+            genero: this.genero,
+            celular: this.celular,
+            usuario: this.usuario,
+            email: this.email,
+            senha: this.senha,
+          };
+
+          // Enviar os dados para a API usando axios (ou outro método de sua escolha)
+          axios
+            .post("http://3.95.187.233:3333/register", formData)
+            .then((response) => {
+              // Manipule a resposta da API, se necessário
+              console.log(response.data);
+            })
+            .catch((error) => {
+              // Trate os erros que ocorrerem durante a requisição
+              console.error(error);
+              // Exiba uma mensagem de erro ou tome outras ações apropriadas
+            });
+        }
+      });
+    },
+
     handleInput(index) {
       const nextInputIndex = index < 5 ? index + 1 : 5;
       const nextInput = this.$refs.verificationInput[nextInputIndex];
@@ -326,23 +415,14 @@ export default {
     },
     verificarCodigo() {
       // Lógica para verificar se o código é verdadeiro
-      const codigoVerificado = true; // Exemplo: código sempre é verdadeiro
+      const codigoVerificado = true; // Substitua pela lógica real de verificação
 
       if (codigoVerificado) {
-        // Redirecionar para a página "/novasenha"
-        this.$router.push("/reset");
-      } else {
-        // Código inválido, exibir mensagem de erro ou tomar ação apropriada
+        this.step = 3;
       }
     },
-    recuperarPorEmail() {
-      // Lógica para recuperar a senha por e-mail
-    },
-    recuperarPorCelular() {
-      // Lógica para recuperar a senha por celular
-    },
-    enviar() {
-      // Lógica para enviar a solicitação de recuperação de senha
+    reiniciar() {
+      this.step = 1;
     },
   },
 };
