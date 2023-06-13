@@ -23,15 +23,16 @@
               <v-card-text class="pt-0 mt-4">
                 <span class="white--text font-weight-light"
                   >**** **** **** 6774</span
-                >
+                ><br /><span class="white--text font-weight-light">09/29</span>
               </v-card-text>
+
               <v-btn color="purple" class="ml-1 mb-2" @click="toggleInputs"
                 ><v-icon color="white" size="18">
                   {{ showInputs ? "close" : "fa-regular fa-pen-to-square" }}
                 </v-icon></v-btn
               >
             </v-card>
-            <v-row v-if="showInputs" class="mt-4">
+            <v-row v-if="showInputs" class="mt-1">
               <v-col
                 cols="12"
                 sm="6"
@@ -47,7 +48,7 @@
                   dark
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" class="mt-2">
+              <v-col cols="12" class="">
                 <v-btn color="purple" dark @click="saveInputs">Salvar</v-btn>
               </v-col>
             </v-row>
@@ -140,16 +141,16 @@ export default {
       expandedExperiences: [],
       isDialogVisible: false,
       headers: [
-        { text: "", value: "img" },
+        { text: "Perfil", value: "img" },
         { text: "Modelo", value: "title" },
         { text: "Tipo de assinatura", value: "subtitle" },
         { text: "Preço", value: "price" },
         { text: "Último pagamento", value: "ultimopag" },
       ],
       inputs: [
-        { value: "", label: "Nome do titular" },
-        { value: "", label: "Número do cartão" },
-        { value: "", label: "Vencimento" },
+        { value: "RAFAEL F SANTOS", label: "Nome do titular" },
+        { value: "6563 2356 5646 6774", label: "Número do cartão" },
+        { value: "09/29", label: "Vencimento" },
         { value: "", label: "Código de segurança" },
       ],
 

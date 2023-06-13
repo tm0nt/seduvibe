@@ -2,7 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-row>
-        <v-col cols="7">
+        <v-col cols="12" md="7">
           <h3 class="white--text">Ranking completo</h3>
 
           <v-card class="elevation-0" flat color="#212121" dark>
@@ -11,7 +11,7 @@
                 <v-list>
                   <v-list-item v-for="(entry, index) in ranking" :key="index">
                     <v-list-item-avatar>
-                      <h2>#1</h2>
+                      <h2>#{{ index + 1 }}</h2>
                     </v-list-item-avatar>
                     <v-list-item-content class="mt-3 mb-3">
                       <v-list-item-title :class="getEntryClass(index)">
@@ -27,16 +27,16 @@
                         >Nível: {{ entry.score }}</v-list-item-subtitle
                       >
                     </v-list-item-content>
-                    <v-icon class="align-self-center ml-auto" color="white">
-                      mdi-plus
-                    </v-icon>
+                    <v-icon class="align-self-center ml-auto" color="white"
+                      >mdi-plus</v-icon
+                    >
                   </v-list-item>
                 </v-list>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="5">
+        <v-col cols="12" md="5">
           <h3 class="white--text">Minha posição</h3>
           <v-card class="elevation-0" flat dark>
             <v-card-text>
@@ -58,9 +58,9 @@
                       >
                       <v-list-item-subtitle>Nível: 2</v-list-item-subtitle>
                     </v-list-item-content>
-                    <v-icon class="align-self-center ml-auto" color="white">
-                      mdi-plus
-                    </v-icon>
+                    <v-icon class="align-self-center ml-auto" color="white"
+                      >mdi-plus</v-icon
+                    >
                   </v-list-item>
                 </v-list>
               </v-row>
@@ -118,6 +118,7 @@ export default {
 .top3 {
   color: #9c27b0; /* Roxo */
 }
+
 .align-self-center {
   align-self: center !important;
 }

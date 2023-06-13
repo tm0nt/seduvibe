@@ -18,6 +18,11 @@ import Chat from "../components/analytics/menu/ChatView.vue";
 import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
 import Wallet from "../components/analytics/menu/WalletView.vue";
 import Views from "../components/analytics/menu/ViewsView.vue";
+import SemConta from "../views/SemConta.vue";
+import Termos from "../assets/termos.pdf";
+
+
+
 
 
 
@@ -36,7 +41,20 @@ const routes = [
     component: HomeView,
     meta: { title: "Feed" },
   },
+    {
+    path: "/noaccount",
+    name: "Sem Conta",
+    component: SemConta,
+    meta: { title: "Está sem conta?" },
+  },
+      {
+    path: "/termos",
+    name: "Termos e Serviços",
+    component: Termos,
+    meta: { title: "Termos" },
+  },
   {
+  
     path: "/assine",
     name: "VibePlus",
     component: VibePlusAssinatura,

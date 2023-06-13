@@ -31,8 +31,9 @@
             v-model="selectedTab"
             class="d-flex justify-center flex-column"
             centered
-            scrollable
-            style="max-width: 600px"
+            fixed-tabs
+            show-arrows
+            style="max-width: 100vw"
           >
             <v-tabs-slider color="purple"></v-tabs-slider>
             <v-tab class="withoutupercase">Ranking</v-tab>
@@ -41,18 +42,26 @@
           </v-tabs>
         </v-app-bar>
         <div class="d-flex justify-center flex-column">
-          <v-row v-if="selectedTab === 0">
-            <v-col cols="12" class="tab-content mt-5">
+          <v-row>
+            <v-col
+              cols="12"
+              class="tab-content mt-5"
+              v-if="selectedTab === 0 || $vuetify.breakpoint.smAndDown"
+            >
               <component :is="currentComponent" />
             </v-col>
-          </v-row>
-          <v-row v-if="selectedTab === 1">
-            <v-col cols="12" class="tab-content mt-5">
+            <v-col
+              cols="12"
+              class="tab-content mt-5"
+              v-if="selectedTab === 1 && !$vuetify.breakpoint.smAndDown"
+            >
               <component :is="currentComponent" />
             </v-col>
-          </v-row>
-          <v-row v-if="selectedTab === 2">
-            <v-col cols="12" class="tab-content mt-5">
+            <v-col
+              cols="12"
+              class="tab-content mt-5"
+              v-if="selectedTab === 2 && !$vuetify.breakpoint.smAndDown"
+            >
               <component :is="currentComponent" />
             </v-col>
           </v-row>
