@@ -212,11 +212,11 @@
       class="mb-10 mr-5"
       right
       fixed
-      @click="showOptions = !showOptions"
+      @click="dialogpost = true"
     >
       <v-icon color="white">mdi-plus</v-icon>
     </v-btn>
-    <PublicacaoPost v-if="showOptions"></PublicacaoPost>
+    <PublicacaoPost v-if="dialogpost"></PublicacaoPost>
     <template>
       <v-dialog v-model="dialog" dark max-width="500">
         <v-card>
