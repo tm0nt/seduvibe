@@ -18,11 +18,15 @@
           <v-col cols="auto">
             <v-row align="center">
               <v-col md="2" xs="1" sm="1">
-                <v-avatar size="150" color="white" :border="'5px solid white'">
+                <v-avatar
+                  size="150"
+                  color="white"
+                  style="filter: none:!important;"
+                >
                   <v-img
-                    src="/img/avatar.jpg"
+                    src="https://spinoff.com.br/entrete/wp-content/uploads/2023/05/Jade-Picon-2-300x300.jpg"
                     contain
-                    class="rounded-circle"
+                    class="rounded-circle avatar-border"
                   ></v-img>
                 </v-avatar>
               </v-col>
@@ -30,7 +34,124 @@
                 <div style="display: inline-block; margin-top: 80px">
                   <h2 class="white--text">Laís Alves</h2>
                   <h5 class="grey--text">@laisalves</h5>
-                  <v-btn color="purple" class="mt-3 white--text"> Vibe+ </v-btn>
+                  <v-btn
+                    color="purple"
+                    class="mt-3 white--text"
+                    @click="openVibe"
+                  >
+                    Vibe+
+                  </v-btn>
+                  <v-dialog v-model="vibeOpen" max-width="500px" dark>
+                    <v-card>
+                      <div
+                        class="vibeground d-flex justify-center align-center"
+                      >
+                        <v-avatar
+                          class="no-blur"
+                          size="80"
+                          color="white"
+                          :border="'5px solid white'"
+                        >
+                          <v-img
+                            src="https://spinoff.com.br/entrete/wp-content/uploads/2023/05/Jade-Picon-2-300x300.jpg"
+                            contain
+                            class="rounded-circle"
+                          ></v-img>
+                        </v-avatar>
+                      </div>
+                      <v-col class="text-center" align="center">
+                        <p class="text-center overline">
+                          Desbloqueie o Vibe+ e Fique Mais Próximo do Criador!
+                        </p>
+                        <p class="text-center caption grey--text">
+                          Tenha acesso a
+                        </p>
+                      </v-col>
+                      <v-card class="transparent align-center" flat>
+                        <v-list class="">
+                          <v-divider color="purple"></v-divider>
+
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              Chat prioritário com o criador
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider color="purple" class="my-1"></v-divider>
+
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              Conteúdo básico e exclusivo
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider color="purple" class="my-1"></v-divider>
+
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              3 pedidos de pack personalizados mensais.
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider color="purple" class="my-1"></v-divider>
+
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              Receba mimos do criador(fotos, vídeos e áudios
+                              grátis)
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider color="purple" class="my-1"></v-divider>
+
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              Selo d destaque no nome de usuário
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider color="purple" class="my-1"></v-divider>
+                          <v-list-item class="white--text">
+                            <v-list-item-icon>
+                              <v-icon color="purple">mdi-check</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                              Interação making-off com a modelo
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                        <v-card-actions class="d-flex justify-center">
+                          <v-btn
+                            block
+                            color="purple"
+                            class="text-center white--text v-btn-pulse"
+                          >
+                            Eu quero
+                          </v-btn>
+                        </v-card-actions>
+                        <v-card-actions class="d-flex justify-center">
+                          <v-btn
+                            color="purple"
+                            class="text-center"
+                            text
+                            @click="vibeClose"
+                          >
+                            Não quero
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-card>
+                  </v-dialog>
                   <v-icon
                     color="grey"
                     size="18"
@@ -142,7 +263,9 @@
           <v-list dense>
             <v-list-item v-for="(comment, index) in comments" :key="index">
               <v-list-item-avatar>
-                <v-img src="/img/avatar.jpg"></v-img>
+                <v-img
+                  src="https://observatoriog.bol.uol.com.br/wordpress/wp-content/uploads/2022/08/jade-picon-mostrou-novo-visual-pensado-para-a-personagem-chiara-em-travessia-1660440458015_v2_4x3.jpg"
+                ></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-bold"
@@ -157,7 +280,9 @@
         <!-- Formulário de comentário -->
         <v-card-actions>
           <v-avatar size="32">
-            <v-img src="/img/avatar.jpg"></v-img>
+            <v-img
+              src="https://observatoriog.bol.uol.com.br/wordpress/wp-content/uploads/2022/08/jade-picon-mostrou-novo-visual-pensado-para-a-personagem-chiara-em-travessia-1660440458015_v2_4x3.jpg"
+            ></v-img>
           </v-avatar>
           <v-form
             class="flex-grow-1"
@@ -193,6 +318,7 @@ export default {
     return {
       selection: 1,
       drawer: true,
+      vibeOpen: false,
       showOptions: false,
       selectedTab: 0,
       tabs: [
@@ -245,6 +371,12 @@ export default {
     }
   },
   methods: {
+    openVibe() {
+      this.vibeOpen = true;
+    },
+    vibeClose() {
+      this.vibeOpen = false;
+    },
     addComment() {
       if (this.newComment) {
         this.comments.push(this.newComment);
@@ -272,11 +404,32 @@ export default {
 </script>
 
 <style scoped>
-.purple-bg {
+.avatar-border {
+  border: 5px solid purple;
+}
+.vibeground {
+  filter: blur(5px);
   background-color: purple;
+  background: url("https://saibadetudo.com.br/wp-content/uploads/2022/04/capa-insta-2-min-10.jpg")
+    center center;
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+}
+
+.purple-bg .no-blur {
+  backdrop-filter: none;
+}
+.purple-bg {
+  position: relative;
+
+  background-color: purple;
+  background: url("https://saibadetudo.com.br/wp-content/uploads/2022/04/capa-insta-2-min-10.jpg")
+    center center;
   height: 150px;
   width: 100%;
   position: absolute;
+  background-size: cover;
   z-index: 1;
   /* define um valor maior que o z-index do v-toolbar */
 }
@@ -285,5 +438,18 @@ export default {
   position: relative;
   z-index: 2;
   /* define um valor menor que o z-index da div purple-bg */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.v-btn-pulse {
+  animation: pulse 3s infinite;
 }
 </style>

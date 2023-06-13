@@ -127,7 +127,7 @@ export default {
     startPulseAnimation() {
       anime({
         targets: ".plan-button",
-        scale: [1, 1.2],
+        scale: [1, 2],
         duration: 3000,
         direction: "alternate",
         loop: true,

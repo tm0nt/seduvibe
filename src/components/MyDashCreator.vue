@@ -432,7 +432,8 @@ export default {
   width: 100%;
   position: relative;
   z-index: 1;
-  background: url("https://saibadetudo.com.br/wp-content/uploads/2022/04/capa-insta-2-min-10.jpg");
+  background: url("https://saibadetudo.com.br/wp-content/uploads/2022/04/capa-insta-2-min-10.jpg")
+    center center;
   background-size: cover;
 }
 
