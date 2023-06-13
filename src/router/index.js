@@ -19,7 +19,6 @@ import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
 import Wallet from "../components/analytics/menu/WalletView.vue";
 import Views from "../components/analytics/menu/ViewsView.vue";
 import SemConta from "../views/SemConta.vue";
-import Termos from "../assets/termos.pdf";
 
 
 
@@ -46,12 +45,6 @@ const routes = [
     name: "Sem Conta",
     component: SemConta,
     meta: { title: "Está sem conta?" },
-  },
-      {
-    path: "/termos",
-    name: "Termos e Serviços",
-    component: Termos,
-    meta: { title: "Termos" },
   },
   {
   
