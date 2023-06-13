@@ -189,7 +189,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       color="purple"
-                      class="white--text"
+                      class="white--text custom-btn"
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -615,7 +615,7 @@ export default {
 }
 
 @media (max-width: 600px) {
-  .mobile-block {
+  .custom-btn {
     display: block;
     width: 100%;
   }
