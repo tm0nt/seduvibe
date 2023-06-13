@@ -15,7 +15,9 @@
                   Mastercard
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-icon color="grey" class="icon">fab fa-cc-mastercard</v-icon>
+                <v-icon color="purple" class="icon"
+                  >fab fa-cc-mastercard</v-icon
+                >
               </v-toolbar>
               <span class="grey--text mt-3 ml-4 caption">RAFAEL F SANTOS</span>
               <v-card-text class="pt-0 mt-4">
@@ -23,11 +25,12 @@
                   >**** **** **** 6774</span
                 >
               </v-card-text>
-              <v-icon color="grey" class="ml-4 mb-2 icon" @click="toggleInputs">
-                {{ showInputs ? "close" : "fa-regular fa-pen-to-square" }}
-              </v-icon>
+              <v-btn color="purple" class="ml-1 mb-2" @click="toggleInputs"
+                ><v-icon color="white" size="18">
+                  {{ showInputs ? "close" : "fa-regular fa-pen-to-square" }}
+                </v-icon></v-btn
+              >
             </v-card>
-
             <v-row v-if="showInputs" class="mt-4">
               <v-col
                 cols="12"
@@ -39,9 +42,13 @@
                 <v-text-field
                   v-model="input.value"
                   :label="input.label"
+                  color="purple"
                   outlined
                   dark
                 ></v-text-field>
+              </v-col>
+              <v-col cols="12" class="mt-2">
+                <v-btn color="purple" dark @click="saveInputs">Salvar</v-btn>
               </v-col>
             </v-row>
           </v-card>
@@ -50,9 +57,7 @@
           <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-n3" flat>
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="white--text">Histórico</v-toolbar-title>
-              <v-chip color="#505050" text-color="white" class="ml-2"
-                >12</v-chip
-              >
+              <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
             </v-toolbar>
             <h5 class="white--text ml-2">Experiências recentes</h5>
             <v-list class="mt-n2 rounded-lg mx-2" color="transparent" dense>
@@ -77,12 +82,51 @@
                   <h5 class="white--text">{{ experience.price }}</h5>
                 </v-list-item-action>
               </v-list-item>
-              <h4 class="white--text ml-5 mb-5">Ver tudo</h4>
+              <v-btn
+                class="white--text"
+                color="purple"
+                @click="expandExperiences"
+                >Ver tudo</v-btn
+              >
             </v-list>
           </v-card>
         </v-col>
       </v-row>
     </div>
+    <v-dialog v-model="dialogVisible" max-width="800" dark>
+      <v-card>
+        <v-card-title>
+          <h5 class="white--text">Histórico de compras</h5>
+        </v-card-title>
+        <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="expandedExperiences"
+            :footer-props="{
+              itemsPerPageText: 'Compras por página:',
+            }"
+          >
+            <template #item="{ item }">
+              <tr>
+                <td><v-img :src="item.img"></v-img></td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.subtitle }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.ultimopag }}</td>
+              </tr>
+            </template>
+            <template #no-data>
+              <p>Nenhum dado disponível</p>
+            </template>
+          </v-data-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="purple" text @click="dialogVisible = false">
+            Fechar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -91,6 +135,17 @@ export default {
   data() {
     return {
       showInputs: false,
+      dialogVisible: false,
+
+      expandedExperiences: [],
+      isDialogVisible: false,
+      headers: [
+        { text: "", value: "img" },
+        { text: "Modelo", value: "title" },
+        { text: "Tipo de assinatura", value: "subtitle" },
+        { text: "Preço", value: "price" },
+        { text: "Último pagamento", value: "ultimopag" },
+      ],
       inputs: [
         { value: "", label: "Nome do titular" },
         { value: "", label: "Número do cartão" },
@@ -98,26 +153,6 @@ export default {
         { value: "", label: "Código de segurança" },
       ],
 
-      chats: [
-        {
-          img: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          subtitle: "Allright then, see you later !",
-          title: "Esther Howard",
-          date: "12/06/03",
-        },
-        {
-          img: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          subtitle: "Allright then, see you later !",
-          title: "Floyd Miles",
-          date: "12/06/03",
-        },
-        {
-          img: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-          subtitle: "Allright then, see you later !",
-          title: "Brooklyn Simmons",
-          date: "12/06/03",
-        },
-      ],
       experiences: [
         {
           img: "spotify.png",
@@ -137,6 +172,10 @@ export default {
   methods: {
     toggleInputs() {
       this.showInputs = !this.showInputs;
+    },
+    expandExperiences() {
+      this.expandedExperiences = [...this.experiences];
+      this.dialogVisible = true;
     },
   },
 };
