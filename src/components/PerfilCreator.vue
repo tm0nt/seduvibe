@@ -181,6 +181,29 @@
                   <v-icon class="purple--text">fab fa-instagram</v-icon>
                 </v-col>
               </v-row>
+              <v-col
+                cols="12"
+                class="mt-2 text-center d-sm-flex justify-sm-end"
+              >
+                <v-menu v-model="open" offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="purple"
+                      class="white--text"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon color="white">mdi-plus-circle</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item @click="openMobile">Enviar valor</v-list-item>
+                    <v-list-item @click="selectOption('Wishlist Amazon')"
+                      >Wishlist Amazon</v-list-item
+                    >
+                  </v-list>
+                </v-menu>
+              </v-col>
             </v-row>
             <v-row>
               <v-col md="10" xs="11" sm="11">
@@ -312,6 +335,96 @@
         </v-card-actions>
       </v-card>
     </div>
+    <v-dialog v-model="mobileOpen" persistent max-width="500px" dark>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Envie valor p/ criador</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-model="valor"
+            label="Valor"
+            prefix="R$"
+            suffix="BRL"
+            color="purple"
+            outlined
+          ></v-text-field>
+          <h5>Escolher forma de pagamento</h5>
+          <v-menu v-model="menu" :close-on-content-click="false" offset-y>
+            <template v-slot:activator="{ on }">
+              <v-select
+                v-model="selectedOption"
+                :items="options"
+                color="purple"
+                append-icon="mdi-menu-down"
+                v-on="on"
+              >
+                <template v-slot:selection="{ item }">
+                  <v-chip>
+                    <v-avatar>
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-avatar>
+                    {{ item.text }}
+                  </v-chip>
+                </template>
+              </v-select>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="option in options"
+                :key="option.value"
+                @click="selectOption(option)"
+              >
+                <v-list-item-avatar>
+                  <v-icon>{{ option.icon }}</v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>{{ option.text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <template v-if="selectedOption && selectedOption.value === 1">
+            <v-row>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="nomeTitular"
+                  label="Nome do titular"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="numeroCartao"
+                  label="Número do cartão"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="dataVencimento"
+                  label="Data de vencimento"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="codigoSeguranca"
+                  label="Código de segurança"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-text-field v-model="cpf" label="CPF"></v-text-field>
+          </template>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="purple" text @click="closeModal">Fechar</v-btn>
+          <v-btn color="purple" class="white--text" @click="submitValor"
+            >Enviar</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -325,19 +438,26 @@ export default {
       selection: 1,
       drawer: true,
       vibeOpen: false,
+      mobileOpen: false,
+      valor: "",
       heartIcon: "mdi-heart-outline",
       heartColor: "purple",
       filledHeartIcon: "mdi-heart",
       filledHeartColor: "purple",
       showOptions: false,
       selectedTab: 0,
-      img_post: [
-        "https://i.em.com.br/r3BYu2P6lHOrOoax5mARwtmizBI=/1200x1200/smart/imgsapp.em.com.br/app/noticia_127983242361/2023/03/06/1465358/ex-deputado-federal-alexandre-frota-psdb-sp_1_93555.jpg",
-        "https://akamai.sscdn.co/uploadfile/letras/fotos/7/d/a/d/7dadff5026be51f45504e109813ef163.jpg",
-        "https://i.pinimg.com/280x280_RS/03/74/39/037439bcf49c2be21db616d3a8163435.jpg",
-        "https://instagram.fcgh22-1.fna.fbcdn.net/v/t51.2885-19/318755452_709573943701081_123093123926177669_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fcgh22-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=ftGBBuMcUq4AX-Q8-kD&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAiJLBAEfvmc-EJ79p8Sn5aK1hQQ1N1KxU2U5-fBmc5gQ&oe=648DEFCF&_nc_sid=640168",
-        "https://instagram.fcgh22-1.fna.fbcdn.net/v/t51.2885-19/318755452_709573943701081_123093123926177669_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fcgh22-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=ftGBBuMcUq4AX-Q8-kD&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAiJLBAEfvmc-EJ79p8Sn5aK1hQQ1N1KxU2U5-fBmc5gQ&oe=648DEFCF&_nc_sid=640168",
+      menu: false,
+      selectedOption: null,
+      options: [
+        { value: 1, text: "Novo cartão", icon: "mdi-credit-card-plus" },
+        { value: 2, text: "Cartão **** 6486", icon: "mdi-credit-card" },
+        { value: 3, text: "Pix", icon: "mdi-currency-usd" },
       ],
+      nomeTitular: "",
+      numeroCartao: "",
+      dataVencimento: "",
+      codigoSeguranca: "",
+      cpf: "",
       tabs: [
         { title: "Pagamentos", component: "CardView" },
         { title: "Assinaturas", component: "Assinaturas" },
@@ -388,6 +508,21 @@ export default {
     }
   },
   methods: {
+    selectOption(option) {
+      this.selectedOption = option;
+      this.menu = false;
+    },
+    openMobile() {
+      this.mobileOpen = true;
+    },
+    closeModal() {
+      this.mobileOpen = false;
+    },
+    submitValor() {
+      // Lógica para enviar o valor
+      console.log(this.valor);
+      this.closeModal();
+    },
     toggleHeart() {
       if (this.heartIcon === "mdi-heart-outline") {
         this.heartIcon = this.filledHeartIcon;
@@ -476,6 +611,13 @@ export default {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .mobile-block {
+    display: block;
+    width: 100%;
   }
 }
 

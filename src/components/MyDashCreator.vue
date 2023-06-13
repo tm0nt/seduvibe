@@ -207,14 +207,14 @@
     <v-btn
       fab
       white
-      color="white"
+      color="purple"
       bottom
       class="mb-15"
       right
       fixed
       @click="showOptions = !showOptions"
     >
-      <v-icon>mdi-plus</v-icon>
+      <v-icon color="white">mdi-plus</v-icon>
     </v-btn>
     <v-overlay v-if="showOptions" @click="showOptions = false">
       <v-card class="mx-auto" max-width="500">
