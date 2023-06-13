@@ -20,6 +20,9 @@ import Wallet from "../components/analytics/menu/WalletView.vue";
 import Views from "../components/analytics/menu/ViewsView.vue";
 import SemConta from "../views/SemConta.vue";
 import VibePlus from "../components/vibeplus/VibePlus.vue";
+import TermosServico from "../components/info/TermosDeServico.vue";
+import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
+
 
 
 
@@ -41,6 +44,17 @@ const routes = [
     name: "Home",
     component: HomeView,
     meta: { title: "Feed" },
+  },
+    {
+    path: "/termos-de-servico",
+    name: "Termos de Servico",
+    component: TermosServico,
+    meta: { title: "Termos de serviço" },
+  },  {
+    path: "/o-que-e-vibe",
+    name: "O que é Vibe+",
+    component: VibePlusInfo,
+    meta: { title: "O que é Vibe+?" },
   },
     {
     path: "/vibe",

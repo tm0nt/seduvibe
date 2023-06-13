@@ -31,6 +31,14 @@
                   <h2 class="white--text">Laís Alves</h2>
                   <h5 class="grey--text">@laisalves</h5>
                   <v-btn color="purple" class="mt-3 white--text"> Vibe+ </v-btn>
+                  <v-icon
+                    color="grey"
+                    size="18"
+                    class="mt-3"
+                    right
+                    @click="redirectToVibeInfo"
+                    >mdi-information-outline</v-icon
+                  >
 
                   <p class="bio mt-5 white--text"></p>
                 </div>
@@ -114,13 +122,10 @@
         <!-- Ações da publicação -->
         <v-card-actions>
           <v-btn icon>
-            <v-icon color="pink">mdi-heart-outline</v-icon>
+            <v-icon color="purple">mdi-heart-outline</v-icon>
           </v-btn>
           <v-btn icon>
             <v-icon>mdi-comment-outline</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-share-variant-outline</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn icon>
@@ -245,6 +250,9 @@ export default {
         this.comments.push(this.newComment);
         this.newComment = "";
       }
+    },
+    redirectToVibeInfo() {
+      this.$router.push("/o-que-e-vibe");
     },
     submitComment() {
       if (!this.submittingComment) {
