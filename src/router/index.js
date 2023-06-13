@@ -128,7 +128,7 @@ const routes = [
     path: "/creator",
     name: "creator",
     component: PerfilCreator,
-    meta: { title: "Nome modelo" },
+    meta: { title: "Laís Alves" },
   },
   {
     path: "/dashboard",

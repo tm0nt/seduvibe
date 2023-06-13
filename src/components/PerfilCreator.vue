@@ -32,7 +32,13 @@
               </v-col>
               <v-col cols="6" md="8" sm="10" xs="10">
                 <div style="display: inline-block; margin-top: 80px">
-                  <h2 class="white--text">Laís Alves</h2>
+                  <h2 class="white--text">
+                    Laís Alves&nbsp;
+                    <v-icon :color="heartColor" @click="toggleHeart">
+                      {{ heartIcon }}</v-icon
+                    >
+                  </h2>
+
                   <h5 class="grey--text">@laisalves</h5>
                   <v-btn
                     color="purple"
@@ -255,8 +261,8 @@
         </v-card-actions>
         <!-- Legenda da publicação -->
         <v-card-text>
-          <span class="font-weight-bold mr-1">Nome do usuário:</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+          <span class="font-weight-bold mr-1">@laissilva:</span>
+          <span>Olha como fiquei molhadinha para vocês</span>
         </v-card-text>
         <!-- Comentários da publicação -->
         <v-card-text>
@@ -264,12 +270,12 @@
             <v-list-item v-for="(comment, index) in comments" :key="index">
               <v-list-item-avatar>
                 <v-img
-                  src="https://observatoriog.bol.uol.com.br/wordpress/wp-content/uploads/2022/08/jade-picon-mostrou-novo-visual-pensado-para-a-personagem-chiara-em-travessia-1660440458015_v2_4x3.jpg"
+                  src="https://i.pinimg.com/280x280_RS/03/74/39/037439bcf49c2be21db616d3a8163435.jpg"
                 ></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-bold"
-                  >Nome do usuário</v-list-item-title
+                  >@Guest432323</v-list-item-title
                 >
                 <v-list-item-subtitle>{{ comment }}</v-list-item-subtitle>
               </v-list-item-content>
@@ -319,8 +325,19 @@ export default {
       selection: 1,
       drawer: true,
       vibeOpen: false,
+      heartIcon: "mdi-heart-outline",
+      heartColor: "purple",
+      filledHeartIcon: "mdi-heart",
+      filledHeartColor: "purple",
       showOptions: false,
       selectedTab: 0,
+      img_post: [
+        "https://i.em.com.br/r3BYu2P6lHOrOoax5mARwtmizBI=/1200x1200/smart/imgsapp.em.com.br/app/noticia_127983242361/2023/03/06/1465358/ex-deputado-federal-alexandre-frota-psdb-sp_1_93555.jpg",
+        "https://akamai.sscdn.co/uploadfile/letras/fotos/7/d/a/d/7dadff5026be51f45504e109813ef163.jpg",
+        "https://i.pinimg.com/280x280_RS/03/74/39/037439bcf49c2be21db616d3a8163435.jpg",
+        "https://instagram.fcgh22-1.fna.fbcdn.net/v/t51.2885-19/318755452_709573943701081_123093123926177669_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fcgh22-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=ftGBBuMcUq4AX-Q8-kD&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAiJLBAEfvmc-EJ79p8Sn5aK1hQQ1N1KxU2U5-fBmc5gQ&oe=648DEFCF&_nc_sid=640168",
+        "https://instagram.fcgh22-1.fna.fbcdn.net/v/t51.2885-19/318755452_709573943701081_123093123926177669_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fcgh22-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=ftGBBuMcUq4AX-Q8-kD&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAiJLBAEfvmc-EJ79p8Sn5aK1hQQ1N1KxU2U5-fBmc5gQ&oe=648DEFCF&_nc_sid=640168",
+      ],
       tabs: [
         { title: "Pagamentos", component: "CardView" },
         { title: "Assinaturas", component: "Assinaturas" },
@@ -330,11 +347,11 @@ export default {
       newComment: "",
       submittingComment: false,
       comments: [
-        "Comentário 1",
-        "Comentário 2",
-        "Comentário 3",
-        "Comentário 4",
-        "Comentário 5",
+        "Linda, gataaaa",
+        "Gostosa ",
+        "Nossa ",
+        "Fiquei duro",
+        "MAravilhosa",
       ],
       rules: {
         comment: [
@@ -371,6 +388,15 @@ export default {
     }
   },
   methods: {
+    toggleHeart() {
+      if (this.heartIcon === "mdi-heart-outline") {
+        this.heartIcon = this.filledHeartIcon;
+        this.heartColor = this.filledHeartColor;
+      } else {
+        this.heartIcon = "mdi-heart-outline";
+        this.heartColor = "purple";
+      }
+    },
     openVibe() {
       this.vibeOpen = true;
     },
@@ -434,6 +460,10 @@ export default {
   /* define um valor maior que o z-index do v-toolbar */
 }
 
+.heart-filled {
+  color: purple;
+  cursor: pointer;
+}
 .toolbar-mobile {
   position: relative;
   z-index: 2;
