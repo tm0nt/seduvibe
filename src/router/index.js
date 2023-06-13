@@ -19,6 +19,8 @@ import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
 import Wallet from "../components/analytics/menu/WalletView.vue";
 import Views from "../components/analytics/menu/ViewsView.vue";
 import SemConta from "../views/SemConta.vue";
+import VibePlus from "../components/vibeplus/AssineVibePlus.vue";
+
 
 
 
@@ -39,6 +41,12 @@ const routes = [
     name: "Home",
     component: HomeView,
     meta: { title: "Feed" },
+  },
+    {
+    path: "/vibe",
+    name: "Assine Vibe+",
+    component: VibePlus,
+    meta: { title: "Vibe+, assine agora" },
   },
     {
     path: "/noaccount",
