@@ -212,11 +212,12 @@
                                 <v-col cols="6">
                                   <v-text-field
                                     label="Celular"
-                                    maxlength="11"
+                                    maxlength="15"
+                                    :rules="[validarNumero]"
                                     v-model="celular"
+                                    @input="formatarNumero"
                                     color="purple"
                                     autocomplete="off"
-                                    :rules="rules"
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
@@ -317,6 +318,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -379,9 +381,43 @@ export default {
     return this.criador ? 1 : 0;
   },
   methods: {
+    formatarNumero() {
+      // Remover todos os caracteres não numéricos
+      let numeroSemFormato = this.celular.replace(/\D/g, "");
+
+      // Verificar o comprimento do número para aplicar a formatação adequada
+      if (numeroSemFormato.length <= 2) {
+        this.celular = numeroSemFormato;
+      } else if (numeroSemFormato.length <= 6) {
+        this.celular = `(${numeroSemFormato.slice(
+          0,
+          2
+        )}) ${numeroSemFormato.slice(2)}`;
+      } else if (numeroSemFormato.length <= 10) {
+        this.celular = `(${numeroSemFormato.slice(
+          0,
+          2
+        )}) ${numeroSemFormato.slice(2, 7)}-${numeroSemFormato.slice(7)}`;
+      } else {
+        this.celular = `(${numeroSemFormato.slice(
+          0,
+          2
+        )}) ${numeroSemFormato.slice(2, 7)}-${numeroSemFormato.slice(7, 11)}`;
+      }
+    },
+
+    validarNumero(valor) {
+      const numeroRegex = /^[\d,()\s-]+$/; // Regex para verificar se é um número inteiro com vírgulas, hífens, parênteses e espaços
+      if (!numeroRegex.test(valor)) {
+        return "Digite apenas números";
+      }
+      return true;
+    },
+
     enviar() {
       this.$nextTick(() => {
         if (this.$refs.form.validate()) {
+          this.celular = this.celular.replace(/\D/g, "");
           // Os campos são válidos, você pode enviar o formulário para a API
           const formData = {
             name: this.nome,
