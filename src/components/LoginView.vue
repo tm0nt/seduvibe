@@ -212,6 +212,7 @@
                                 <v-col cols="6">
                                   <v-text-field
                                     label="Celular"
+                                    maxlength="11"
                                     v-model="celular"
                                     color="purple"
                                     autocomplete="off"
@@ -226,6 +227,7 @@
                                     prefix="@"
                                     v-model="usuario"
                                     color="purple"
+                                    maxlength="15"
                                     autocomplete="off"
                                     :rules="rules"
                                   ></v-text-field>
@@ -235,8 +237,8 @@
                                     label="Email"
                                     color="purple"
                                     v-model="email"
+                                    :rules="emailRules"
                                     autocomplete="off"
-                                    :rules="rules"
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
@@ -264,7 +266,7 @@
                                 label="Aceito os termos"
                                 class="mt-n1"
                                 color="purple"
-                                :rules="rules"
+                                :rules="termosRules"
                               ></v-checkbox>
                             </v-col>
                             <v-col cols="12" sm="5">
@@ -273,10 +275,15 @@
                               >
                             </v-col>
                           </v-row>
-
-                          <v-btn color="purple" dark block tile type="submit">
-                            Criar conta
-                          </v-btn>
+                          <v-btn
+                            color="purple"
+                            dark
+                            block
+                            class="mt-2"
+                            tile
+                            @click="enviar"
+                            >CRIAR CONTA</v-btn
+                          >
                         </v-form>
 
                         <h5 class="text-center grey--text mt-4 mb-3">
@@ -314,6 +321,13 @@ export default {
   data() {
     return {
       step: 1,
+      emailRules: [
+        (v) => !!v || "Preenchimento de campo obrigatório",
+        (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
+      ],
+      termosRules: [
+        (v) => !!v || "PVocê deve aceitar os termos para prosseguir",
+      ],
       criador: 0,
       modalOpen: false,
       isFormValid: true,
@@ -336,7 +350,13 @@ export default {
       nome: "",
       celular: "",
       usuario: "",
-      rules: [(value) => !!value || "Preenchimento obrigatório"],
+      rules: [
+        (value) => {
+          if (value) return true;
+
+          return "Preenchimento de campo obrigatório";
+        },
+      ],
       email: "",
       senha: "",
       termosAceitos: false,
@@ -363,21 +383,21 @@ export default {
   methods: {
     enviar() {
       this.$nextTick(() => {
-        if (this.$refs.form.validate) {
+        if (this.$refs.form.validate()) {
           // Os campos são válidos, você pode enviar o formulário para a API
           const formData = {
-            criador: this.termosAceitos ? 1 : 0,
-            nome: this.nome,
-            genero: this.genero,
-            celular: this.celular,
-            usuario: this.usuario,
+            name: this.nome,
             email: this.email,
-            senha: this.senha,
+            user: this.usuario,
+            creator: this.criadorValue ? 1 : 0,
+            celular: this.celular,
+            password: this.senha,
+            genero: this.genero,
           };
 
           // Enviar os dados para a API usando axios (ou outro método de sua escolha)
           axios
-            .post("http://3.95.187.233:3333/register", formData)
+            .post("http://3.145.205.83:3333/register", formData)
             .then((response) => {
               // Manipule a resposta da API, se necessário
               console.log(response.data);

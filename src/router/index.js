@@ -135,6 +135,12 @@ const routes = [
     component: Wallet,
     meta: { title: "Carteira" },
   },
+    {
+    path: "/vibeplus",
+    name: "Vibe+",
+    component: VibePlus,
+    meta: { title: "Vibe+" },
+  },
   {
     path: "/views",
     name: "views",
