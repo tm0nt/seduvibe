@@ -32,7 +32,7 @@
                 </v-icon></v-btn
               >
             </v-card>
-            <v-row v-if="showInputs" class="mt-1">
+            <v-row v-if="showInputs" class="mt-5 mb-5">
               <v-col
                 cols="12"
                 sm="6"
@@ -54,6 +54,7 @@
             </v-row>
           </v-card>
         </v-col>
+        <v-spacer></v-spacer>
         <v-col cols="12" sm6>
           <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-n3" flat>
             <v-toolbar flat color="transparent">

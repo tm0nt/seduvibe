@@ -185,6 +185,20 @@
                         >
                           <v-row>
                             <v-col cols="12" sm="12">
+                              <v-alert
+                                v-if="showAlert"
+                                :type="isLoading ? 'success' : 'success'"
+                                icon="mdi-check"
+                                dense
+                              >
+                                {{ alertMessage }}
+                                <template v-if="isLoading">
+                                  <v-progress-circular
+                                    indeterminate
+                                    size="20"
+                                  ></v-progress-circular>
+                                </template>
+                              </v-alert>
                               <v-checkbox
                                 v-model="criador"
                                 label="Sou criador(a)"
@@ -322,6 +336,11 @@ import axios from "axios";
 export default {
   data() {
     return {
+      isError: false,
+
+      showAlert: false,
+      alertMessage: "",
+      isLoading: false,
       step: 1,
       emailRules: [
         (v) => !!v || "Preenchimento de campo obrigatório",
@@ -414,17 +433,18 @@ export default {
       return true;
     },
 
+    login() {},
+
     enviar() {
       this.$nextTick(() => {
         if (this.$refs.form.validate()) {
-          this.celular = this.celular.replace(/\D/g, "");
           // Os campos são válidos, você pode enviar o formulário para a API
           const formData = {
             name: this.nome,
             email: this.email,
             user: this.usuario,
             creator: this.criadorValue ? 1 : 0,
-            celular: this.celular,
+            phone: this.celular,
             password: this.senha,
             genero: this.genero,
           };
@@ -434,7 +454,24 @@ export default {
             .post("http://3.145.205.83:3333/register", formData)
             .then((response) => {
               // Manipule a resposta da API, se necessário
-              console.log(response.data);
+              if (response.data.msg === "User successfully registered!") {
+                this.showAlert = true;
+                this.alertMessage =
+                  "Conta criada com sucesso, redirecionando...";
+                this.isLoading = true;
+
+                // Após um certo tempo, redirecionar para /perfil
+                setTimeout(() => {
+                  this.$router.push("/perfil");
+                }, 3000);
+              } else if (
+                response.data.msg === "User unsuccessfully registered!"
+              ) {
+                this.showAlert = true;
+                this.alertMessage =
+                  "Erro interno, conta não criada. Tente novamente!";
+                this.isError = true;
+              }
             })
             .catch((error) => {
               // Trate os erros que ocorrerem durante a requisição
