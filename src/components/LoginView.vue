@@ -325,9 +325,7 @@ export default {
         (v) => !!v || "Preenchimento de campo obrigatório",
         (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
       ],
-      termosRules: [
-        (v) => !!v || "PVocê deve aceitar os termos para prosseguir",
-      ],
+      termosRules: [(v) => !!v || "Aceite os termos para prosseguir"],
       criador: 0,
       modalOpen: false,
       isFormValid: true,
