@@ -41,7 +41,10 @@
         text-align: center;
       "
     >
+      <v-icon class="mb-5" color="grey lighten-1">fas fa-cog</v-icon>
+
       <br />
+      <v-icon color="grey lighten-1">fas fa-sign-out-alt</v-icon>
     </div>
   </v-navigation-drawer>
 </template>
@@ -54,7 +57,6 @@ export default {
     items: [
       { icon: "fas fa-bars", path: "/analytics" },
       { icon: "fas fa-wallet", path: "/wallet" },
-      { icon: "far fa-comment-dots", path: "/chat" },
       { icon: "far fa-calendar-alt", path: "/recorrent" },
       { icon: "far fa-file-alt", path: "/all" },
     ],

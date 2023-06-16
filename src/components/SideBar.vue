@@ -42,6 +42,49 @@
         </v-list-item-group>
       </v-list>
     </v-card>
+    <div
+      style="
+        position: absolute;
+        bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+      "
+    >
+      <v-menu
+        v-model="avatarOpen"
+        offset-y="-10"
+        offset-x="-10"
+        color="purple"
+        dark
+        position-x="left"
+      >
+        <template v-slot:activator="{ on }">
+          <v-avatar v-on="on" size="40" @click="openAvatar">
+            <v-img
+              src="https://i.em.com.br/jTOeJB6fT9ijp4Icco__veVWhO0=/1200x1200/smart/imgsapp.em.com.br/app/noticia_127983242361/2023/03/03/1464489/jade-picon-vestida-de-chiara-_1_1461741.png"
+              class="image"
+            ></v-img>
+          </v-avatar>
+        </template>
+        <v-list>
+          <v-list-item @click="goToSettings">
+            <v-list-item-icon>
+              <v-icon>mdi-cog</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Configurações</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="logout">
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Sair</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -52,6 +95,7 @@ export default {
   },
   data() {
     return {
+      avatarOpen: false,
       localDrawer: this.drawer,
       selectedItem: 0,
       items: [
@@ -65,6 +109,18 @@ export default {
           icon: "mdi-account-circle-outline",
           url: "/perfil",
           title: "Perfil",
+          active: false,
+        },
+        {
+          icon: "mdi-chat-outline",
+          url: "/chat",
+          title: "Chat",
+          active: false,
+        },
+        {
+          icon: "mdi-layers-plus",
+          url: "/vibeplus",
+          title: "Vibe+",
           active: false,
         },
         {
@@ -88,6 +144,15 @@ export default {
     },
   },
   methods: {
+    openAvatar() {
+      this.avatarOpen = true;
+    },
+    goToSettings() {
+      // Lógica para navegar para a página de configurações
+    },
+    logout() {
+      // Lógica para realizar o logout
+    },
     selectItem() {
       this.$emit("update:drawer", false);
     },

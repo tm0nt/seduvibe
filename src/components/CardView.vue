@@ -3,13 +3,13 @@
     <div>
       <v-row class="d-flex mt-6">
         <v-col cols="12" sm6>
-          <v-card class="rounded-lg mt-n3 pb-1 transparent" flat>
+          <v-card class="rounded-lg mt-3 pb-1 transparent" flat>
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="white--text mt-n2"
-                >Seu cartão</v-toolbar-title
+                >Seus cartões</v-toolbar-title
               >
             </v-toolbar>
-            <v-card color="#303030" class="rounded-lg mx-2 pa-1 mt-n3" flat>
+            <v-card color="#303030" class="rounded-lg mx-2 pa-1 mt-2 mb-2" flat>
               <v-toolbar flat color="transparent">
                 <v-toolbar-title class="grey--text caption">
                   Mastercard
@@ -20,14 +20,11 @@
                 >
               </v-toolbar>
               <span class="grey--text mt-3 ml-4 caption">RAFAEL F SANTOS</span>
-              <v-card-text class="pt-0 mt-4">
-                <span class="white--text font-weight-light"
-                  >**** **** **** 6774</span
-                ><br /><span class="white--text font-weight-light">09/29</span>
-              </v-card-text>
-
-              <v-btn color="purple" class="ml-1 mb-2" @click="toggleInputs"
-                ><v-icon color="white" size="18">
+              <span class="grey--text mt-3 ml-4 caption"
+                >**** **** **** 6774</span
+              >
+              <v-btn color="purple" small class="ml-5" @click="toggleInputs"
+                ><v-icon color="white" size="16">
                   {{ showInputs ? "close" : "fa-regular fa-pen-to-square" }}
                 </v-icon></v-btn
               >
@@ -56,7 +53,7 @@
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="12" sm6>
-          <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-n3" flat>
+          <v-card dark color="#353535" class="rounded-lg mx-2 pa-1 mt-3" flat>
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="white--text">Histórico</v-toolbar-title>
               <v-chip color="purple" text-color="white" class="ml-2">12</v-chip>
@@ -87,6 +84,8 @@
               <v-btn
                 class="white--text"
                 color="purple"
+                small
+                style="font-size: 10px"
                 @click="expandExperiences"
                 >Ver tudo</v-btn
               >
@@ -98,7 +97,7 @@
     <v-dialog v-model="dialogVisible" max-width="800" dark>
       <v-card>
         <v-card-title>
-          <h5 class="white--text">Histórico de compras</h5>
+          <h5 class="ml-5 white--text">Histórico de compras</h5>
         </v-card-title>
         <v-card-text>
           <v-data-table

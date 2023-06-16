@@ -451,7 +451,7 @@ export default {
 
           // Enviar os dados para a API usando axios (ou outro método de sua escolha)
           axios
-            .post("https://3.145.205.83:3333/register", formData)
+            .post("http://3.145.205.83:3333/register", formData)
             .then((response) => {
               // Manipule a resposta da API, se necessário
               if (response.data.msg === "User successfully registered!") {

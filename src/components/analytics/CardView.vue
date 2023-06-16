@@ -46,17 +46,21 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
-    <v-card color="purple" class="rounded-lg mx-2 pa-1" flat>
-      <h2 class="white--text ml-4">Torne-se VibePlus</h2>
+    <v-card color="purple" class="rounded-lg mx-2 pa-1 mt-2" flat>
+      <h4 class="white--text ml-4">Torne-se VibePlus</h4>
 
       <span class="white--text mt-4 ml-4 caption"
-        >Tenha um pacote completo que irá</span
-      ><br />
-      <span class="white--text ml-4 caption">alavancar suas vendas! </span>
+        >Tenha um pacote completo que irá alavancar suas vendas!
+      </span>
 
-      <v-card-text class="pt-0 mt-5">
+      <v-card-text class="pt-0 ml-3 mb-2">
         <router-link to="/assine">
-          <v-btn color="white" white class="withoutupercase mt-2"
+          <v-btn
+            small
+            style="font-size: 10px"
+            color="white"
+            white
+            class="withoutupercase mt-2"
             >Ver mais</v-btn
           >
         </router-link>
