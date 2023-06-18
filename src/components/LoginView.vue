@@ -105,7 +105,7 @@
                                 >Insira o código de verificação</v-card-title
                               >
                               <v-card-title class="text-caption"
-                                >Enviamos o código de verificação para seu
+                                >Enviamos um código de verificação para seu
                                 {{ opcaoRecuperacao }}</v-card-title
                               >
                               <v-card-text>
@@ -123,6 +123,16 @@
                                       @input="handleInput(index - 1)"
                                     />
                                   </div>
+                                  <div
+                                    id="cronometro"
+                                    class="grey--text font-bold"
+                                    v-if="cronometroAtivo"
+                                  >
+                                    {{ minutos }}:{{ segundos }}
+                                  </div>
+                                  <p class="mt-4 caption grey--text">
+                                    Não recebeu? Clique <a>aqui.</a>
+                                  </p>
                                 </div>
                               </v-card-text>
                               <v-card-actions>
@@ -393,6 +403,12 @@ export default {
       modalOpen: false,
       isFormValid: true,
       showPassword: false,
+      duracaoMinutos: 3,
+      tempoFinal: null,
+      minutos: "",
+      segundos: "",
+      intervalo: null,
+      cronometroAtivo: false,
       opcaoRecuperacao: null,
       senhaConfirmacao: "",
       genero: null,
@@ -452,6 +468,7 @@ export default {
   },
   mounted() {
     this.checkSuccessQueryParam();
+    this.iniciarCronometro();
   },
   criadorValue() {
     return this.criador ? 1 : 0;
@@ -606,6 +623,44 @@ export default {
     },
     abrirModalCodigo() {
       this.modalCodigoAberto = true;
+      this.iniciarCronometro();
+    },
+    iniciarCronometro() {
+      this.cronometroAtivo = true;
+
+      if (!this.tempoFinal) {
+        this.tempoFinal = new Date();
+        this.tempoFinal.setMinutes(
+          this.tempoFinal.getMinutes() + this.duracaoMinutos
+        );
+      }
+
+      this.atualizarCronometro();
+      this.intervalo = setInterval(this.atualizarCronometro, 1000);
+    },
+    pararCronometro() {
+      this.cronometroAtivo = false;
+      clearInterval(this.intervalo);
+    },
+    atualizarCronometro() {
+      if (!this.cronometroAtivo) {
+        return;
+      }
+
+      const tempoAtual = new Date();
+      const diferenca = Math.max(0, this.tempoFinal - tempoAtual);
+
+      const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      this.minutos = minutos.toString().padStart(2, "0");
+      this.segundos = segundos.toString().padStart(2, "0");
+
+      if (diferenca <= 0) {
+        this.pararCronometro();
+        this.minutos = "00";
+        this.segundos = "00";
+      }
     },
     verificarCodigo() {
       // Lógica para verificar se o código é verdadeiro
