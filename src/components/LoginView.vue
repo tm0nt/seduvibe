@@ -525,7 +525,7 @@ export default {
 
         try {
           const response = await axios.post(
-            "http://3.145.205.83:3333/login",
+            "https://3.145.205.83:3333/login",
             formData
           );
 
@@ -573,7 +573,7 @@ export default {
 
           // Enviar os dados para a API usando axios (ou outro método de sua escolha)
           axios
-            .post("http://3.145.205.83:3333/register", formData)
+            .post("https://3.145.205.83:3333/register", formData)
             .then((response) => {
               // Manipule a resposta da API, se necessário
               if (response.data.msg === "User successfully registered!") {
@@ -626,17 +626,19 @@ export default {
       this.iniciarCronometro();
     },
     iniciarCronometro() {
-      this.cronometroAtivo = true;
+      if (this.modalCodigoAberto) {
+        this.cronometroAtivo = true;
 
-      if (!this.tempoFinal) {
-        this.tempoFinal = new Date();
-        this.tempoFinal.setMinutes(
-          this.tempoFinal.getMinutes() + this.duracaoMinutos
-        );
+        if (!this.tempoFinal) {
+          this.tempoFinal = new Date();
+          this.tempoFinal.setMinutes(
+            this.tempoFinal.getMinutes() + this.duracaoMinutos
+          );
+        }
+
+        this.atualizarCronometro();
+        this.intervalo = setInterval(this.atualizarCronometro, 1000);
       }
-
-      this.atualizarCronometro();
-      this.intervalo = setInterval(this.atualizarCronometro, 1000);
     },
     pararCronometro() {
       this.cronometroAtivo = false;
