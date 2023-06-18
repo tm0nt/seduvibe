@@ -3,8 +3,6 @@
     id="inspire"
     :style="{ background: $vuetify.theme.themes.dark.background }"
   >
-    <SideBar />
-
     <v-container fluid fill-height>
       <v-row justify="center">
         <v-col cols="12" sm="3">
@@ -167,8 +165,6 @@
   </v-app>
 </template>
 <script>
-import SideBar from "../SidebarView.vue";
-
 export default {
   data: () => ({
     selected: [2],
@@ -187,9 +183,7 @@ export default {
     marker: true,
     iconIndex: 0,
   }),
-  components: {
-    SideBar,
-  },
+  components: {},
   methods: {
     sendMessage() {
       this.resetIcon();

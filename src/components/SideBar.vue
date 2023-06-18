@@ -53,14 +53,7 @@
         text-align: center;
       "
     >
-      <v-menu
-        v-model="avatarOpen"
-        offset-y="-10"
-        offset-x="-10"
-        color="purple"
-        dark
-        position-x="left"
-      >
+      <v-menu v-model="avatarOpen" color="purple" dark>
         <template v-slot:activator="{ on }">
           <v-avatar v-on="on" size="40" @click="openAvatar">
             <v-img
@@ -147,12 +140,21 @@ export default {
     openAvatar() {
       this.avatarOpen = true;
     },
+    logout() {
+      // Limpar todo o conteúdo do localStorage
+      localStorage.clear();
+
+      // Redirecionar para a outra página com a mensagem
+      this.$router.push({
+        path: "/login",
+        query: { logout: "Você saiu da sua conta." },
+      });
+    },
+
     goToSettings() {
       // Lógica para navegar para a página de configurações
     },
-    logout() {
-      // Lógica para realizar o logout
-    },
+
     selectItem() {
       this.$emit("update:drawer", false);
     },
