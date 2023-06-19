@@ -83,6 +83,8 @@
             <v-tabs-slider color="purple"></v-tabs-slider>
             <v-tab class="withoutupercase">Minha assinatura</v-tab>
             <v-tab class="withoutupercase">Conteúdo exclusivo</v-tab>
+            <v-tab class="withoutupercase">Adquirir</v-tab>
+            <v-tab class="withoutupercase">Histórico</v-tab>
           </v-tabs>
         </v-app-bar>
         <div class="d-flex justify-center flex-column">
@@ -97,6 +99,16 @@
               <component :is="currentComponent" />
             </v-col>
           </v-row>
+          <v-row v-if="selectedTab === 2">
+            <v-col class="tab-content">
+              <component :is="currentComponent" />
+            </v-col>
+          </v-row>
+          <v-row v-if="selectedTab === 3">
+            <v-col class="tab-content">
+              <component :is="currentComponent" />
+            </v-col>
+          </v-row>
         </div>
       </v-container>
     </div>
@@ -107,12 +119,16 @@
 import SideBar from "../SideBar.vue";
 import AssinaturaComponent from "./AssinaturaVibePlus.vue";
 import ConteudoComponent from "./ConteudoPlus.vue";
+import AdquirirView from "./AdquirirView.vue";
+import HistoricoView from "./HistoricoView.vue";
 
 export default {
   components: {
     SideBar,
     AssinaturaComponent,
     ConteudoComponent,
+    AdquirirView,
+    HistoricoView,
   },
   data() {
     return {
@@ -128,6 +144,11 @@ export default {
           return "AssinaturaComponent";
         case 1:
           return "ConteudoComponent";
+        case 2:
+          return "AdquirirView";
+        case 3:
+          return "HistoricoView";
+
         default:
           return null;
       }

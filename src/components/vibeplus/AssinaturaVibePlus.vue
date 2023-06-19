@@ -49,6 +49,8 @@
         Vídeochamadas
         <v-chip color="purple" text-color="white" class="ml-2">1</v-chip>
       </h2>
+      <p class="caption grey--text">Nenhum agendamento cadastrado...</p>
+      <v-btn class="white--text" color="purple">Agendar</v-btn>
     </v-col>
   </v-row>
 </template>
