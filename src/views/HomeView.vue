@@ -170,7 +170,7 @@ resultados dinamicamente com v-avatar, nome e usuário: html Copy code
               <v-icon small color="purple">mdi-check-decagram</v-icon>
             </v-card-title>
             <v-card-title
-              class="grey--text text-grey-purple-1 text-center ml-3 caption mt-1 font-italic"
+              class="grey--text text-grey-purple-1 text-center ml-3 caption font-italic"
             >
               {{ vibe.descricao }} </v-card-title
             ><br />

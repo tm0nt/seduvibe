@@ -63,11 +63,11 @@
           </v-avatar>
         </template>
         <v-list>
-          <v-list-item @click="goToSettings">
+          <v-list-item @click="Notificacao">
             <v-list-item-icon>
-              <v-icon>mdi-cog</v-icon>
+              <v-icon>mdi-bell</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Configurações</v-list-item-title>
+            <v-list-item-title>Notificações</v-list-item-title>
           </v-list-item>
           <v-list-item @click="logout">
             <v-list-item-icon>

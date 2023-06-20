@@ -1,30 +1,37 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <v-data-table
-    dark
-    :headers="headers"
-    :items="payments"
-    :rows-per-page-items="[]"
-    class="elevation-0 mt-5 hide-rows-per-page"
-  >
-    <template #top>
-      <v-toolbar flat color="purple">
-        <v-toolbar-title class="white--text"
-          >Histórico de Pagamentos</v-toolbar-title
+  <v-app>
+    <h5 class="text-center white--text mt-5">
+      Próximo vencimento em: 20/10/2023
+    </h5>
+    <v-data-table
+      dark
+      :headers="headers"
+      :items="payments"
+      :rows-per-page-items="[]"
+      class="elevation-0 mt-5 hide-rows-per-page"
+    >
+      <template #top>
+        <v-toolbar flat color="purple">
+          <v-toolbar-title class="white--text"
+            >Histórico de Pagamentos</v-toolbar-title
+          >
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
+      <template #item.status="{ item }">
+        <v-chip :color="getStatusColor(item.status)" dark>{{
+          item.status
+        }}</v-chip>
+      </template>
+      <template #item.actions="{ item }">
+        <v-icon small class="mr-2" @click="editPayment(item)"
+          >mdi-pencil</v-icon
         >
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-    <template #item.status="{ item }">
-      <v-chip :color="getStatusColor(item.status)" dark>{{
-        item.status
-      }}</v-chip>
-    </template>
-    <template #item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editPayment(item)">mdi-pencil</v-icon>
-      <v-icon small @click="deletePayment(item)">mdi-delete</v-icon>
-    </template>
-  </v-data-table>
+        <v-icon small @click="deletePayment(item)">mdi-delete</v-icon>
+      </template>
+    </v-data-table>
+  </v-app>
 </template>
 
 <script>
