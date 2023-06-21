@@ -63,12 +63,6 @@
           </v-avatar>
         </template>
         <v-list>
-          <v-list-item @click="Notificacao">
-            <v-list-item-icon>
-              <v-icon>mdi-bell</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Notificações</v-list-item-title>
-          </v-list-item>
           <v-list-item @click="logout">
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
@@ -120,6 +114,11 @@ export default {
           icon: "mdi-chevron-triple-up",
           url: "/ranking",
           title: "Ranking",
+          active: false,
+        },
+        {
+          icon: "mdi-bell",
+          title: "Notificações",
           active: false,
         },
       ],
