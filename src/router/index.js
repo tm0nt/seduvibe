@@ -22,6 +22,8 @@ import SemConta from "../views/SemConta.vue";
 import VibePlus from "../components/vibeplus/VibePlus.vue";
 import TermosServico from "../components/info/TermosDeServico.vue";
 import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
+import VibePlusCreator from "../components/vibeplus/VibePlusCreator.vue";
+
 
 Vue.use(VueRouter);
 
@@ -31,6 +33,12 @@ const routes = [
     name: "login",
     component: LoginView,
     meta: { title: "Seduvibe - Exclusividade e liberdade" },
+  },
+    {
+    path: "/vibecreator",
+    name: "Vibe Creator",
+    component: VibePlusCreator,
+    meta: { title: "Vibe - Painel de controle" },
   },
   {
     path: "/",

@@ -25,6 +25,7 @@
             exact
             :to="item.url"
             :class="{ active: item.active }"
+            @click="handleMenuItemClick(item.icon)"
           >
             <v-list-item-content>
               <v-tooltip bottom>
@@ -116,11 +117,6 @@ export default {
           title: "Ranking",
           active: false,
         },
-        {
-          icon: "mdi-bell",
-          title: "Notificações",
-          active: false,
-        },
       ],
     };
   },
@@ -129,7 +125,6 @@ export default {
       this.localDrawer = newValue;
     },
     $route(newRoute) {
-      // define a propriedade "active" o menu com base na rota atual
       this.items.forEach((item) => {
         item.active = newRoute.path === item.url;
       });
@@ -140,22 +135,11 @@ export default {
       this.avatarOpen = true;
     },
     logout() {
-      // Limpar todo o conteúdo do localStorage
       localStorage.clear();
-
-      // Redirecionar para a outra página com a mensagem
       this.$router.push({
         path: "/login",
         query: { logout: "Você saiu da sua conta." },
       });
-    },
-
-    goToSettings() {
-      // Lógica para navegar para a página de configurações
-    },
-
-    selectItem() {
-      this.$emit("update:drawer", false);
     },
   },
 };

@@ -1,5 +1,3 @@
-3 / 3 Aqui está o código atualizado da sua caixa de pesquisa que mostra os
-resultados dinamicamente com v-avatar, nome e usuário: html Copy code
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar :drawer.sync="drawer" />
@@ -35,7 +33,6 @@ resultados dinamicamente com v-avatar, nome e usuário: html Copy code
             item-text="username"
             item-value="username"
             return-object
-            :search-input.sync="isSearching"
           >
             <template v-slot:item="{ item }">
               <v-list-item
@@ -57,13 +54,40 @@ resultados dinamicamente com v-avatar, nome e usuário: html Copy code
             </template>
           </v-autocomplete>
         </v-flex>
-
         <v-spacer></v-spacer>
-        <div>
+        <div class="notification-dropdown">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" text>
+                <v-icon color="purple mr-4">mdi-bell</v-icon>
+              </v-btn>
+            </template>
+            <v-card class="rounded-card" dark>
+              <v-list dark class="rounded">
+                <v-list-item
+                  v-for="(notification, index) in notifications"
+                  :key="index"
+                >
+                  <v-list-item-icon>
+                    <v-icon color="purple">{{ notification.icon }}</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title class="purple--text">{{
+                      notification.title
+                    }}</v-list-item-title>
+                    <v-list-item-subtitle class="grey--text">{{
+                      notification.message
+                    }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-menu>
           <v-btn color="purple" class="white--text" @click="openModal">
             <v-icon class="{'text-center': isMobile}" size="18"
               >fas fa-filter</v-icon
             >
+
             <span class="hidden-sm-and-down">&nbsp;Filtros</span>
           </v-btn>
         </div>
@@ -77,7 +101,6 @@ resultados dinamicamente com v-avatar, nome e usuário: html Copy code
           v-model="activeTab"
           color="purple"
           class="align-center"
-          :class="{ 'full-width-tabs': isMobile }"
           ref="tabs"
         >
           <v-tabs-slider color="purple"></v-tabs-slider>
@@ -229,6 +252,21 @@ export default {
     chipSelected: false,
     priceRange: [0, 100], // Defina os valores mínimos e máximos do slider conforme necessário
     searchQuery: "",
+    isDropdownOpen: false,
+    notifications: [
+      {
+        id: 1,
+        icon: "mdi-bell",
+        title: "Notificação 1",
+        message: "Essa é uma notificação.",
+      },
+      {
+        id: 2,
+        icon: "mdi-bell",
+        title: "Notificação 2",
+        message: "Essa é uma notificação.",
+      },
+    ],
     users: [
       {
         name: "Marisa",
@@ -298,6 +336,9 @@ export default {
     SideBar,
   },
   methods: {
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
     moveTab(direction) {
       if (direction === "left") {
         this.activeTab =
@@ -344,6 +385,10 @@ export default {
 };
 </script>
 <style scoped>
+.rounded {
+  border-radius: 25px;
+}
+
 .v-tab.withoutupercase {
   text-transform: none !important;
 }
