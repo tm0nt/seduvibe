@@ -364,12 +364,38 @@
           <v-card-text> Vamos ajudar você a recuperar sua senha. </v-card-text>
           <v-card-text>
             <v-radio-group v-model="opcaoRecuperacao">
-              <v-radio label="Recuperar por e-mail" value="email"></v-radio>
-              <v-radio label="Recuperar por celular" value="celular"></v-radio>
+              <v-radio label="Recuperar por e-mail" value="Email"></v-radio>
+              <v-radio label="Recuperar por celular" value="Celular"></v-radio>
             </v-radio-group>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="purple" @click="abrirModalCodigo">Continuar</v-btn>
+            <v-btn color="purple" @click="showRecoveryOptionDialog"
+              >Continuar</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="showCodeModalDialog" dark max-width="500px">
+        <v-card>
+          <v-card-title class="headline">
+            Qual seu {{ opcaoRecuperacao }}?
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="opcaoRecuperacao"
+              :label="opcaoRecuperacao"
+              required
+              color="purple"
+            ></v-text-field>
+            <p class="overline caption">
+              Enviaremos um código para seu {{ opcaoRecuperacao }}
+            </p>
+            <v-alert v-if="showRecoveryInputError" type="error">
+              {{ opcaoRecuperacao }}, não pertence a nenhuma conta
+            </v-alert>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="purple" dark @click="abrirModalCodigo">Enviar</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -384,6 +410,10 @@ import axios from "axios";
 export default {
   data() {
     return {
+      showCodeModalDialog: false,
+      recoveryOption: "", // Opção de recuperação selecionada
+      recoveryInput: "",
+      showRecoveryInputError: false,
       showAlert: false,
       alertMessage: "",
       logout: "",
@@ -403,12 +433,6 @@ export default {
       modalOpen: false,
       isFormValid: true,
       showPassword: false,
-      duracaoMinutos: 3,
-      tempoFinal: null,
-      minutos: "",
-      segundos: "",
-      intervalo: null,
-      cronometroAtivo: false,
       opcaoRecuperacao: null,
       senhaConfirmacao: "",
       genero: null,
@@ -453,6 +477,7 @@ export default {
   props: {
     source: String,
   },
+
   created() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -477,6 +502,20 @@ export default {
     ErrorMessage,
   },
   methods: {
+    checkRecoveryOption() {
+      // Verificar se a opção de recuperação pertence a uma conta
+      // Aqui você pode fazer a validação adequada e decidir se a opção é válida ou não
+
+      // Exemplo: Verificação simples se o input é igual a 'opcao1'
+      if (this.recoveryInput === "opcao1") {
+        // Opção válida, avançar para o próximo passo
+        this.showRecoveryOptionDialog = true;
+        this.showCodeModalDialog = true;
+      } else {
+        // Opção inválida, exibir mensagem de erro
+        this.showRecoveryInputError = true;
+      }
+    },
     startErrorTimer() {
       setTimeout(() => {
         this.showErrorLogin = false;
@@ -594,9 +633,10 @@ export default {
               }
             })
             .catch((error) => {
-              // Trate os erros que ocorrerem durante a requisição
-              console.error(error);
-              // Exiba uma mensagem de erro ou tome outras ações apropriadas
+              console.log(error);
+              this.showAlert2 = true;
+              this.alertMessage2 =
+                "Erro interno, conta não criada. Tente novamente!";
             });
         }
       });
@@ -621,48 +661,11 @@ export default {
     openModal() {
       this.modalOpen = true;
     },
+    showRecoveryOptionDialog() {
+      this.showCodeModalDialog = true;
+    },
     abrirModalCodigo() {
       this.modalCodigoAberto = true;
-      this.iniciarCronometro();
-    },
-    iniciarCronometro() {
-      if (this.modalCodigoAberto) {
-        this.cronometroAtivo = true;
-
-        if (!this.tempoFinal) {
-          this.tempoFinal = new Date();
-          this.tempoFinal.setMinutes(
-            this.tempoFinal.getMinutes() + this.duracaoMinutos
-          );
-        }
-
-        this.atualizarCronometro();
-        this.intervalo = setInterval(this.atualizarCronometro, 1000);
-      }
-    },
-    pararCronometro() {
-      this.cronometroAtivo = false;
-      clearInterval(this.intervalo);
-    },
-    atualizarCronometro() {
-      if (!this.cronometroAtivo) {
-        return;
-      }
-
-      const tempoAtual = new Date();
-      const diferenca = Math.max(0, this.tempoFinal - tempoAtual);
-
-      const minutos = Math.floor((diferenca / 1000 / 60) % 60);
-      const segundos = Math.floor((diferenca / 1000) % 60);
-
-      this.minutos = minutos.toString().padStart(2, "0");
-      this.segundos = segundos.toString().padStart(2, "0");
-
-      if (diferenca <= 0) {
-        this.pararCronometro();
-        this.minutos = "00";
-        this.segundos = "00";
-      }
     },
     verificarCodigo() {
       // Lógica para verificar se o código é verdadeiro

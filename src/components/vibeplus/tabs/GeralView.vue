@@ -1,41 +1,10 @@
 <template>
   <v-app>
-    <v-card>
-      <v-card-text>
-        <v-form @submit.prevent="submitPost">
-          <v-textarea
-            v-model="postContent"
-            label="Escreva algo..."
-            required
-          ></v-textarea>
-
-          <v-file-input
-            v-model="selectedFile"
-            label="Selecionar arquivo"
-            accept="image/*, video/*"
-            @change="handleFileUpload"
-          ></v-file-input>
-
-          <div v-if="thumbnailUrl">
-            <img :src="thumbnailUrl" alt="Thumbnail" height="100" />
-          </div>
-
-          <v-btn type="submit" color="primary">Publicar</v-btn>
-
-          <v-progress-linear
-            v-if="loading"
-            :indeterminate="true"
-            color="primary"
-          ></v-progress-linear>
-        </v-form>
-      </v-card-text>
-    </v-card>
-
-    <v-card dark class="mt-4">
+    <v-card dark class="mt-4 w-100">
       <v-card-title class="overline white--text"
         >Seu conteúdo exclusivo</v-card-title
       >
-      <v-card class="mx-auto my-8" dark>
+      <v-card class="mx-auto my-8" min-width="800" dark>
         <!-- Cabeçalho da publicação -->
         <v-card-title>
           <v-spacer></v-spacer>
@@ -53,7 +22,7 @@
           </v-menu>
         </v-card-title>
         <!-- Imagem da publicação -->
-        <v-card-media>
+        <v-card-media class="text-right">
           <v-img src="/img/post.jpg"></v-img>
         </v-card-media>
         <!-- Ações da publicação -->

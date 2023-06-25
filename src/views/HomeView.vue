@@ -81,6 +81,7 @@
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
+              <p class="text-center grey--text overline">VER TUDO</p>
             </v-card>
           </v-menu>
           <v-btn color="purple" class="white--text" @click="openModal">

@@ -54,7 +54,7 @@
         text-align: center;
       "
     >
-      <v-menu v-model="avatarOpen" color="purple" dark>
+      <v-menu v-model="avatarOpen" color="purple" dark v-if="tokenExists">
         <template v-slot:activator="{ on }">
           <v-avatar v-on="on" size="40" @click="openAvatar">
             <v-img
@@ -72,6 +72,13 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-icon color="white">mdi-account</v-icon>
+      <p class="grey--text" style="font-size: 9.5px !important">
+        Você não está logado
+      </p>
+      <v-btn to="/login" dark color="#191919" flat class="elevation-0" small
+        >Entrar</v-btn
+      >
     </div>
   </v-navigation-drawer>
 </template>
