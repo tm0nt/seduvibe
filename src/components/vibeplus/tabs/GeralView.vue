@@ -1,128 +1,170 @@
 <template>
-  <v-container>
-    <v-card dark>
-      <v-card-title class="overline"> Valores da assinatura</v-card-title>
+  <v-app>
+    <v-card>
       <v-card-text>
-        <v-row>
-          <v-col cols="12" sm="6" md="3">
-            <v-switch
-              v-model="monthly"
-              @change="saveSwitchState('monthly')"
-              color="purple"
-              label="Apenas mensal"
-              dark
-            ></v-switch>
-            <v-text-field
-              v-if="monthly"
-              v-model="monthlyPrice"
-              label="Mensal"
-              prefix="R$"
-              suffix="BRL"
-              dark
-              color="purple"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-switch
-              v-model="quarterly"
-              @change="saveSwitchState('quarterly')"
-              color="purple"
-              label="Trimestral"
-              dark
-            ></v-switch>
-            <v-text-field
-              v-if="quarterly"
-              v-model="quarterlyPrice"
-              label="Trimestral"
-              prefix="R$"
-              suffix="BRL"
-              color="purple"
-              dark
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-switch
-              v-model="semiannual"
-              @change="saveSwitchState('semiannual')"
-              color="purple"
-              label="Semestral"
-              dark
-            ></v-switch>
-            <v-text-field
-              v-if="semiannual"
-              v-model="semiannualPrice"
-              label="Semestral"
-              prefix="R$"
-              suffix="BRL"
-              dark
-              color="purple"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-switch
-              v-model="annual"
-              @change="saveSwitchState('annual')"
-              color="purple"
-              dark
-              label="Anual"
-            ></v-switch>
-            <v-text-field
-              v-if="annual"
-              v-model="annualPrice"
-              label="Anual"
-              prefix="R$"
-              suffix="BRL"
-              dark
-              color="purple"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-text>
-      <v-btn class="mb-4 ml-4" small color="purple" dark>Atualizar</v-btn>
-    </v-card>
-  </v-container>
-</template>
+        <v-form @submit.prevent="submitPost">
+          <v-textarea
+            v-model="postContent"
+            label="Escreva algo..."
+            required
+          ></v-textarea>
 
+          <v-file-input
+            v-model="selectedFile"
+            label="Selecionar arquivo"
+            accept="image/*, video/*"
+            @change="handleFileUpload"
+          ></v-file-input>
+
+          <div v-if="thumbnailUrl">
+            <img :src="thumbnailUrl" alt="Thumbnail" height="100" />
+          </div>
+
+          <v-btn type="submit" color="primary">Publicar</v-btn>
+
+          <v-progress-linear
+            v-if="loading"
+            :indeterminate="true"
+            color="primary"
+          ></v-progress-linear>
+        </v-form>
+      </v-card-text>
+    </v-card>
+
+    <v-card dark class="mt-4">
+      <v-card-title class="overline white--text"
+        >Seu conteúdo exclusivo</v-card-title
+      >
+      <v-card class="mx-auto my-8" dark>
+        <!-- Cabeçalho da publicação -->
+        <v-card-title>
+          <v-spacer></v-spacer>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn icon v-on="on">
+                <v-icon>mdi-dots-horizontal</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>Denunciar</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card-title>
+        <!-- Imagem da publicação -->
+        <v-card-media>
+          <v-img src="/img/post.jpg"></v-img>
+        </v-card-media>
+        <!-- Ações da publicação -->
+        <v-card-actions>
+          <v-btn icon>
+            <v-icon color="purple">mdi-heart-outline</v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>mdi-comment-outline</v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+        <!-- Legenda da publicação -->
+        <v-card-text>
+          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+        </v-card-text>
+        <!-- Comentários da publicação -->
+        <v-card-text>
+          <v-list dense>
+            <v-list-item v-for="(comment, index) in comments" :key="index">
+              <v-list-item-avatar>
+                <v-img src="/img/avatar.jpg"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="font-weight-bold"
+                  >Nome do usuário</v-list-item-title
+                >
+                <v-list-item-subtitle>{{ comment }}</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-row class="d-flex justify-end">
+                <v-col cols="auto">
+                  <v-icon size="16" color="purple">mdi-heart</v-icon>
+                </v-col>
+                <v-col cols="auto">
+                  <v-icon size="16" color="grey">mdi-delete</v-icon>
+                </v-col>
+              </v-row>
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+
+        <!-- Formulário de comentário -->
+        <v-card-actions>
+          <v-avatar size="32">
+            <v-img src="/img/avatar.jpg"></v-img>
+          </v-avatar>
+          <v-form
+            class="flex-grow-1"
+            ref="commentForm"
+            v-on:submit.prevent="addComment"
+          >
+            <v-textarea
+              v-model="newComment"
+              label="Adicione um comentário"
+              :rules="[rules.comment]"
+              required
+            ></v-textarea>
+          </v-form>
+          <v-btn
+            color="purple white--text"
+            @click="submitComment"
+            :disabled="submittingComment"
+          >
+            Enviar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-card>
+  </v-app>
+</template>
 <script>
 export default {
   data() {
     return {
-      monthly: false,
-      semiannual: false,
-      quarterly: false,
-      annual: false,
-      monthlyPrice: null,
-      semiannualPrice: null,
-      quarterlyPrice: null,
-      annualPrice: null,
+      newComment: "",
+      submittingComment: false,
+      comments: [
+        "Comentário 1",
+        "Comentário 2",
+        "Comentário 3",
+        "Comentário 4",
+        "Comentário 5",
+      ],
+      rules: {
+        comment: [
+          (v) => !!v || "O comentário é obrigatório",
+          (v) =>
+            (v && v.length <= 100) ||
+            "O comentário não pode ter mais de 100 caracteres",
+        ],
+      },
     };
   },
-  mounted() {
-    this.loadSwitchState("monthly");
-    this.loadSwitchState("quarterly");
-    this.loadSwitchState("semiannual");
-    this.loadSwitchState("annual");
-  },
   methods: {
-    saveSwitchState(key) {
-      localStorage.setItem(key, this[key]);
-    },
-    loadSwitchState(key) {
-      const value = localStorage.getItem(key);
-      if (value !== null) {
-        this[key] = value === "true";
-        this.updateInputVisibility(key);
+    addComment() {
+      if (this.newComment) {
+        this.comments.push(this.newComment);
+        this.newComment = "";
       }
     },
-    updateInputVisibility(key) {
-      if (key === "monthly") {
-        this.monthlyPrice = this.monthly ? "" : null;
-      } else if (key === "quarterly") {
-        this.quarterlyPrice = this.quarterly ? "" : null;
-      } else if (key === "semiannual") {
-        this.semiannualPrice = this.semiannual ? "" : null;
-      } else if (key === "annual") {
-        this.annualPrice = this.annual ? "" : null;
+    submitComment() {
+      if (!this.submittingComment) {
+        this.$refs.commentForm.validate().then((valid) => {
+          if (valid) {
+            this.submittingComment = true;
+            setTimeout(() => {
+              this.addComment();
+              this.submittingComment = false;
+            }, 1000);
+          }
+        });
       }
     },
   },
