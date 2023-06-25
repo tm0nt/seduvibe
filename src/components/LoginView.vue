@@ -565,7 +565,7 @@ export default {
             name: this.nome,
             email: this.email,
             user: this.usuario,
-            creator: this.criadorValue ? 1 : 0,
+            creator: this.criadorValue ? "1" : "0",
             phone: this.celular,
             password: this.senha,
             genero: this.genero,
