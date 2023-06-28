@@ -1,86 +1,90 @@
 <template>
-  <v-navigation-drawer
-    v-model="localDrawer"
-    app
-    color="#212121"
-    mini-variant
-    mini-variant-width="110"
-  >
-    <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="85">
-      <v-img
-        class="mt-5"
-        src="../assets/logo2.png"
-        height="auto"
-        max-width="50px"
-      ></v-img>
-    </v-avatar>
-
-    <v-card flat color="#151515" class="rounded-xl mx-4 py-10">
-      <v-list flat class="" dark>
-        <v-list-item-group v-model="selectedItem">
-          <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            active-class="border"
-            exact
-            :to="item.url"
-            :class="{ active: item.active }"
-            @click="handleMenuItemClick(item.icon)"
-          >
-            <v-list-item-content>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-icon
-                    v-text="item.icon"
-                    :color="item.active ? 'white' : 'grey lighten-1'"
-                    v-on="on"
-                  ></v-icon>
-                </template>
-                <span>{{ item.title }}</span>
-              </v-tooltip>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
-    <div
-      style="
-        position: absolute;
-        bottom: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        text-align: center;
-      "
+  <v-app>
+    <v-navigation-drawer
+      v-model="localDrawer"
+      app
+      color="#212121"
+      mini-variant
+      mini-variant-width="110"
     >
-      <v-menu v-model="avatarOpen" color="purple" dark v-if="tokenExists">
-        <template v-slot:activator="{ on }">
-          <v-avatar v-on="on" size="40" @click="openAvatar">
-            <v-img
-              src="https://i.em.com.br/jTOeJB6fT9ijp4Icco__veVWhO0=/1200x1200/smart/imgsapp.em.com.br/app/noticia_127983242361/2023/03/03/1464489/jade-picon-vestida-de-chiara-_1_1461741.png"
-              class="image"
-            ></v-img>
-          </v-avatar>
-        </template>
-        <v-list>
-          <v-list-item @click="logout">
-            <v-list-item-icon>
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Sair</v-list-item-title>
-          </v-list-item>
+      <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="85">
+        <v-img
+          class="mt-5"
+          src="../assets/logo2.png"
+          height="auto"
+          max-width="50px"
+        ></v-img>
+      </v-avatar>
+
+      <v-card flat color="#151515" class="rounded-xl mx-4 py-10">
+        <v-list flat class="" dark>
+          <v-list-item-group v-model="selectedItem">
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              active-class="border"
+              exact
+              :to="item.url"
+              :class="{ active: item.active }"
+              @click="handleMenuItemClick(item.icon)"
+            >
+              <v-list-item-content>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon
+                      v-text="item.icon"
+                      :color="item.active ? 'white' : 'grey lighten-1'"
+                      v-on="on"
+                    ></v-icon>
+                  </template>
+                  <span>{{ item.title }}</span>
+                </v-tooltip>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
-      </v-menu>
-      <v-icon color="white">mdi-account</v-icon>
-      <p class="grey--text" style="font-size: 9.5px !important">
-        Você não está logado
-      </p>
-      <v-btn to="/login" dark color="#191919" flat class="elevation-0" small
-        >Entrar</v-btn
+      </v-card>
+      <div
+        style="
+          position: absolute;
+          bottom: 20px;
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+          text-align: center;
+        "
       >
-    </div>
-  </v-navigation-drawer>
+        <v-menu v-model="avatarOpen" color="purple" dark v-if="tokenExists">
+          <template v-slot:activator="{ on }">
+            <v-avatar v-on="on" size="40" @click="openAvatar">
+              <v-img
+                src="https://i.em.com.br/jTOeJB6fT9ijp4Icco__veVWhO0=/1200x1200/smart/imgsapp.em.com.br/app/noticia_127983242361/2023/03/03/1464489/jade-picon-vestida-de-chiara-_1_1461741.png"
+                class="image"
+              ></v-img>
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item @click="logout">
+              <v-list-item-icon>
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Sair</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <div v-else>
+          <v-icon color="white">mdi-account</v-icon>
+          <p class="grey--text" style="font-size: 9px !important">
+            Você não está logado
+            <v-btn to="/login" dark color="white" text class="elevation-0" small
+              >Entrar</v-btn
+            >
+          </p>
+        </div>
+      </div>
+    </v-navigation-drawer>
+  </v-app>
 </template>
 
 <script>
@@ -93,6 +97,7 @@ export default {
       avatarOpen: false,
       localDrawer: this.drawer,
       selectedItem: 0,
+      tokenExists: false,
       items: [
         {
           icon: "mdi-home-outline",
@@ -127,6 +132,9 @@ export default {
       ],
     };
   },
+  created() {
+    this.checkTokenExistence();
+  },
   watch: {
     drawer(newValue) {
       this.localDrawer = newValue;
@@ -138,12 +146,23 @@ export default {
     },
   },
   methods: {
+    checkTokenExistence() {
+      // Verifica se o token existe no localStorage
+      const token = localStorage.getItem("token");
+      if (token) {
+        // Se o token existir, define a propriedade tokenExists como verdadeiro
+        this.tokenExists = true;
+      } else {
+        // Se o token não existir, define a propriedade tokenExists como falso
+        this.tokenExists = false;
+      }
+    },
     openAvatar() {
       this.avatarOpen = true;
     },
     logout() {
       localStorage.clear();
-      this.$router.push({
+      this.$router.replace({
         path: "/login",
         query: { logout: "Você saiu da sua conta." },
       });

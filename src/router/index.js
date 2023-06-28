@@ -52,6 +52,10 @@ const routes = [
     component: TermosServico,
     meta: { title: "Termos de serviço" },
   },
+    {
+    path: '*',
+    redirect: '/',
+  },
   {
     path: "/o-que-e-vibe",
     name: "O que é Vibe+",

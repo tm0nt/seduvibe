@@ -13,25 +13,45 @@
         prefix="@"
       ></v-text-field>
 
-      <v-text-field v-model="Nome" :rules="rules" label="Nome"></v-text-field>
+      <v-text-field v-model="nome" :rules="rules" label="Nome"></v-text-field>
       <v-text-field
         v-model="CPF"
-        :rules="cp"
         label="CPF"
-        v-mask="'###.###.###-##'"
-        mask-replace="#"
-        masked="true"
+        disabled="true"
+        @input="formatCPF"
+        maxlength="14"
       ></v-text-field>
       <v-text-field
         v-model="celular"
         :rules="cel"
         label="Celular"
-        v-mask="'(##) #####-####'"
-        mask-replace="9"
-        masked="true"
         @input="formatCelular"
+        maxlength="14"
       ></v-text-field>
-      <v-text-field v-model="email" label="Email" :rules="em"></v-text-field>
+      <v-text-field
+        v-model="email"
+        label="Email"
+        :rules="emailRules"
+      ></v-text-field>
+      <v-chip v-if="!isEmailVerified" color="danger" dark @click="openDialog"
+        >Email não verificado</v-chip
+      >
+      <v-chip v-else color="purple" dark>Email verificado</v-chip>
+
+      <v-dialog v-model="dialogOpen" max-width="400px">
+        <v-card>
+          <v-alert
+            type="info"
+            color="purple"
+            dense
+            dismissible
+            @input="dialogOpen = false"
+          >
+            Enviamos o e-mail verificador para o seu e-mail, verifique sua caixa
+            de entrada.
+          </v-alert>
+        </v-card>
+      </v-dialog>
       <v-text-field
         v-model="senha"
         :rules="se"
@@ -80,16 +100,19 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data: (vm) => ({
+    isEmailVerified: false,
     userName: "rafaelsantos",
-    email: "rafaelsantos@gmail.com",
-    CPF: "",
-    cp: [
-      (v) => !!v || "O campo CPF é obrigatório",
-      (v) => this.validarCPF(v) || "CPF inválido",
+    nome: "",
+    emailRules: [
+      (v) => !!v || "Preenchimento de campo obrigatório",
+      (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
     ],
-
+    email: "rafaelsantos@gmail.com",
+    dialogOpen: false,
+    CPF: "",
     celular: "",
     senha: "",
     senhaConfirmacao: "",
@@ -110,35 +133,39 @@ export default {
     timeout: null,
   }),
   methods: {
+    formatCPF() {
+      // Remove caracteres não numéricos do valor do CPF
+      let cpf = this.CPF.replace(/\D/g, "");
+
+      // Aplica a máscara do CPF (###.###.###-##)
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d{2})$/, "$1-$2");
+
+      // Atualiza o valor do campo CPF
+      this.CPF = cpf;
+    },
+    openDialog() {
+      if (!this.isEmailVerified) {
+        const url = "https://api.seduvibe.com/confirm_email";
+        const data = {
+          email: this.email,
+        };
+        axios
+          .post(url, data)
+          .then((response) => {
+            if (response.data.msg === "Email successfully sent") {
+              // Email enviado com sucesso
+              this.dialogOpen = true;
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
     toggleMostrarSenha() {
       this.mostrarSenha = !this.mostrarSenha;
-    },
-    validarCPF(value) {
-      const cpf = value.replace(/\D/g, ""); // Remove caracteres não numéricos
-      if (cpf.length !== 11) return false; // Verifica se possui 11 dígitos
-      let sum = 0;
-      let remainder;
-
-      for (let i = 1; i <= 9; i++) {
-        sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-      }
-
-      remainder = (sum * 10) % 11;
-      if (remainder === 10 || remainder === 11) remainder = 0;
-
-      if (remainder !== parseInt(cpf.substring(9, 10))) return false;
-
-      sum = 0;
-      for (let i = 1; i <= 10; i++) {
-        sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-      }
-
-      remainder = (sum * 10) % 11;
-      if (remainder === 10 || remainder === 11) remainder = 0;
-
-      if (remainder !== parseInt(cpf.substring(10, 11))) return false;
-
-      return true;
     },
 
     formatCelular() {

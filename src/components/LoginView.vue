@@ -99,48 +99,12 @@
                             v-model="modalCodigoAberto"
                             max-width="500px"
                             dark
-                          >
-                            <v-card>
-                              <v-card-title class="headline"
-                                >Insira o código de verificação</v-card-title
-                              >
-                              <v-card-title class="text-caption"
-                                >Enviamos um código de verificação para seu
-                                {{ opcaoRecuperacao }}</v-card-title
-                              >
-                              <v-card-text>
-                                <div class="verification-code">
-                                  <div class="verification-code-inputs">
-                                    <input
-                                      v-for="index in 6"
-                                      :key="index"
-                                      ref="verificationInput"
-                                      v-model="codigoVerificacao[index - 1]"
-                                      class="verification-code-input"
-                                      maxlength="1"
-                                      type="text"
-                                      pattern="[0-9]"
-                                      @input="handleInput(index - 1)"
-                                    />
-                                  </div>
-                                  <div
-                                    id="cronometro"
-                                    class="grey--text font-bold"
-                                    v-if="cronometroAtivo"
-                                  >
-                                    {{ minutos }}:{{ segundos }}
-                                  </div>
-                                  <p class="mt-4 caption grey--text">
-                                    Não recebeu? Clique <a>aqui.</a>
-                                  </p>
-                                </div>
-                              </v-card-text>
-                              <v-card-actions>
-                                <v-btn color="purple" @click="verificarCodigo"
-                                  >Verificar</v-btn
-                                >
-                              </v-card-actions>
-                            </v-card>
+                            ><v-card>
+                              <v-alert type="success"
+                                >E-mail enviado com sucesso! Verifique sua caixa
+                                de entrada...</v-alert
+                              ></v-card
+                            >
                           </v-dialog>
                           <v-col cols="12" class="text-center">
                             <p class="caption grey--text">{{ logout }}</p>
@@ -364,8 +328,17 @@
           <v-card-text> Vamos ajudar você a recuperar sua senha. </v-card-text>
           <v-card-text>
             <v-radio-group v-model="opcaoRecuperacao">
-              <v-radio label="Recuperar por e-mail" value="Email"></v-radio>
-              <v-radio label="Recuperar por celular" value="Celular"></v-radio>
+              <v-radio
+                label="Recuperar por e-mail"
+                color="purple"
+                value="Email"
+              ></v-radio>
+              <v-radio
+                label="Recuperar por celular"
+                color="purple"
+                value="Celular"
+                :disabled="true"
+              ></v-radio>
             </v-radio-group>
           </v-card-text>
           <v-card-actions>
@@ -376,28 +349,27 @@
         </v-card>
       </v-dialog>
       <v-dialog v-model="showCodeModalDialog" dark max-width="500px">
-        <v-card>
-          <v-card-title class="headline">
-            Qual seu {{ opcaoRecuperacao }}?
-          </v-card-title>
-          <v-card-text>
-            <v-text-field
-              v-model="opcaoRecuperacao"
-              :label="opcaoRecuperacao"
-              required
-              color="purple"
-            ></v-text-field>
-            <p class="overline caption">
-              Enviaremos um código para seu {{ opcaoRecuperacao }}
-            </p>
-            <v-alert v-if="showRecoveryInputError" type="error">
-              {{ opcaoRecuperacao }}, não pertence a nenhuma conta
-            </v-alert>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="purple" dark @click="abrirModalCodigo">Enviar</v-btn>
-          </v-card-actions>
-        </v-card>
+        <form @submit.prevent="modalCodigoVerify">
+          <v-card>
+            <v-card-title class="headline"> Qual seu email? </v-card-title>
+            <v-card-text>
+              <v-text-field
+                v-model="forgot_password"
+                label="Digite aqui seu email.."
+                required
+                color="purple"
+                :rules="emailRules"
+              ></v-text-field>
+              <p class="overline caption">Enviaremos um link para seu e-mail</p>
+              <v-alert v-if="showRecoveryInputError" type="error">
+                {{ opcaoRecuperacao }}, não pertence a nenhuma conta
+              </v-alert>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="purple" dark type="submit">Enviar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </form>
       </v-dialog>
     </div>
   </v-container>
@@ -410,6 +382,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      emailSent: true,
       showCodeModalDialog: false,
       recoveryOption: "", // Opção de recuperação selecionada
       recoveryInput: "",
@@ -493,7 +466,6 @@ export default {
   },
   mounted() {
     this.checkSuccessQueryParam();
-    this.iniciarCronometro();
   },
   criadorValue() {
     return this.criador ? 1 : 0;
@@ -662,10 +634,36 @@ export default {
       this.modalOpen = true;
     },
     showRecoveryOptionDialog() {
+      this.modalOpen = false;
+
       this.showCodeModalDialog = true;
     },
-    abrirModalCodigo() {
-      this.modalCodigoAberto = true;
+    modalCodigoVerify() {
+      this.showCodeModalDialog = false;
+
+      const url = "https://api.seduvibe.com/forgot_password";
+      const data = {
+        method: "email",
+        email: this.forgot_password,
+        phone: "",
+        countryCode: "",
+      };
+
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.data.msg === "Email successfully sent") {
+            // Email enviado com sucesso
+            this.modalCodigoAberto = true;
+          } else {
+            // Email não enviado
+            this.showRecoveryInputError = true;
+            this.opcaoRecuperacao = "Este e-mail não possui conta";
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     verificarCodigo() {
       // Lógica para verificar se o código é verdadeiro

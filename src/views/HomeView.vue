@@ -36,13 +36,14 @@
           >
             <template v-slot:item="{ item }">
               <v-list-item
+                color="black"
                 class="mt-1 custom-item"
-                style="background: #f1f1f1 !important; border-radius: 200px"
+                style="border-radius: 200px"
               >
                 <v-list-item-avatar>
                   <v-img :src="item.avatar"></v-img>
                 </v-list-item-avatar>
-                <v-list-item-content>
+                <v-list-item-content dark>
                   <v-list-item-title class="purple--text">{{
                     item.name
                   }}</v-list-item-title>
@@ -93,35 +94,7 @@
           </v-btn>
         </div>
       </v-toolbar>
-      <v-app-bar dark color="rgba(0,0,0,0)" flat class="mt-5">
-        <v-btn icon @click="moveTab('left')">
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-
-        <v-tabs
-          v-model="activeTab"
-          color="purple"
-          class="align-center"
-          ref="tabs"
-        >
-          <v-tabs-slider color="purple"></v-tabs-slider>
-
-          <v-tab
-            v-for="tab in tabs"
-            :key="tab.id"
-            class="withoutupercase"
-            @click="centerActiveTab(tab.id)"
-          >
-            {{ tab.title }}
-          </v-tab>
-        </v-tabs>
-
-        <v-spacer></v-spacer>
-
-        <v-btn icon @click="moveTab('right')">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-app-bar>
+      <v-app-bar dark color="rgba(0,0,0,0)" flat class=""> </v-app-bar>
       <v-divider color="grey"></v-divider>
       <v-toolbar flat color="rgba(0,0,0,0)">
         <v-divider vertical color="grey" inset class="d-none"></v-divider>

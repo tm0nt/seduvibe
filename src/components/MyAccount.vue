@@ -3,15 +3,35 @@
     <v-text-field
       v-model="form.usuario"
       label="Usuário"
+      prefix="@"
       color="white"
       dark
     ></v-text-field>
+    <v-chip v-if="!isEmailVerified" color="danger" dark @click="openMail"
+      >Email não verificado</v-chip
+    >
+    <v-chip v-else color="purple" dark>Email verificado</v-chip>
     <v-text-field
       v-model="form.email"
       label="Email"
       color="white"
+      :rules="emailRules"
       dark
     ></v-text-field>
+    <v-dialog v-model="mailOpen" max-width="400px">
+      <v-card>
+        <v-alert
+          type="info"
+          color="purple"
+          dense
+          dismissible
+          @input="mailOpen = false"
+        >
+          Enviamos o e-mail verificador para o seu e-mail, verifique sua caixa
+          de entrada.
+        </v-alert>
+      </v-card>
+    </v-dialog>
     <v-text-field
       v-model="form.facebook"
       label="Facebook"
@@ -84,23 +104,78 @@
 </style>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       form: {
         usuario: "",
         email: "",
+        isEmailVerified: false,
         facebook: "",
         twitter: "",
         instagram: "",
+        emailRules: [
+          (v) => !!v || "Preenchimento de campo obrigatório",
+          (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
+        ],
         telegram: "",
       },
       dialog: false,
       senha: "",
       confirmarSenha: "",
+      mailOpen: false,
+      cel: [
+        (v) => !!v || "O campo Celular é obrigatório",
+        (v) =>
+          /^(\([1-9]{2}\) )?[9]{1}[0-9]{4}-[0-9]{4}$/.test(v) ||
+          "Celular inválido",
+      ],
     };
   },
   methods: {
+    formatCPF() {
+      // Remove caracteres não numéricos do valor do CPF
+      let cpf = this.CPF.replace(/\D/g, "");
+
+      // Aplica a máscara do CPF (###.###.###-##)
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d{2})$/, "$1-$2");
+
+      // Atualiza o valor do campo CPF
+      this.CPF = cpf;
+    },
+    formatCelular() {
+      let value = this.celular.replace(/\D/g, "");
+      if (value.length > 10) {
+        this.celular = `(${value.substring(0, 2)}) ${value.substring(
+          2,
+          7
+        )}-${value.substring(7, 11)}`;
+      } else {
+        this.celular = value;
+      }
+    },
+    openMail() {
+      if (!this.isEmailVerified) {
+        const url = "https://api.seduvibe.com/confirm_email";
+        const data = {
+          email: this.email,
+        };
+        axios
+          .post(url, data)
+          .then((response) => {
+            if (response.data.msg === "Email successfully sent") {
+              // Email enviado com sucesso
+              this.mailOpen = true;
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
     openDialog() {
       this.dialog = true;
     },

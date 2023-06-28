@@ -11,7 +11,7 @@
         outlined
         hide-details
         class="ma-2"
-        label="tipo"
+        label="Tipo"
       ></v-select>
       <v-select
         v-model="mode"
@@ -23,12 +23,12 @@
         class="ma-2"
       ></v-select>
       <v-select
-        v-model="weekday"
-        :items="weekdays"
+        v-model="semana"
+        :items="semanas"
         dense
         outlined
         hide-details
-        label="weekdays"
+        label="Semanas"
         class="ma-2"
       ></v-select>
       <v-spacer></v-spacer>
@@ -40,7 +40,7 @@
       <v-calendar
         ref="calendar"
         v-model="value"
-        :weekdays="weekday"
+        :semanas="semana"
         :tipo="tipo"
         :events="events"
         :event-overlap-mode="mode"
@@ -59,8 +59,8 @@ export default {
     tipos: ["Mês", "Semana", "Dia", "4 dias"],
     mode: "stack",
     modes: ["stack", "coluna"],
-    weekday: [0, 1, 2, 3, 4, 5, 6],
-    weekdays: [
+    semana: [0, 1, 2, 3, 4, 5, 6],
+    semanas: [
       { text: "Dom - Sáb", value: [0, 1, 2, 3, 4, 5, 6] },
       { text: "Seg - Sex", value: [1, 2, 3, 4, 5] },
       { text: "Dom, Qua, Sex", value: [1, 3, 5] },

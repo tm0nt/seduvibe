@@ -13,16 +13,28 @@
       </v-row>
 
       <v-row>
-        <v-col cols="6">
+        <v-col cols="4">
           <v-text-field
             v-model="cpf"
             label="CPF"
-            mask="###.###.###-##"
             dark
             required
+            @input="formatCPF"
+            maxlength="14"
           ></v-text-field>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="4">
+          <v-text-field
+            v-model="telefone"
+            label="Celular"
+            dark
+            :rules="cel"
+            maxlength="14"
+            required
+            @input="formatCelular"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="4">
           <v-text-field
             v-model="dataNascimento"
             label="Data de nascimento"
@@ -98,6 +110,29 @@ export default {
     };
   },
   methods: {
+    formatCPF() {
+      // Remove caracteres não numéricos do valor do CPF
+      let cpf = this.CPF.replace(/\D/g, "");
+
+      // Aplica a máscara do CPF (###.###.###-##)
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+      cpf = cpf.replace(/(\d{3})(\d{2})$/, "$1-$2");
+
+      // Atualiza o valor do campo CPF
+      this.CPF = cpf;
+    },
+    formatCelular() {
+      let value = this.celular.replace(/\D/g, "");
+      if (value.length > 10) {
+        this.celular = `(${value.substring(0, 2)}) ${value.substring(
+          2,
+          7
+        )}-${value.substring(7, 11)}`;
+      } else {
+        this.celular = value;
+      }
+    },
     salvarAlteracoes() {
       // Lógica para salvar as alterações aqui
     },

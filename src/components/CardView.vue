@@ -29,6 +29,52 @@
                 </v-icon></v-btn
               >
             </v-card>
+            <v-btn
+              color="purple"
+              class="mr-2"
+              small
+              text
+              dark
+              @click="exibirModalNovoCartao"
+              >Novo cartão</v-btn
+            >
+            <v-dialog v-model="novoCartao" max-width="500px" dark>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">Adicionar novo cartão</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-form>
+                    <v-text-field
+                      v-model="cartaoNovo.nomeTitular"
+                      label="Nome do Titular"
+                      color="purple"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="cartaoNovo.numeroCartao"
+                      label="Número do Cartão"
+                      color="purple"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="cartaoNovo.dataVencimento"
+                      label="Data de Vencimento"
+                      color="purple"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="cartaoNovo.codigoSeguranca"
+                      label="Código de Segurança"
+                      color="purple"
+                    ></v-text-field>
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn color="purple" text @click="adicionarCartao"
+                    >Adicionar</v-btn
+                  >
+                  <v-btn text @click="fecharModalNovoCartao">Cancelar</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
             <v-row v-if="showInputs" class="mt-5 mb-5">
               <v-col
                 cols="12"
@@ -137,7 +183,13 @@ export default {
     return {
       showInputs: false,
       dialogVisible: false,
-
+      novoCartao: false,
+      cartaoNovo: {
+        nomeTitular: "",
+        numeroCartao: "",
+        dataVencimento: "",
+        codigoSeguranca: "",
+      },
       expandedExperiences: [],
       isDialogVisible: false,
       headers: [
@@ -171,6 +223,17 @@ export default {
     };
   },
   methods: {
+    exibirModalNovoCartao() {
+      this.novoCartao = true;
+    },
+    fecharModalNovoCartao() {
+      this.novoCartao = false;
+    },
+    adicionarCartao() {
+      // Lógica para adicionar o novo cartão
+      console.log("Novo cartão adicionado:", this.cartaoNovo);
+      this.novoCartao = false;
+    },
     toggleInputs() {
       this.showInputs = !this.showInputs;
     },
