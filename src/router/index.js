@@ -23,6 +23,7 @@ import VibePlus from "../components/vibeplus/VibePlus.vue";
 import TermosServico from "../components/info/TermosDeServico.vue";
 import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
 import VibePlusCreator from "../components/vibeplus/VibePlusCreator.vue";
+import EmailConfirm from "../views/EmailConfirm.vue"
 
 
 Vue.use(VueRouter);
@@ -52,6 +53,13 @@ const routes = [
     component: TermosServico,
     meta: { title: "Termos de serviço" },
   },
+    {
+    path: "/confirmacaoEmail",
+    name: "COnfirmação de Email",
+    component: EmailConfirm,
+    meta: { title: "Estamos confirmando seu e-mail..." },
+  },
+
     {
     path: '*',
     redirect: '/',

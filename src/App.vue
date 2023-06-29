@@ -1,39 +1,35 @@
 <template>
-  <v-app bg="dark">
+  <v-app>
     <v-main>
-      <v-card color="purple" dark text-color="white" width="100%" height="40">
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-          "
-        >
-          <span style="font-size: 14px"
-            >Seu e-mail ainda não foi confirmado, confirme agora&nbsp;</span
-          >
-          <v-btn
-            dark
-            outlined
-            color="white"
-            small
-            x-small
-            text
-            @click="openDialog"
-            >Verificar</v-btn
-          >
-        </div>
-      </v-card>
+      <v-row justify="center" align="center">
+        <v-col cols="12" class="text-center">
+          <v-card color="purple" dark text-color="white">
+            <v-card-text>
+              <span style="font-size: 14px">
+                Seu e-mail ainda não foi confirmado, confirme agora&nbsp;
+              </span>
+              <v-btn
+                dark
+                outlined
+                color="white"
+                small
+                x-small
+                text
+                @click="openDialog"
+              >
+                Verificar
+              </v-btn>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
         <v-card>
-          <v-alert color="purple" class="white--text"
-            >Foi enviado um e-mail de confirmação para seu e-mail.&nbsp;<v-icon
-              color="white"
-              >mdi-check</v-icon
-            ></v-alert
-          >
+          <v-alert color="purple" class="white--text">
+            Foi enviado um e-mail de confirmação para seu e-mail.&nbsp;
+            <v-icon color="white">mdi-check</v-icon>
+          </v-alert>
         </v-card>
       </v-dialog>
 
@@ -47,7 +43,6 @@ export default {
   name: "App",
 
   data: () => ({
-    components: {},
     dialogVisible: false,
   }),
 
@@ -62,6 +57,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .v-application--wrap {
   min-height: 0vh !important;
