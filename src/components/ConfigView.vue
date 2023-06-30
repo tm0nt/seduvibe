@@ -33,7 +33,11 @@
         label="Email"
         :rules="emailRules"
       ></v-text-field>
-      <v-chip v-if="!isEmailVerified" color="danger" dark @click="openDialog"
+      <v-chip
+        v-if="emailConfirmed === 0"
+        color="danger"
+        dark
+        @click="openDialog"
         >Email não verificado</v-chip
       >
       <v-chip v-else color="purple" dark>Email verificado</v-chip>
@@ -105,6 +109,7 @@ export default {
   data: (vm) => ({
     isEmailVerified: false,
     userName: "rafaelsantos",
+    emailConfirmed: null,
     nome: "",
     emailRules: [
       (v) => !!v || "Preenchimento de campo obrigatório",
@@ -132,6 +137,37 @@ export default {
     rules: [(value) => vm.checkApi(value)],
     timeout: null,
   }),
+  mounted() {
+    const axios = require("axios");
+    const url = "https://api.seduvibe.com/";
+    const token = localStorage.getItem("token");
+    if (!token) {
+      this.emailConfirmed = null; // Define emailConfirmed como null
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(url, config)
+      .then((response) => {
+        // Requisição bem-sucedida
+        const data = response.data;
+        this.emailConfirmed = data.users[0].emailConfirmed;
+        console.log(this.emailConfirmed); // Exibe o valor de emailConfirmed no console
+
+        if (data.users[0].emailConfirmed === 1) {
+          this.emailConfirmed = 1;
+        }
+      })
+      .catch((error) => {
+        // A requisição falhou
+        console.error("Falha na requisição:", error.response.status);
+      });
+  },
   methods: {
     formatCPF() {
       // Remove caracteres não numéricos do valor do CPF

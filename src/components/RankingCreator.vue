@@ -76,6 +76,7 @@
 export default {
   data() {
     return {
+      index: "",
       ranking: [
         { name: "Daniele Alves", user: "@danieleh0t", score: 5 },
         { name: "Daniele Alves", user: "@danieleh0t", score: 5 },

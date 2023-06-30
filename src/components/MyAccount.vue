@@ -7,7 +7,7 @@
       color="white"
       dark
     ></v-text-field>
-    <v-chip v-if="!isEmailVerified" color="danger" dark @click="openMail"
+    <v-chip v-if="emailConfirmed === 0" color="danger" dark @click="openDialog"
       >Email não verificado</v-chip
     >
     <v-chip v-else color="purple" dark>Email verificado</v-chip>
@@ -111,18 +111,20 @@ export default {
       form: {
         usuario: "",
         email: "",
-        isEmailVerified: false,
         facebook: "",
         twitter: "",
         instagram: "",
-        emailRules: [
-          (v) => !!v || "Preenchimento de campo obrigatório",
-          (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
-        ],
+
         telegram: "",
       },
+      emailRules: [
+        (v) => !!v || "Preenchimento de campo obrigatório",
+        (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
+      ],
+      emailConfirmed: null,
       dialog: false,
       senha: "",
+      salvarAlteracoes: "",
       confirmarSenha: "",
       mailOpen: false,
       cel: [
@@ -132,6 +134,36 @@ export default {
           "Celular inválido",
       ],
     };
+  },
+  mounted() {
+    const axios = require("axios");
+    const url = "https://api.seduvibe.com/";
+    const token = localStorage.getItem("token");
+    if (!token) {
+      this.emailConfirmed = null; // Define emailConfirmed como null
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(url, config)
+      .then((response) => {
+        // Requisição bem-sucedida
+        const data = response.data;
+        this.emailConfirmed = data.users[0].emailConfirmed;
+
+        if (data.users[0].emailConfirmed === 1) {
+          this.emailConfirmed = 1;
+        }
+      })
+      .catch((error) => {
+        // A requisição falhou
+        console.error("Falha na requisição:", error.response.status);
+      });
   },
   methods: {
     formatCPF() {

@@ -266,9 +266,7 @@
           </v-menu>
         </v-card-title>
         <!-- Imagem da publicação -->
-        <v-card-media>
-          <v-img src="/img/post.jpg"></v-img>
-        </v-card-media>
+        <v-img src="/img/post.jpg"></v-img>
         <!-- Ações da publicação -->
         <v-card-actions>
           <v-btn icon>
@@ -321,7 +319,10 @@
             <v-textarea
               v-model="newComment"
               label="Adicione um comentário"
-              :rules="[rules.comment]"
+              :rules="[
+                (v) => !!v || 'Field is required',
+                (v) => (v && v.length <= 10) || 'Max 10 characters',
+              ]"
               required
             ></v-textarea>
           </v-form>
@@ -437,6 +438,7 @@ export default {
     return {
       selection: 1,
       drawer: true,
+      open: "",
       vibeOpen: false,
       mobileOpen: false,
       valor: "",
@@ -474,12 +476,8 @@ export default {
         "MAravilhosa",
       ],
       rules: {
-        comment: [
-          (v) => !!v || "O comentário é obrigatório",
-          (v) =>
-            (v && v.length <= 100) ||
-            "O comentário não pode ter mais de 100 caracteres",
-        ],
+        comment: [(v) => (v && v.length <= 10) || "Máximo de 10 caracteres"],
+        comment2: [(v) => !!v || "Campo obrigatório"],
       },
     };
   },

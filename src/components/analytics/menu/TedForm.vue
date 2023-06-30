@@ -38,20 +38,10 @@
         <v-text-field
           label="Valor"
           v-model="valor"
-          v-on:keyup="formatarValor"
-          :rules="[
-            valorRule,
-            (v) => {
-              if (!v) {
-                return 'Valor é obrigatório';
-              } else if (parseFloat(v.replace(/\D/g, '')) > 1000000) {
-                return 'O valor deve ser menor que R$ 1.000.000,00';
-              } else {
-                return true;
-              }
-            },
-          ]"
-        />
+          v-on:input="formatarValor"
+          :rules="valorRules"
+          :error-messages="valorErrors"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-alert
@@ -79,11 +69,6 @@ export default {
     return {
       cpf: "111.222.333-44",
       valor: "",
-      valorRule: [(v) => !!v || "Valor é obrigatório"],
-      rules: {
-        required: (v) => !!v || "Campo obrigatório",
-        cpf: (v) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) || "CPF inválido",
-      },
       selectedBank: null,
       bankList: [
         "Banco do Brasil",
@@ -109,12 +94,25 @@ export default {
         "C6Bank",
         "Banco Daycoval",
       ],
+      valorRules: [
+        (v) => !!v || "Valor é obrigatório",
+        (v) =>
+          parseFloat(v.replace(/\D/g, "")) <= 1000000 ||
+          "O valor deve ser menor que R$ 1.000.000,00",
+      ],
     };
+  },
+  computed: {
+    valorErrors() {
+      return this.valorRules
+        .filter((rule) => !rule(this.valor))
+        .map((rule) => rule(this.valor));
+    },
   },
   methods: {
     formatarValor() {
       let val = this.valor.replace(/\D/g, "");
-      val = (val / 100).toFixed(2).replace(".", ",");
+      val = (parseFloat(val) / 100).toFixed(2).replace(".", ",");
       val = "R$ " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       this.valor = val;
     },

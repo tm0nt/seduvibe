@@ -19,7 +19,7 @@
           v-model="mensal"
           label="Assinatura Mensal"
           dark
-          :rules="[requiredRule]"
+          :rules="requiredRule"
           :prefix="'R$'"
           @input="
             calculateTotal('mensal');

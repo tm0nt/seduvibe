@@ -35,8 +35,8 @@
               <v-card light flat dark>
                 <v-container>
                   <v-layout align-center>
-                    <strongC class="display-1 font-weight-regular mr-4"
-                      >9</strongC
+                    <strong class="display-1 font-weight-regular mr-4"
+                      >9</strong
                     >
                     <v-layout column justify-end>
                       <div class="title font-weight-light">Terça-feira</div>

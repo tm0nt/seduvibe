@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <v-content>
+      <v-main>
         <v-container fluid>
           <v-row justify="center">
             <v-col
@@ -111,7 +111,7 @@
             </v-col>
           </v-row>
         </v-container>
-      </v-content>
+      </v-main>
     </v-app>
   </div>
 </template>

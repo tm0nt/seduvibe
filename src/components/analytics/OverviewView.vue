@@ -98,7 +98,6 @@ export default {
   methods: {
     openConfirmationDialog() {
       this.showConfirmationDialog = true;
-      console.log(this.pageTitle);
     },
     closeConfirmationDialog() {
       this.showConfirmationDialog = false;

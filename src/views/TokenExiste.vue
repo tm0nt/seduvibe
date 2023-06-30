@@ -1,7 +1,7 @@
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <v-overlay :value="isBlurred" absolute class="blur-overlay">
-      <v-container class="d-flex flex-column align-center justify-center">
+      <div class="d-flex flex-column align-center justify-center">
         <h3 class="text-center">Você já está logado.</h3>
         <h5>Saia da sua conta primeiro.</h5>
         <p class="white--text caption">Redirecionando...</p>
@@ -12,10 +12,10 @@
             size="24"
           ></v-progress-circular>
         </template>
-      </v-container>
+      </div>
     </v-overlay>
     <div class="purple-bg">
-      <v-container>
+      <div>
         <v-toolbar flat color="rgba(0,0,0,0)" class="toolbar-mobile">
           <v-btn
             icon
@@ -40,7 +40,7 @@
           class="d-flex justify-center"
         >
         </v-app-bar>
-      </v-container>
+      </div>
     </div>
   </v-app>
 </template>
@@ -105,7 +105,8 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   bottom: 0;
-  backdrop-filter: blur(40px);
+  backdrop-filter: blur(60px);
 }
 </style>

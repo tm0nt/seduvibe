@@ -391,6 +391,7 @@ export default {
       alertMessage: "",
       logout: "",
       alertMessage2: "",
+      forgot_password: "",
       showAlert2: false,
       vErrorMessage: false,
       showLogin: false,
@@ -595,7 +596,7 @@ export default {
 
                 // Após um certo tempo, redirecionar para /perfil
                 setTimeout(() => {
-                  this.$router.push("/perfil");
+                  this.performAutoLogin(); // Realiza automaticamente o login após o registro
                 }, 3000);
               } else {
                 this.showAlert2 = true;
@@ -612,6 +613,32 @@ export default {
             });
         }
       });
+    },
+
+    performAutoLogin() {
+      const formData = {
+        email: this.email,
+        password: this.senha,
+      };
+
+      axios
+        .post("https://api.seduvibe.com/login", formData)
+        .then((response) => {
+          if (response.data.error === false) {
+            const token = response.data.token;
+            localStorage.setItem("token", token);
+
+            // Após um certo tempo, redirecionar para /perfil
+            setTimeout(() => {
+              this.$router.push("/perfil");
+              window.location.reload();
+            }, 3000);
+            console.log(response.data);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     handleInput(index) {

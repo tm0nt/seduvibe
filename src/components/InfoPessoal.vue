@@ -28,7 +28,6 @@
             v-model="telefone"
             label="Celular"
             dark
-            :rules="cel"
             maxlength="14"
             required
             @input="formatCelular"
@@ -105,6 +104,7 @@ export default {
       cpf: "",
       endereco: "",
       cep: "",
+      telefone: "",
       numero: "",
       complemento: "",
     };

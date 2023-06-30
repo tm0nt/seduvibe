@@ -22,9 +22,7 @@
           </v-menu>
         </v-card-title>
         <!-- Imagem da publicação -->
-        <v-card-media class="text-right">
-          <v-img src="/img/post.jpg"></v-img>
-        </v-card-media>
+        <v-img src="/img/post.jpg"></v-img>
         <!-- Ações da publicação -->
         <v-card-actions>
           <v-btn icon>
@@ -77,7 +75,7 @@
             <v-textarea
               v-model="newComment"
               label="Adicione um comentário"
-              :rules="[rules.comment]"
+              :rules="rules"
               required
             ></v-textarea>
           </v-form>
@@ -106,14 +104,10 @@ export default {
         "Comentário 4",
         "Comentário 5",
       ],
-      rules: {
-        comment: [
-          (v) => !!v || "O comentário é obrigatório",
-          (v) =>
-            (v && v.length <= 100) ||
-            "O comentário não pode ter mais de 100 caracteres",
-        ],
-      },
+      rules: [
+        (v) => (v && v.length <= 10) || "Máximo de 10 caracteres",
+        (v) => !!v || "Campo obrigatório",
+      ],
     };
   },
   methods: {

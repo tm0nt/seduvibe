@@ -147,7 +147,9 @@ export default {
     showContent(index) {
       this.activeIndex = this.activeIndex === index ? null : index;
     },
+    generateData() {},
   },
+
   components: {
     Navbar,
     SideBar,

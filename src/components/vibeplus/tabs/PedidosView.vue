@@ -48,6 +48,7 @@
 export default {
   data() {
     return {
+      item: "",
       headers: [
         { text: "ID", value: "id" },
         { text: "Cliente", value: "client" },

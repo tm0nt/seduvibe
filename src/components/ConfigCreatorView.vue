@@ -259,7 +259,7 @@ import MyAccount from "./MyAccount.vue";
 import ValoresView from "./ValoresView.vue";
 
 export default {
-  name: "HomeView",
+  name: "ConfigCreator",
   data() {
     return {
       dialog: false,
@@ -299,10 +299,13 @@ export default {
       this.drawer = false;
     }
     var showicon = document.getElementById("showIcon");
-    showicon.addEventListener("mouseover", function () {
-      showicon.setAttribute("hovered", "true");
-    });
+    if (showicon) {
+      showicon.addEventListener("mouseover", function () {
+        showicon.setAttribute("hovered", "true");
+      });
+    }
   },
+
   methods: {
     handleOptionClick(option) {
       switch (option) {

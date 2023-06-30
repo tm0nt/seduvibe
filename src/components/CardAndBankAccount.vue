@@ -62,6 +62,7 @@
 export default {
   data() {
     return {
+      bancos: ["Caixa", "Itaú"],
       numeroCartao: "Caixa Economica Federal",
       nomeTitular: "Lais Maria",
       Tipo: "Poupança",

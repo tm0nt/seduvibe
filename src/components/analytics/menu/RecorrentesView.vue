@@ -27,7 +27,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="item in items" :key="item.usuario">
+                      <tr v-for="(item, index) in items" :key="index">
                         <td class="text-white">{{ item.usuario }}</td>
                         <td class="text-white">{{ item.vencimento }}</td>
                         <td class="text-white">{{ item.servico }}</td>

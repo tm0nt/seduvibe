@@ -14,12 +14,18 @@
             :value="card.progress"
             class="progress-bar"
           ></v-progress-linear>
-          <div class="level">Próximo Nível: {{ card.nextLevel }}</div>
+          <div clas s="level">Próximo Nível: {{ card.nextLevel }}</div>
         </div>
       </v-card>
       <div class="card-line" v-if="index !== cards.length - 1"></div>
 
-      <v-card v-for="card in cards" :key="card.id" class="user-card" dark flat>
+      <v-card
+        v-for="card in cards"
+        :key="card.id + '-icon'"
+        class="user-card"
+        dark
+        flat
+      >
         <v-avatar class="avatar" color="purple">
           <v-icon color="white">mdi-star</v-icon>
         </v-avatar>
@@ -46,6 +52,7 @@
 export default {
   data() {
     return {
+      index: "",
       cards: [
         {
           id: 1,

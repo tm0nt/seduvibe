@@ -16,12 +16,12 @@ export default {
     const token = urlParams.get("token");
 
     if (email && token) {
+      // Constrói a URL com os parâmetros
+      const url = `https://api.seduvibe.com/email_confirmed?email=${email}&token=${token}`;
+
       // Faz a requisição utilizando o Axios
       axios
-        .post("https://api.seduvibe.com/email_confirmed", {
-          email: email,
-          token: token,
-        })
+        .post(url)
         .then((response) => {
           console.log(response.data);
           // Redireciona para a rota "/perfil"

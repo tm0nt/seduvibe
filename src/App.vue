@@ -3,7 +3,12 @@
     <v-main>
       <v-row justify="center" align="center">
         <v-col cols="12" class="text-center">
-          <v-card color="purple" dark text-color="white">
+          <v-card
+            v-if="emailConfirmed === 0"
+            color="purple"
+            dark
+            text-color="white"
+          >
             <v-card-text>
               <span style="font-size: 14px">
                 Seu e-mail ainda não foi confirmado, confirme agora&nbsp;
@@ -44,6 +49,7 @@ export default {
 
   data: () => ({
     dialogVisible: false,
+    emailConfirmed: null,
   }),
 
   methods: {
@@ -54,6 +60,36 @@ export default {
     closeDialog() {
       this.dialogVisible = false;
     },
+  },
+  mounted() {
+    const axios = require("axios");
+    const url = "https://api.seduvibe.com/";
+    const token = localStorage.getItem("token");
+    if (!token) {
+      this.emailConfirmed = null; // Define emailConfirmed como null
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(url, config)
+      .then((response) => {
+        // Requisição bem-sucedida
+        const data = response.data;
+        this.emailConfirmed = data.users[0].emailConfirmed;
+
+        if (data.users[0].emailConfirmed === 1) {
+          this.emailConfirmed = 1;
+        }
+      })
+      .catch((error) => {
+        // A requisição falhou
+        console.error("Falha na requisição:", error.response.status);
+      });
   },
 };
 </script>
