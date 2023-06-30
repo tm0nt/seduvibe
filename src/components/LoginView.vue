@@ -458,10 +458,10 @@ export default {
       this.vErrorMessage = true;
       this.tokenExists = true;
       setTimeout(() => {
-        this.$router.push("/perfil");
+        this.$router.push("/profile");
       }, 2000);
     }
-    // Redirecione para /perfil após 3 segundos
+    // Redirecione para /profile após 3 segundos
 
     this.logout = this.$route.query.logout || "";
   },
@@ -548,9 +548,9 @@ export default {
             this.loginMessage = "Login autorizado! Redirecionando...";
             this.isLoading = true;
 
-            // Após um certo tempo, redirecionar para /perfil
+            // Após um certo tempo, redirecionar para /profile
             setTimeout(() => {
-              this.$router.push("/perfil");
+              this.$router.push("/profile");
             }, 3000);
             console.log(response.data);
           }
@@ -594,7 +594,7 @@ export default {
                   "Conta criada com sucesso, redirecionando...";
                 this.isLoading = true;
 
-                // Após um certo tempo, redirecionar para /perfil
+                // Após um certo tempo, redirecionar para /profile
                 setTimeout(() => {
                   this.performAutoLogin(); // Realiza automaticamente o login após o registro
                 }, 3000);
@@ -628,9 +628,9 @@ export default {
             const token = response.data.token;
             localStorage.setItem("token", token);
 
-            // Após um certo tempo, redirecionar para /perfil
+            // Após um certo tempo, redirecionar para /profile
             setTimeout(() => {
-              this.$router.push("/perfil");
+              this.$router.push("/profile");
               window.location.reload();
             }, 3000);
             console.log(response.data);
