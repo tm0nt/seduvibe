@@ -3,8 +3,6 @@ import VueRouter from "vue-router";
 import LoginView from "../components/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import PerfilView from "../views/PerfilView.vue";
-import PagamentosView from "../views/PagamentosView.vue";
-import AcessosView from "../views/AcessosView.vue";
 import NovaSenha from "../components/nova_senha/NovaSenhaView.vue";
 import RankingView from "../views/RankingView.vue";
 import VibePlusAssinatura from "../views/AssineVibePlusView.vue";
@@ -17,7 +15,6 @@ import AllAccount from "../components/analytics/menu/EverythingAccountView.vue";
 import Chat from "../components/analytics/menu/ChatView.vue";
 import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
 import Wallet from "../components/analytics/menu/WalletView.vue";
-import Views from "../components/analytics/menu/ViewsView.vue";
 import SemConta from "../views/SemConta.vue";
 import VibePlus from "../components/vibeplus/VibePlus.vue";
 import TermosServico from "../components/info/TermosDeServico.vue";
@@ -71,7 +68,7 @@ const routes = [
     meta: { title: "Está sem conta?" },
   },
   {
-    path: "/assine",
+    path: "/signature",
     name: "VibePlus",
     component: VibePlusAssinatura,
     meta: { title: "Assine agora" },
@@ -102,23 +99,12 @@ const routes = [
   },
 
   {
-    path: "/perfil",
+    path: "/profile",
     name: "perfil",
     component: PerfilView,
     meta: { title: "Meu perfil" },
   },
-  {
-    path: "/acessos",
-    name: "acessos",
-    component: AcessosView,
-    meta: { title: "Minhas assinaturas" },
-  },
-  {
-    path: "/pagamentos",
-    name: "pagamentos",
-    component: PagamentosView,
-    meta: { title: "Pagamentos" },
-  },
+  
   {
     path: "/ranking",
     name: "ranking",
@@ -148,12 +134,6 @@ const routes = [
     name: "Vibe+",
     component: VibePlus,
     meta: { title: "Vibe+" },
-  },
-  {
-    path: "/views",
-    name: "views",
-    component: Views,
-    meta: { title: "Dados de visualização" },
   },
   {
     path: "/chat",

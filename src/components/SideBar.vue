@@ -20,7 +20,7 @@
         <v-list flat class="" dark>
           <v-list-item-group v-model="selectedItem">
             <v-list-item
-              v-for="(item, i) in items"
+              v-for="(item, i) in sidebarItems"
               :key="i"
               active-class="border"
               exact
@@ -96,9 +96,153 @@ export default {
     return {
       avatarOpen: false,
       localDrawer: this.drawer,
+      creator: null,
       selectedItem: 0,
       tokenExists: false,
-      items: [
+      sidebarItems: [],
+    };
+  },
+  mounted() {
+    const axios = require("axios");
+    const url = "https://api.seduvibe.com/";
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(url, config)
+      .then((response) => {
+        // Requisição bem-sucedida
+        const creator = response.data.users[0].creator;
+        localStorage.setItem("creator", creator);
+        if (!localStorage.getItem("creator")) {
+          this.sidebarItems = [
+            {
+              icon: "mdi-home-outline",
+              url: "/",
+              title: "Home",
+              active: false,
+            },
+            {
+              icon: "mdi-account-circle-outline",
+              url: "/perfil",
+              title: "Perfil",
+              active: false,
+            },
+            {
+              icon: "mdi-chat-outline",
+              url: "/chat",
+              title: "Chat",
+              active: false,
+            },
+            {
+              icon: "mdi-layers-plus",
+              url: "/vibeplus",
+              title: "Vibe+",
+              active: false,
+            },
+
+            {
+              icon: "mdi-chevron-triple-up",
+              url: "/ranking",
+              title: "Ranking",
+              active: false,
+            },
+          ];
+          return;
+        }
+        if (creator === 1) {
+          this.sidebarItems = [
+            {
+              icon: "mdi-home-outline",
+              url: "/",
+              title: "Home",
+              active: false,
+            },
+            {
+              icon: "mdi-account-circle-outline",
+              url: "/perfil",
+              title: "Perfil",
+              active: false,
+            },
+            {
+              icon: "mdi-chat-outline",
+              url: "/chat",
+              title: "Chat",
+              active: false,
+            },
+            {
+              icon: "mdi-note-multiple-outline",
+              url: "/postagem",
+              title: "Criar uma publicação",
+              active: false,
+            },
+            {
+              icon: "mdi-layers-plus",
+              url: "/vibeplus",
+              title: "Vibe+",
+              active: false,
+            },
+            {
+              icon: "mdi-chevron-triple-up",
+              url: "/ranking",
+              title: "Ranking",
+              active: false,
+            },
+          ];
+        } else {
+          this.sidebarItems = [
+            {
+              icon: "mdi-home-outline",
+              url: "/",
+              title: "Home",
+              active: false,
+            },
+            {
+              icon: "mdi-account-circle-outline",
+              url: "/perfil",
+              title: "Perfil",
+              active: false,
+            },
+            {
+              icon: "mdi-chat-outline",
+              url: "/chat",
+              title: "Chat",
+              active: false,
+            },
+            {
+              icon: "mdi-link-box-outline",
+              url: "/virarcriador",
+              title: "Transformando você em criador(a)",
+              active: false,
+            },
+            {
+              icon: "mdi-layers-plus",
+              url: "/vibeplus",
+              title: "Vibe+",
+              active: false,
+            },
+
+            {
+              icon: "mdi-chevron-triple-up",
+              url: "/ranking",
+              title: "Ranking",
+              active: false,
+            },
+          ];
+        }
+      })
+      .catch((error) => {
+        // A requisição falhou
+        console.error("Falha na requisição:", error.response.status);
+      });
+
+    if (this.sidebarItems.length === 0) {
+      this.sidebarItems = [
         {
           icon: "mdi-home-outline",
           url: "/",
@@ -118,19 +262,13 @@ export default {
           active: false,
         },
         {
-          icon: "mdi-layers-plus",
-          url: "/vibeplus",
-          title: "Vibe+",
-          active: false,
-        },
-        {
           icon: "mdi-chevron-triple-up",
           url: "/ranking",
           title: "Ranking",
           active: false,
         },
-      ],
-    };
+      ];
+    }
   },
   created() {
     this.checkTokenExistence();
@@ -140,7 +278,7 @@ export default {
       this.localDrawer = newValue;
     },
     $route(newRoute) {
-      this.items.forEach((item) => {
+      this.sidebarItems.forEach((item) => {
         item.active = newRoute.path === item.url;
       });
     },
@@ -166,6 +304,10 @@ export default {
         path: "/login",
         query: { logout: "Você saiu da sua conta." },
       });
+    },
+    handleMenuItemClick(icon) {
+      // Lógica para manipular o clique no item do menu
+      console.log("Icon clicked:", icon);
     },
   },
 };

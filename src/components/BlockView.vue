@@ -12,3 +12,8 @@
     </div>
   </v-app>
 </template>
+<style>
+.v-application--wrap {
+  min-height: 100% !important;
+}
+</style>

@@ -54,7 +54,7 @@
       </span>
 
       <v-card-text class="pt-0 ml-3 mb-2">
-        <router-link to="/assine">
+        <router-link to="/signature">
           <v-btn
             small
             style="font-size: 10px"

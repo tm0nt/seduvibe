@@ -135,9 +135,7 @@
           </v-menu>
         </v-card-title>
         <!-- Imagem da publicação -->
-        <v-card-media>
-          <v-img src="/img/post.jpg"></v-img>
-        </v-card-media>
+        <v-img src="/img/post.jpg"></v-img>
         <!-- Ações da publicação -->
         <v-card-actions>
           <v-btn icon>
@@ -204,63 +202,7 @@
         </v-card-actions>
       </v-card>
     </div>
-    <v-btn
-      fab
-      white
-      color="purple"
-      bottom
-      class="mb-10 mr-5"
-      right
-      fixed
-      @click="openPublicacaoModal"
-    >
-      <v-icon color="white">mdi-plus</v-icon>
-    </v-btn>
 
-    <v-dialog v-model="publicacaoModal" max-width="80%">
-      <v-card>
-        <v-card-title>
-          <span class="headline">Envio de Arquivos para Publicação</span>
-          <v-btn icon @click="closePublicacaoModal">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            label="Legenda"
-            v-model="publicacaoCaption"
-          ></v-text-field>
-
-          <v-file-input
-            label="Arquivo"
-            v-model="publicacaoSelectedFile"
-            show-size
-            @change="previewPublicacaoFile"
-          ></v-file-input>
-          <v-img
-            v-if="publicacaoPreviewUrl"
-            :src="publicacaoPreviewUrl"
-            width="200"
-          ></v-img>
-
-          <v-switch
-            v-model="publicacaoExclusivePack"
-            label="Pack Exclusivo"
-          ></v-switch>
-          <v-text-field
-            v-if="publicacaoExclusivePack"
-            label="Valor"
-            v-model="publicacaoExclusiveValue"
-            :rules="[currencyRule]"
-            suffix="BRL"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="purple" @click="publishPublicacao">PUBLICAR</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <template>
       <v-dialog v-model="dialog" dark max-width="500">
         <v-card>
@@ -385,10 +327,13 @@ export default {
       this.drawer = false;
     }
     var showicon = document.getElementById("showIcon");
-    showicon.addEventListener("mouseover", function () {
-      showicon.setAttribute("hovered", "true");
-    });
+    if (showicon) {
+      showicon.addEventListener("mouseover", function () {
+        showicon.setAttribute("hovered", "true");
+      });
+    }
   },
+
   methods: {
     openPublicacaoModal() {
       this.publicacaoModal = true;

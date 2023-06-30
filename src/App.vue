@@ -4,7 +4,10 @@
       <v-row justify="center" align="center">
         <v-col cols="12" class="text-center">
           <v-card
-            v-if="emailConfirmed === 0"
+            v-if="
+              emailConfirmed === 0 &&
+              !['/login', '/o-que-e-vibe', '/signature'].includes($route.path)
+            "
             color="purple"
             dark
             text-color="white"
