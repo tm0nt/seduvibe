@@ -129,7 +129,7 @@ export default {
             },
             {
               icon: "mdi-account-circle-outline",
-              url: "/perfil",
+              url: "/profile",
               title: "Perfil",
               active: false,
             },
@@ -165,7 +165,7 @@ export default {
             },
             {
               icon: "mdi-account-circle-outline",
-              url: "/perfil",
+              url: "/profile",
               title: "Perfil",
               active: false,
             },
@@ -204,7 +204,7 @@ export default {
             },
             {
               icon: "mdi-account-circle-outline",
-              url: "/perfil",
+              url: "/profile",
               title: "Perfil",
               active: false,
             },
@@ -217,7 +217,7 @@ export default {
             {
               icon: "mdi-link-box-outline",
               url: "/virarcriador",
-              title: "Transformando você em criador(a)",
+              title: "Torne-se criador(a)",
               active: false,
             },
             {
@@ -251,7 +251,7 @@ export default {
         },
         {
           icon: "mdi-account-circle-outline",
-          url: "/perfil",
+          url: "/profile",
           title: "Perfil",
           active: false,
         },
