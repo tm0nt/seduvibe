@@ -1,5 +1,26 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import LoginView from "../components/LoginView.vue";
+import HomeView from "../views/HomeView.vue";
+import PerfilView from "../views/PerfilView.vue";
+import NovaSenha from "../components/nova_senha/NovaSenhaView.vue";
+import RankingView from "../views/RankingView.vue";
+import VibePlusAssinatura from "../views/AssineVibePlusView.vue";
+import RankingViewUser from "../components/RankingUser.vue";
+import PerfilCreator from "../components/PerfilCreator.vue";
+import MyDashCreator from "../components/MyDashCreator.vue";
+import Analytics from "../views/AnalyticsView.vue";
+import ConfigCreatorView from "../components/ConfigCreatorView.vue";
+import AllAccount from "../components/analytics/menu/EverythingAccountView.vue";
+import Chat from "../components/analytics/menu/ChatView.vue";
+import Recorrente from "../components//analytics/menu/RecorrentesView.vue";
+import Wallet from "../components/analytics/menu/WalletView.vue";
+import SemConta from "../views/SemConta.vue";
+import VibePlus from "../components/vibeplus/VibePlus.vue";
+import TermosServico from "../components/info/TermosDeServico.vue";
+import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
+import VibePlusCreator from "../components/vibeplus/VibePlusCreator.vue";
+
 
 Vue.use(VueRouter);
 
@@ -7,127 +28,129 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../components/LoginView.vue"),
+    component: LoginView,
     meta: { title: "Seduvibe - Exclusividade e liberdade" },
   },
-  {
+    {
     path: "/vibecreator",
     name: "Vibe Creator",
-    component: () => import("../components/vibeplus/VibePlusCreator.vue"),
+    component: VibePlusCreator,
     meta: { title: "Vibe - Painel de controle" },
   },
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/HomeView.vue"),
+    component: HomeView,
     meta: { title: "Feed" },
   },
   {
     path: "/termos-de-servico",
     name: "Termos de Servico",
-    component: () => import("../components/info/TermosDeServico.vue"),
+    component: TermosServico,
     meta: { title: "Termos de serviço" },
   },
   {
     path: "/o-que-e-vibe",
     name: "O que é Vibe+",
-    component: () => import("../components/info/VibeMaisInfo.vue"),
+    component: VibePlusInfo,
     meta: { title: "O que é Vibe+?" },
   },
   {
     path: "/vibe",
     name: "Assine Vibe+",
-    component: () => import("../components/vibeplus/VibePlus.vue"),
+    component: VibePlus,
     meta: { title: "Vibe+" },
   },
   {
     path: "/noaccount",
     name: "Sem Conta",
-    component: () => import("../views/SemConta.vue"),
+    component: SemConta,
     meta: { title: "Está sem conta?" },
   },
   {
     path: "/signature",
     name: "VibePlus",
-    component: () => import("../views/AssineVibePlusView.vue"),
+    component: VibePlusAssinatura,
     meta: { title: "Assine agora" },
   },
   {
     path: "/reset",
     name: "Resetar senha",
-    component: () => import("../components/nova_senha/NovaSenhaView.vue"),
+    component: NovaSenha,
     meta: { title: "Redefinição de senha" },
   },
   {
     path: "/rankingUser",
     name: "RankingUser",
-    component: () => import("../components/RankingUser.vue"),
+    component: RankingViewUser,
     meta: { title: "Ranking" },
   },
   {
     path: "/analytics",
     name: "Analytics",
-    component: () => import("../views/AnalyticsView.vue"),
+    component: Analytics,
     meta: { title: "Analytics" },
   },
   {
     path: "/config",
     name: "Configurações",
-    component: () => import("../components/ConfigCreatorView.vue"),
+    component: ConfigCreatorView,
     meta: { title: "Configurações" },
   },
+
   {
     path: "/profile",
     name: "perfil",
-    component: () => import("../views/PerfilView.vue"),
+    component: PerfilView,
     meta: { title: "Meu perfil" },
   },
+  
   {
     path: "/ranking",
     name: "ranking",
-    component: () => import("../views/RankingView.vue"),
+    component: RankingView,
     meta: { title: "Ranking" },
   },
   {
     path: "/creator",
     name: "creator",
-    component: () => import("../components/PerfilCreator.vue"),
+    component: PerfilCreator,
     meta: { title: "Laís Alves" },
   },
   {
     path: "/dashboard",
     name: "dashboardCreator",
-    component: () => import("../components/MyDashCreator.vue"),
+    component: MyDashCreator,
     meta: { title: "Meu perfil" },
   },
   {
     path: "/wallet",
     name: "wallet",
-    component: () => import("../components/analytics/menu/WalletView.vue"),
+    component: Wallet,
     meta: { title: "Carteira" },
   },
-  {
+    {
     path: "/vibeplus",
     name: "Vibe+",
-    component: () => import("../components/vibeplus/VibePlus.vue"),
+    component: VibePlus,
     meta: { title: "Vibe+" },
   },
   {
     path: "/chat",
     name: "chat",
-    component: () => import("../components/analytics/menu/ChatView.vue"),
+    component: Chat,
     meta: { title: "Chat" },
   },
   {
     path: "/all",
     name: "all",
-    component: () => import("../components/analytics/menu/EverythingAccountView.vue"),
+    component: AllAccount,
     meta: { title: "Dados" },
   },
   {
     path: "/recorrent",
     name: "recorrent",
-    component: () => import("../components/analytics/menu/RecorrentesView.vue"),
+    component: Recorrente,
     meta: { title: "Próximos pagamentos" },
   },
 ];
