@@ -114,7 +114,6 @@ export default {
         facebook: "",
         twitter: "",
         instagram: "",
-
         telegram: "",
       },
       emailRules: [
@@ -154,6 +153,8 @@ export default {
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
+        this.form.usuario = data.users[0].user;
+        this.form.email = data.users[0].email;
         this.emailConfirmed = data.users[0].emailConfirmed;
 
         if (data.users[0].emailConfirmed === 1) {

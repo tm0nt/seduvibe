@@ -109,6 +109,30 @@ export default {
       complemento: "",
     };
   },
+  mounted() {
+    const axios = require("axios");
+    const url = "https://api.seduvibe.com/";
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(url, config)
+      .then((response) => {
+        // Requisição bem-sucedida
+        const data = response.data;
+        this.nomeCompleto = data.users[0].name;
+        this.telefone = data.users[0].phone;
+      })
+      .catch((error) => {
+        // A requisição falhou
+        console.error("Falha na requisição:", error.response.status);
+      });
+  },
   methods: {
     formatCPF() {
       // Remove caracteres não numéricos do valor do CPF

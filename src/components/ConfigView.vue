@@ -108,7 +108,7 @@ import axios from "axios";
 export default {
   data: (vm) => ({
     isEmailVerified: false,
-    userName: "rafaelsantos",
+    userName: "",
     emailConfirmed: null,
     nome: "",
     emailRules: [
@@ -156,8 +156,11 @@ export default {
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
+        this.nome = data.users[0].name;
+        this.userName = data.users[0].user;
+        this.email = data.users[0].email;
+        this.celular = data.users[0].phone;
         this.emailConfirmed = data.users[0].emailConfirmed;
-        console.log(this.emailConfirmed); // Exibe o valor de emailConfirmed no console
 
         if (data.users[0].emailConfirmed === 1) {
           this.emailConfirmed = 1;
@@ -203,7 +206,6 @@ export default {
     toggleMostrarSenha() {
       this.mostrarSenha = !this.mostrarSenha;
     },
-
     formatCelular() {
       let value = this.celular.replace(/\D/g, "");
       if (value.length > 10) {
@@ -215,6 +217,7 @@ export default {
         this.celular = value;
       }
     },
+
     openConfirmationModal() {
       this.confirmationModalOpen = true;
     },
