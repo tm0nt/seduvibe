@@ -1,0 +1,13 @@
+DirectoryIndex index.html 
+# Ativar o módulo mod_expires
+ExpiresActive On
+
+# Configurar políticas de cache para diferentes tipos de recursos
+# Exemplo: CSS, JS e fontes
+ExpiresByType text/css "access plus 1 week"
+ExpiresByType application/javascript "access plus 1 week"
+ExpiresByType application/font-woff2 "access plus 1 week"
+
+# Configurar um tempo de vida padrão para outros tipos de recursos
+ExpiresDefault "access plus 1 week"
+Header set Content-Security-Policy "default-src 'self';"
