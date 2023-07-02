@@ -10,4 +10,3 @@ ExpiresByType application/font-woff2 "access plus 1 week"
 
 # Configurar um tempo de vida padrão para outros tipos de recursos
 ExpiresDefault "access plus 1 week"
-Header set Content-Security-Policy "default-src 'self';"

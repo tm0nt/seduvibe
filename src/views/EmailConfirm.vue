@@ -25,16 +25,16 @@ export default {
         .then((response) => {
           console.log(response.data);
           // Redireciona para a rota "/perfil"
-          router.push("/perfil");
+          router.push("/profile");
         })
         .catch((error) => {
           console.error(error);
-          // Redireciona para a rota "/perfil" em caso de erro
-          router.push("/perfil");
+          // Redireciona para a rota "/profile" em caso de erro
+          router.push("/profile");
         });
     } else {
       // Redireciona para a rota "/perfil" se os parâmetros de email e token não estiverem presentes
-      router.push("/perfil");
+      router.push("/profile");
     }
   },
 };
