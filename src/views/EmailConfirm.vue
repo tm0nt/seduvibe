@@ -21,7 +21,7 @@ export default {
 
       // Faz a requisição utilizando o Axios
       axios
-        .post(url)
+        .get(url)
         .then((response) => {
           console.log(response.data);
           // Redireciona para a rota "/perfil"
