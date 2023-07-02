@@ -47,17 +47,34 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
 
   data: () => ({
     dialogVisible: false,
     emailConfirmed: null,
+    email: null,
   }),
 
   methods: {
     openDialog() {
       this.dialogVisible = true;
+      const url = "https://api.seduvibe.com/confirm_email";
+      const data = {
+        email: this.email,
+      };
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.data.msg === "Email successfully sent") {
+            // Email enviado com sucesso
+            this.dialogVisible = true;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     closeDialog() {
@@ -84,6 +101,7 @@ export default {
         // Requisição bem-sucedida
         const data = response.data;
         this.emailConfirmed = data.users[0].emailConfirmed;
+        this.email = data.users[0].email;
 
         if (data.users[0].emailConfirmed === 1) {
           this.emailConfirmed = 1;
