@@ -24,7 +24,11 @@
           <v-form>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Nome do titular" required></v-text-field>
+                <v-text-field
+                  label="Nome do titular"
+                  color="purple"
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
@@ -32,19 +36,32 @@
                 <v-text-field
                   label="CPF"
                   required
-                  mask="###.###.###-##"
+                  color="purple"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-text-field label="Conta" required></v-text-field>
+                <v-text-field
+                  color="purple"
+                  label="Conta"
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" sm="6">
-                <v-text-field label="Agência" required></v-text-field>
+                <v-text-field
+                  color="purple"
+                  label="Agência"
+                  required
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-select label="Banco" :items="bancos" required></v-select>
+                <v-select
+                  label="Banco"
+                  color="purple"
+                  :items="bancos"
+                  required
+                ></v-select>
               </v-col>
             </v-row>
             <v-row>

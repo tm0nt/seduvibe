@@ -170,15 +170,34 @@
                   <p class="bio mt-5 white--text"></p>
                 </div>
               </v-col>
-              <v-row align="center" class="mt-5 d-flex justify-center">
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+              <v-row align="center" class="d-flex justify-center">
+                <v-col
+                  v-if="rede.facebook"
+                  cols="3"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-facebook-f</v-icon>
                 </v-col>
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                <v-col
+                  cols="3"
+                  v-if="rede.twitter"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-twitter</v-icon>
                 </v-col>
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                <v-col
+                  cols="3"
+                  v-if="rede.instagram"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-instagram</v-icon>
+                </v-col>
+                <v-col
+                  cols="3"
+                  v-if="rede.telegram"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
+                  <v-icon class="purple--text">fab fa-telegram</v-icon>
                 </v-col>
               </v-row>
               <v-col
@@ -459,6 +478,12 @@ export default {
       numeroCartao: "",
       dataVencimento: "",
       codigoSeguranca: "",
+      rede: {
+        facebook: 1,
+        twitter: 1,
+        instagram: 1,
+        telegram: 1,
+      },
       cpf: "",
       tabs: [
         { title: "Pagamentos", component: "CardView" },

@@ -4,7 +4,7 @@
       v-model="form.usuario"
       label="Usuário"
       prefix="@"
-      color="white"
+      color="purple"
       dark
     ></v-text-field>
     <v-chip v-if="emailConfirmed === 0" color="danger" dark @click="openDialog"
@@ -14,7 +14,7 @@
     <v-text-field
       v-model="form.email"
       label="Email"
-      color="white"
+      color="purple"
       :rules="emailRules"
       dark
     ></v-text-field>
@@ -33,29 +33,36 @@
       </v-card>
     </v-dialog>
     <v-text-field
+      v-model="form.genero"
+      label="Genero"
+      disabled="true"
+      color="purple"
+      dark
+    ></v-text-field>
+    <v-text-field
       v-model="form.facebook"
       label="Facebook"
-      color="white"
+      color="purple"
       dark
     ></v-text-field>
     <v-text-field
       v-model="form.twitter"
       label="Twitter"
-      color="white"
+      color="purple"
       dark
       prefix="@"
     ></v-text-field>
     <v-text-field
       v-model="form.instagram"
       label="Instagram"
-      color="white"
+      color="purple"
       dark
       prefix="@"
     ></v-text-field>
     <v-text-field
       v-model="form.telegram"
       label="Telegram"
-      color="white"
+      color="purple"
       dark
       prefix="@"
     ></v-text-field>
@@ -69,26 +76,27 @@
 
     <v-dialog v-model="dialog" max-width="500px">
       <v-card dark>
-        <v-card-title>Alterar Senha</v-card-title>
+        <v-card-title style="color: purple">Alterar Senha</v-card-title>
         <v-card-text>
           <v-text-field
             v-model="senha"
             label="Senha"
             type="password"
-            color="white"
+            color="purple"
             dark
           ></v-text-field>
           <v-text-field
             v-model="confirmarSenha"
             label="Confirmar Senha"
             type="password"
-            color="white"
+            color="purple"
             dark
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="purple" text @click="dialog = false">Cancelar</v-btn>
           <v-btn color="purple" text @click="alterarSenha">Salvar</v-btn>
+
+          <v-btn color="purple" text @click="dialog = false">Cancelar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -123,7 +131,6 @@ export default {
       emailConfirmed: null,
       dialog: false,
       senha: "",
-      salvarAlteracoes: "",
       confirmarSenha: "",
       mailOpen: false,
       cel: [
@@ -155,8 +162,13 @@ export default {
         const data = response.data;
         this.form.usuario = data.users[0].user;
         this.form.email = data.users[0].email;
-        this.emailConfirmed = data.users[0].emailConfirmed;
+        this.form.genero = data.users[0].genero;
+        this.form.facebook = data.users[0].facebook;
+        this.form.telegram = data.users[0].telegram;
+        this.form.twitter = data.users[0].twitter;
+        this.form.instagram = data.users[0].instagram;
 
+        this.emailConfirmed = data.users[0].emailConfirmed;
         if (data.users[0].emailConfirmed === 1) {
           this.emailConfirmed = 1;
         }
@@ -167,6 +179,35 @@ export default {
       });
   },
   methods: {
+    salvarAlteracoes() {
+      const url = "https://api.seduvibe.com/change_social_media";
+      const { facebook, telegram, instagram, twitter, nomeCompleto } = this;
+
+      const data = {
+        name: nomeCompleto,
+        facebook: facebook,
+        telegram: telegram,
+        instagram: instagram,
+        twitter: twitter,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post(url, JSON.stringify(data), config)
+        .then((response) => {
+          // Requisição bem-sucedida
+          console.log(response.data);
+        })
+        .catch((error) => {
+          // A requisição falhou
+          console.error("Falha na requisição:", error.response.status);
+        });
+    },
     formatCPF() {
       // Remove caracteres não numéricos do valor do CPF
       let cpf = this.CPF.replace(/\D/g, "");

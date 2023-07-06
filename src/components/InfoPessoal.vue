@@ -7,6 +7,7 @@
             v-model="nomeCompleto"
             label="Nome completo"
             dark
+            color="purple"
             required
           ></v-text-field>
         </v-col>
@@ -18,6 +19,7 @@
             v-model="cpf"
             label="CPF"
             dark
+            color="purple"
             required
             @input="formatCPF"
             maxlength="14"
@@ -30,6 +32,7 @@
             dark
             maxlength="14"
             required
+            color="purple"
             @input="formatCelular"
           ></v-text-field>
         </v-col>
@@ -37,8 +40,8 @@
           <v-text-field
             v-model="dataNascimento"
             label="Data de nascimento"
-            mask="##/##/####"
             dark
+            color="purple"
             required
           ></v-text-field>
         </v-col>
@@ -51,6 +54,7 @@
             label="Endereço"
             dark
             required
+            color="purple"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -59,7 +63,7 @@
           <v-text-field
             v-model="cep"
             label="CEP"
-            mask="#####-###"
+            color="purple"
             dark
             required
           ></v-text-field>
@@ -68,6 +72,7 @@
           <v-text-field
             v-model="numero"
             label="Número"
+            color="purple"
             dark
             required
           ></v-text-field>
@@ -75,6 +80,7 @@
         <v-col cols="4">
           <v-text-field
             v-model="complemento"
+            color="purple"
             label="Complemento"
             dark
           ></v-text-field>
@@ -90,12 +96,15 @@
         </v-col>
       </v-row>
 
-      <v-btn type="submit" color="purple" dark>Salvar alterações</v-btn>
+      <v-btn type="submit" color="purple" dark @click="salvarAlteracoes"
+        >Salvar alterações</v-btn
+      >
     </v-form>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -125,8 +134,15 @@ export default {
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
+        console.log(data);
         this.nomeCompleto = data.users[0].name;
+        this.cpf = data.users[0].cpf;
+        this.dataNascimento = data.users[0].dateOfBirth;
+        this.endereco = data.users[0].street;
         this.telefone = data.users[0].phone;
+        this.cep = data.users[0].cep;
+        this.numero = data.users[0].number;
+        this.complemento = data.users[0].complement;
       })
       .catch((error) => {
         // A requisição falhou
@@ -146,6 +162,47 @@ export default {
       // Atualiza o valor do campo CPF
       this.CPF = cpf;
     },
+    salvarAlteracoes() {
+      const url = "https://api.seduvibe.com/change_personal_data";
+      const {
+        nomeCompleto,
+        cpf,
+        dataNascimento,
+        telefone,
+        endereco,
+        cep,
+        numero,
+        complemento,
+      } = this;
+
+      const data = {
+        name: nomeCompleto,
+        cpf,
+        dateOfBirth: dataNascimento,
+        phone: telefone,
+        street: endereco,
+        cep,
+        number: numero,
+        complement: complemento,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post(url, JSON.stringify(data), config)
+        .then((response) => {
+          // Requisição bem-sucedida
+          console.log(response.data);
+        })
+        .catch((error) => {
+          // A requisição falhou
+          console.error("Falha na requisição:", error.response.status);
+        });
+    },
     formatCelular() {
       let value = this.celular.replace(/\D/g, "");
       if (value.length > 10) {
@@ -157,12 +214,12 @@ export default {
         this.celular = value;
       }
     },
-    salvarAlteracoes() {
-      // Lógica para salvar as alterações aqui
-    },
     validarIdade() {
-      const dataNascimento = this.dataNascimento;
-      const partesData = dataNascimento.split("/");
+      if (!this.dataNascimento) {
+        return false;
+      }
+
+      const partesData = this.dataNascimento.split("/");
       const dataCompleta = new Date(
         partesData[2],
         partesData[1] - 1,

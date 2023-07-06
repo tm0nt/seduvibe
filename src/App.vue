@@ -91,24 +91,29 @@ export default {
     }
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer token ${token}`,
       },
     };
 
     axios
-      .get(url, config)
+      .post(url, config)
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
-        this.emailConfirmed = data.users[0].emailConfirmed;
-        this.email = data.users[0].email;
+        if (data.users && data.users.length > 0) {
+          this.emailConfirmed = data.users[0].emailConfirmed;
+          this.email = data.users[0].email;
+        } else {
+          this.emailConfirmed = null;
+        }
 
-        if (data.users[0].emailConfirmed === 1) {
+        if (this.emailConfirmed === 1) {
           this.emailConfirmed = 1;
         }
       })
       .catch((error) => {
         // A requisição falhou
+        console.log(error);
         console.error("Falha na requisição:", error.response.status);
       });
   },
@@ -118,5 +123,9 @@ export default {
 <style>
 .v-application--wrap {
   min-height: 0vh !important;
+}
+::selection {
+  background-color: purple;
+  color: white;
 }
 </style>

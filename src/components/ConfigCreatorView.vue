@@ -75,14 +75,33 @@
                 </div>
               </v-col>
               <v-row align="center" class="d-flex justify-center">
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                <v-col
+                  v-if="rede.facebook"
+                  cols="3"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-facebook-f</v-icon>
                 </v-col>
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                <v-col
+                  cols="3"
+                  v-if="rede.twitter"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-twitter</v-icon>
                 </v-col>
-                <v-col cols="4" class="text-center d-sm-flex justify-sm-end">
+                <v-col
+                  cols="3"
+                  v-if="rede.instagram"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
                   <v-icon class="purple--text">fab fa-instagram</v-icon>
+                </v-col>
+                <v-col
+                  cols="3"
+                  v-if="rede.telegram"
+                  class="text-center d-sm-flex justify-sm-end"
+                >
+                  <v-icon class="purple--text">fab fa-telegram</v-icon>
                 </v-col>
               </v-row>
             </v-row>
@@ -284,6 +303,12 @@ export default {
         "Contas bancárias",
         "Indicação",
       ],
+      rede: {
+        facebook: null,
+        twitter: null,
+        instagram: null,
+        telegram: null,
+      },
     };
   },
   components: {
@@ -307,16 +332,6 @@ export default {
   },
 
   methods: {
-    handleOptionClick(option) {
-      switch (option) {
-        case "Criar nova publicação":
-          alert('You clicked "Use Vue.js"');
-          break;
-        default:
-          break;
-      }
-      this.showOptions = false;
-    },
     navigateTo(route) {
       this.$router.push(route);
     },

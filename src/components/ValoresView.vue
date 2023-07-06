@@ -19,6 +19,7 @@
           v-model="mensal"
           label="Assinatura Mensal"
           dark
+          color="purple"
           :rules="requiredRule"
           :prefix="'R$'"
           @input="
@@ -34,6 +35,7 @@
         <v-text-field
           dark
           v-model="trimestral"
+          color="purple"
           label="Assinatura Trimestral"
           :prefix="'R$'"
           @input="
@@ -52,6 +54,7 @@
           dark
           label="Assinatura Anual"
           :prefix="'R$'"
+          color="purple"
           @input="
             calculateTotal('anual');
             formatCurrency('anual');

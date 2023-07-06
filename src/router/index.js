@@ -21,6 +21,8 @@ import EmailConfirm from "../views/EmailConfirm.vue";
 import TermosServico from "../components/info/TermosDeServico.vue";
 import VibePlusInfo from "../components/info/VibeMaisInfo.vue";
 import VibePlusCreator from "../components/vibeplus/VibePlusCreator.vue";
+import Publicar from "../components/post/PublicacaoView.vue";
+
 
 
 Vue.use(VueRouter);
@@ -31,6 +33,12 @@ const routes = [
     name: "login",
     component: LoginView,
     meta: { title: "Seduvibe - Exclusividade e liberdade" },
+  },
+    {
+    path: "/post",
+    name: "publicar",
+    component: Publicar,
+    meta: { title: "Nova publicação" },
   },
     {
     path: "/confirm",

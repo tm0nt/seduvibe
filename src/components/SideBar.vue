@@ -177,7 +177,7 @@ export default {
             },
             {
               icon: "mdi-note-multiple-outline",
-              url: "/postagem",
+              url: "/post",
               title: "Criar uma publicação",
               active: false,
             },
