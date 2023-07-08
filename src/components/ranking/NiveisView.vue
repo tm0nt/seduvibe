@@ -35,16 +35,36 @@
         </div>
       </v-card>
       <div class="card-line" v-if="index !== cards.length - 1"></div>
+      <v-card v-for="card in cards" :key="card.id" class="user-card" dark flat>
+        <v-avatar class="avatar" color="white">
+          <v-icon color="purple">mdi-star</v-icon>
+        </v-avatar>
+        <div class="user-details">
+          <div class="username">Amadora</div>
+          <div class="level">Nível 2</div>
+        </div>
+      </v-card>
+      <div class="card-line" v-if="index !== cards.length - 1"></div>
+      <v-card v-for="card in cards" :key="card.id" class="user-card" dark flat>
+        <v-avatar class="avatar" color="white">
+          <v-icon color="purple">mdi-star</v-icon>
+        </v-avatar>
+        <div class="user-details">
+          <div class="username">Profissional</div>
+          <div class="level">Nível 3</div>
+        </div>
+      </v-card>
+      <div class="card-line" v-if="index !== cards.length - 1"></div>
+      <v-card v-for="card in cards" :key="card.id" class="user-card" dark flat>
+        <v-avatar class="avatar" color="white">
+          <v-icon color="purple">mdi-star</v-icon>
+        </v-avatar>
+        <div class="user-details">
+          <div class="username">Estrela</div>
+          <div class="level">Nível 4</div>
+        </div>
+      </v-card>
     </div>
-    <v-card v-for="card in cards" :key="card.id" class="user-card" dark flat>
-      <v-avatar class="avatar" color="white">
-        <v-icon color="purple">mdi-star</v-icon>
-      </v-avatar>
-      <div class="user-details">
-        <div class="username">Amadora</div>
-        <div class="level">Nível 2</div>
-      </div>
-    </v-card>
   </v-app>
 </template>
 
@@ -62,8 +82,6 @@ export default {
           nextLevel: "Nível 2",
           nivelAtual: "Nível 1",
         },
-
-        // Adicione os outros objetos de cartão aqui com as informações desejadas
       ],
       showDivider: true, // Defina como false se não quiser a linha divisória após o último v-card
     };
@@ -79,7 +97,7 @@ export default {
 }
 
 .user-card {
-  width: 300px;
+  width: 330px;
   padding: 16px;
   border-radius: 8px;
   background-color: purple;

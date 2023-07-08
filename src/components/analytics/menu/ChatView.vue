@@ -18,19 +18,7 @@
             <v-toolbar-title class="title"> Chat </v-toolbar-title>
 
             <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>fas fa-ellipsis-h</v-icon>
-            </v-btn>
           </v-app-bar>
-          <v-app-bar flat color="rgba(0,0,0,0)" dark>
-            <v-text-field
-              filled
-              label="Pesquise mensagens..."
-              append-icon="mdi-magnify"
-              color="grey"
-            ></v-text-field>
-          </v-app-bar>
-
           <v-list two-line color="rgba(0,0,0,0)" dark>
             <v-list-item-group
               v-model="selected"
@@ -42,7 +30,7 @@
                   <v-badge
                     bordered
                     bottom
-                    color="green"
+                    color="purple"
                     dot
                     offset-x="22"
                     offset-y="26"
@@ -77,7 +65,7 @@
             <v-badge
               bordered
               bottom
-              color="green"
+              color="purple"
               dot
               offset-x="11"
               offset-y="13"
@@ -109,7 +97,7 @@
             <v-badge
               bordered
               bottom
-              color="green"
+              color="purple"
               dot
               offset-x="10"
               offset-y="10"
@@ -123,7 +111,7 @@
             <v-badge
               bordered
               bottom
-              color="green"
+              color="purple"
               dot
               offset-x="16"
               offset-y="9"
@@ -149,11 +137,14 @@
             <v-text-field
               v-model="message"
               append-icon="mdi-emoticon"
+              dark
               :append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
               filled
               clear-icon="mdi-close-circle"
               clearable
-              label="Message"
+              label="Mensagem"
+              placeholder="Digite algo aqui..."
+              color="purple"
               type="text"
               @click:append-outer="sendMessage"
               @click:clear="clearMessage"
@@ -162,6 +153,16 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-btn
+      class="chat-button ml-5"
+      fab
+      large
+      color="purple"
+      dark
+      @click="$router.go(-1)"
+    >
+      <v-icon>mdi-arrow-left</v-icon>
+    </v-btn>
   </v-app>
 </template>
 <script>
@@ -171,15 +172,15 @@ export default {
     items: [
       {
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        subtitle: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        title: "Ali Connors",
+        subtitle: "Olá",
+        title: "Mauricio Matos",
       },
     ],
     panel: [2],
 
     password: "Password",
     show: false,
-    message: "Digite aqui...",
+    message: "",
     marker: true,
     iconIndex: 0,
   }),
@@ -218,4 +219,3 @@ export default {
 v-container {
   transform: scale(80%);
 }
-</style>

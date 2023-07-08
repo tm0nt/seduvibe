@@ -8,16 +8,16 @@
     <v-form validate-on="submit" @submit.prevent="submit">
       <v-text-field
         v-model="userName"
-        :rules="rules"
         label="Usuário"
+        color="purple"
         prefix="@"
       ></v-text-field>
 
-      <v-text-field v-model="nome" :rules="rules" label="Nome"></v-text-field>
+      <v-text-field v-model="nome" color="purple" label="Nome"></v-text-field>
       <v-text-field
-        v-model="CPF"
+        v-model="cpf"
         label="CPF"
-        disabled="true"
+        color="purple"
         @input="formatCPF"
         maxlength="14"
       ></v-text-field>
@@ -25,12 +25,14 @@
         v-model="celular"
         :rules="cel"
         label="Celular"
+        color="purple"
         @input="formatCelular"
         maxlength="14"
       ></v-text-field>
       <v-text-field
         v-model="email"
         label="Email"
+        color="purple"
         :rules="emailRules"
       ></v-text-field>
       <v-chip
@@ -50,9 +52,8 @@
             dense
             dismissible
             @input="dialogOpen = false"
-          >
-            Enviamos o e-mail verificador para o seu e-mail, verifique sua caixa
-            de entrada.
+            >d Enviamos o e-mail verificador para o seu e-mail, verifique sua
+            caixa de entrada.
           </v-alert>
         </v-card>
       </v-dialog>
@@ -60,6 +61,7 @@
         v-model="senha"
         :rules="se"
         label="Nova senha"
+        color="purple"
         :type="mostrarSenha ? 'text' : 'password'"
         :append-icon="mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'"
         @click:append="toggleMostrarSenha"
@@ -68,6 +70,7 @@
       <v-text-field
         v-model="senhaConfirmacao"
         :rules="se"
+        color="purple"
         label="Confirmar senha"
         :type="mostrarSenha ? 'text' : 'password'"
         :append-icon="mostrarSenha ? 'mdi-eye-off' : 'mdi-eye'"
@@ -106,7 +109,7 @@
 <script>
 import axios from "axios";
 export default {
-  data: (vm) => ({
+  data: () => ({
     isEmailVerified: false,
     userName: "",
     emailConfirmed: null,
@@ -115,9 +118,9 @@ export default {
       (v) => !!v || "Preenchimento de campo obrigatório",
       (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
     ],
-    email: "rafaelsantos@gmail.com",
+    email: "",
     dialogOpen: false,
-    CPF: "",
+    cpf: "",
     celular: "",
     senha: "",
     senhaConfirmacao: "",
@@ -134,7 +137,6 @@ export default {
         "Celular inválido",
     ],
     confirmationModalOpen: false,
-    rules: [(value) => vm.checkApi(value)],
     timeout: null,
   }),
   mounted() {
@@ -156,8 +158,10 @@ export default {
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
+        console.log(data);
         this.nome = data.users[0].name;
         this.userName = data.users[0].user;
+        this.cpf = data.users[0].cpf;
         this.email = data.users[0].email;
         this.celular = data.users[0].phone;
         this.emailConfirmed = data.users[0].emailConfirmed;
@@ -227,22 +231,6 @@ export default {
     confirmTornarCriador() {
       // Lógica para confirmar a ação de tornar-se criador(a)
       this.closeConfirmationModal();
-    },
-    async submit(event) {
-      const results = await event;
-      alert(JSON.stringify(results, null, 2));
-    },
-    async checkApi(userName) {
-      return new Promise((resolve) => {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          if (!userName) return resolve("Please enter a user name.");
-          if (userName === "johnleider")
-            return resolve("User name already taken. Please try another one.");
-
-          return resolve(true);
-        }, 1000);
-      });
     },
   },
 };

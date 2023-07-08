@@ -91,12 +91,12 @@ export default {
     }
     const config = {
       headers: {
-        Authorization: `Bearer token ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
     axios
-      .post(url, config)
+      .get(url, config)
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;

@@ -14,7 +14,7 @@
       </v-row>
 
       <v-row>
-        <v-col cols="4">
+        <v-col cols="3">
           <v-text-field
             v-model="cpf"
             label="CPF"
@@ -25,7 +25,7 @@
             maxlength="14"
           ></v-text-field>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
           <v-text-field
             v-model="telefone"
             label="Celular"
@@ -36,7 +36,18 @@
             @input="formatCelular"
           ></v-text-field>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
+          <v-select
+            v-model="genero"
+            :items="generoOptions"
+            label="Gênero"
+            color="purple"
+            autocomplete="off"
+            dark
+            :rules="rules"
+          ></v-select>
+        </v-col>
+        <v-col cols="3">
           <v-text-field
             v-model="dataNascimento"
             label="Data de nascimento"
@@ -113,6 +124,7 @@ export default {
       cpf: "",
       endereco: "",
       cep: "",
+      genero: "",
       telefone: "",
       numero: "",
       complemento: "",
@@ -134,11 +146,12 @@ export default {
       .then((response) => {
         // Requisição bem-sucedida
         const data = response.data;
-        console.log(data);
         this.nomeCompleto = data.users[0].name;
         this.cpf = data.users[0].cpf;
         this.dataNascimento = data.users[0].dateOfBirth;
         this.endereco = data.users[0].street;
+        this.genero = data.users[0].gender;
+
         this.telefone = data.users[0].phone;
         this.cep = data.users[0].cep;
         this.numero = data.users[0].number;

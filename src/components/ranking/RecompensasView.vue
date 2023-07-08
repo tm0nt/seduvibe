@@ -17,16 +17,41 @@
           </v-row>
           <v-row align="center" class="py-4">
             <v-col cols="12">
-              <h4 class="white--text text-center">Faltam 7 vendas</h4>
+              <h4 class="white--text text-center">Faltam 10 vendas</h4>
 
               <v-progress-linear
                 v-model="progress"
                 color="purple"
               ></v-progress-linear>
+              <v-btn text dark color="purple">RESGATAR</v-btn>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
+      <v-col cols="12">
+        <v-row align="center" class="py-4">
+          <v-col cols="2">
+            <v-icon size="48" color="purple">mdi-fire</v-icon>
+          </v-col>
+          <v-col cols="10">
+            <div class="headline uppercase">Placa de Bronze</div>
+            <div class="subtext white--text">
+              Alcance 1,000 vendas para receber sua placa de Bronze.
+            </div>
+          </v-col>
+        </v-row>
+        <v-row align="center" class="py-4">
+          <v-col cols="12">
+            <h4 class="white--text text-center">Faltam 10 vendas</h4>
+
+            <v-progress-linear
+              v-model="progress"
+              color="purple"
+            ></v-progress-linear>
+            <v-btn text dark color="purple">RESGATAR</v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-container>
   </v-app>
 </template>

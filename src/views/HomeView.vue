@@ -384,11 +384,10 @@ export default {
   width: 50px;
   height: 50px;
 }
-
 .circle-avatar {
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #151515 !important;
+  border: 4px solid purple !important;
 }
 .circle-image {
   border-radius: 50%;
