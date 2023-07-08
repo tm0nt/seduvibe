@@ -34,7 +34,7 @@
     </v-dialog>
     <v-text-field
       v-model="form.genero"
-      label="Genero"
+      label="Gênero"
       disabled="true"
       color="purple"
       dark
@@ -66,6 +66,13 @@
       dark
       prefix="@"
     ></v-text-field>
+    <v-text-field
+      v-model="form.wishlist"
+      label="Wishlist Amazon"
+      color="purple"
+      dark
+      prefix="/"
+    ></v-text-field>
 
     <div class="btn-container">
       <v-btn color="purple" class="mr-2" dark @click="salvarAlteracoes"
@@ -80,22 +87,35 @@
         <v-card-text>
           <v-text-field
             v-model="senha"
+            :append-icon="showSenha ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showSenha ? 'text' : 'password'"
             label="Senha"
-            type="password"
             color="purple"
             dark
+            @click:append="showSenha = !showSenha"
           ></v-text-field>
           <v-text-field
             v-model="confirmarSenha"
+            :append-icon="showConfirmarSenha ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showConfirmarSenha ? 'text' : 'password'"
             label="Confirmar Senha"
-            type="password"
             color="purple"
             dark
+            @click:append="showConfirmarSenha = !showConfirmarSenha"
           ></v-text-field>
+          <p v-if="senha !== confirmarSenha" class="red--text">
+            As senhas não correspondem.
+          </p>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="purple" text @click="alterarSenha">Salvar</v-btn>
-
+          <v-btn
+            color="purple"
+            text
+            @click="alterarSenha"
+            :disabled="senha !== confirmarSenha"
+          >
+            Salvar
+          </v-btn>
           <v-btn color="purple" text @click="dialog = false">Cancelar</v-btn>
         </v-card-actions>
       </v-card>
@@ -124,6 +144,9 @@ export default {
         instagram: "",
         telegram: "",
       },
+      confirmarSenha: "",
+      showSenha: false,
+      showConfirmarSenha: false,
       emailRules: [
         (v) => !!v || "Preenchimento de campo obrigatório",
         (v) => /.+@.+\..+/.test(v) || "Seu e-mail não é válido",
@@ -131,7 +154,6 @@ export default {
       emailConfirmed: null,
       dialog: false,
       senha: "",
-      confirmarSenha: "",
       mailOpen: false,
       cel: [
         (v) => !!v || "O campo Celular é obrigatório",
@@ -181,7 +203,8 @@ export default {
   methods: {
     salvarAlteracoes() {
       const url = "https://api.seduvibe.com/change_social_media";
-      const { facebook, telegram, instagram, twitter, nomeCompleto } = this;
+      const { facebook, telegram, instagram, twitter, nomeCompleto, wishlist } =
+        this;
 
       const data = {
         name: nomeCompleto,
@@ -189,6 +212,7 @@ export default {
         telegram: telegram,
         instagram: instagram,
         twitter: twitter,
+        wishlist: wishlist,
       };
 
       const config = {

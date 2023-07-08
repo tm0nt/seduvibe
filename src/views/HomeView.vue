@@ -13,46 +13,24 @@
           <v-icon>mdi-menu</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-flex xs6 sm6 md4 lg6 dark>
+        <v-flex xs7 sm7 md6 lg6 class="mt-2">
           <v-autocomplete
-            style="background-color: #212121 !important"
             v-model="searchQuery"
-            :items="filteredUsers"
-            label="Pesquise por usuários..."
-            dark
+            append-icon=""
+            placeholder="Pesquise por usuários..."
             prepend-inner-icon="mdi-magnify"
             color="purple"
-            flat
-            class="custom-autocomplete pt-5"
-            :class="{ 'd-sm-flex': $vuetify.breakpoint.smAndUp }"
+            dark
+            class="custom-autocomplete"
             rounded
-            outlined
-            hide-no-data
             hide-details
             :menu-props="{ transition: false }"
             item-text="username"
             item-value="username"
             return-object
+            :style="{ padding: '10px' }"
+            :class="{ 'dark-autocomplete': $vuetify.theme.dark }"
           >
-            <template v-slot:item="{ item }">
-              <v-list-item
-                color="black"
-                class="mt-1 custom-item"
-                style="border-radius: 200px"
-              >
-                <v-list-item-avatar>
-                  <v-img :src="item.avatar"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content dark>
-                  <v-list-item-title class="purple--text">{{
-                    item.name
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle class="grey--text"
-                    >@{{ item.username }}</v-list-item-subtitle
-                  >
-                </v-list-item-content>
-              </v-list-item>
-            </template>
           </v-autocomplete>
         </v-flex>
         <v-spacer></v-spacer>
@@ -60,7 +38,7 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn v-bind="attrs" v-on="on" text>
-                <v-icon color="purple mr-4">mdi-bell</v-icon>
+                <v-icon color="white mr-4">mdi-bell</v-icon>
               </v-btn>
             </template>
             <v-card class="rounded-card" dark>
@@ -96,29 +74,7 @@
       </v-toolbar>
       <v-app-bar dark color="rgba(0,0,0,0)" flat class=""> </v-app-bar>
       <v-divider color="grey"></v-divider>
-      <v-toolbar flat color="rgba(0,0,0,0)">
-        <v-divider vertical color="grey" inset class="d-none"></v-divider>
-        <v-toolbar-title class="grey--text ml-4 d-none">Tags</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-chip
-          class="ma-sm-1 d-flex mr-2"
-          :color="chipSelected ? 'purple' : '#303030'"
-          :text-color="chipSelected ? 'white' : 'grey'"
-          :dark="chipSelected"
-          :style="{
-            'font-size': '10px',
-            padding: '2px 4px',
-            'margin-right': '4px',
-          }"
-          @click="toggleChipSelection"
-        >
-          <v-icon v-if="chipSelected">mdi-cancel</v-icon>
-          <v-icon v-else>mdi-cancel</v-icon>
-          &nbsp;Novinhas
-        </v-chip>
 
-        <v-spacer></v-spacer>
-      </v-toolbar>
       <v-row>
         <v-col
           cols="12"
@@ -183,18 +139,27 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12">
+              <v-col cols="6">
                 <v-select
                   v-model="selectedGenre"
                   :items="genres"
                   label="Gênero"
+                  color="purple"
+                ></v-select>
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  v-model="selectedTag"
+                  :items="tags"
+                  label="Tags"
+                  color="purple"
                 ></v-select>
               </v-col>
               <v-col cols="12">
                 <v-slider
                   v-model="priceRange"
                   min="0"
-                  max="100"
+                  max="1000"
                   label="Preço"
                   color="purple"
                   thumb-label
@@ -220,8 +185,20 @@ export default {
   name: "HomeView",
   data: () => ({
     activeTab: 0,
+    selectedTag: null,
+    tags: ["Novinha", "Nerd", "Gamer", "BDSM"],
     modalOpen: false,
-    genres: ["Opção 1", "Opção 2", "Opção 3"], // Substitua pelas opções de gênero reais
+    genres: [
+      "Masculino",
+      "Feminino",
+      "Não binário",
+      "Agênero",
+      "Bigênero",
+      "Gênero fluido",
+      "Pangênero",
+      "Transexual",
+      "Outro",
+    ],
     selectedGenre: "",
     chipSelected: false,
     priceRange: [0, 100], // Defina os valores mínimos e máximos do slider conforme necessário
@@ -240,39 +217,6 @@ export default {
         title: "Notificação 2",
         message: "Essa é uma notificação.",
       },
-    ],
-    users: [
-      {
-        name: "Marisa",
-        username: "marisaalves",
-        avatar:
-          "https://pbs.twimg.com/profile_images/1661725430255058945/NVTA7VA7_400x400.jpg",
-      },
-      {
-        name: "Marcela Lima",
-        username: "marcelalima",
-        avatar:
-          "https://static1.purebreak.com.br/articles/5/11/08/65/@/505074-jade-picon-rejeita-comentarios-sobre-sua-diapo-2.jpg",
-      },
-      {
-        name: "Emme White",
-        username: "emmewhite",
-        avatar:
-          "https://akns-images.eonline.com/eol_images/Entire_Site/2022715/rs_600x600-220815145922-15.08.22-600x600-JadePicon-Instagram.jpg?fit=around%7C1200:1200&output-quality=90&crop=1200:1200;center,top",
-      },
-
-      {
-        name: "Lais Silva",
-        username: "laissilva",
-        avatar:
-          "https://www.bnews.com.br/media/_versions/abril_2023/jade-picon-bastidores_widemd.jpg",
-      },
-    ],
-    tabs: [
-      { id: 1, title: "Perfis verificados" },
-      { id: 2, title: "Mais visitados" },
-      { id: 3, title: "Novos perfis" },
-      { id: 4, title: "Ranking" },
     ],
     drawer: true,
     seduvibe: [
@@ -359,16 +303,28 @@ export default {
 };
 </script>
 <style scoped>
+.custom-results-list .v-list-item {
+  background-color: #212121 !important;
+  border-radius: 8px;
+}
+
 .rounded {
   border-radius: 25px;
 }
 
+.custom-autocomplete .custom-results-list {
+  background-color: black;
+}
 .v-tab.withoutupercase {
   text-transform: none !important;
 }
 
 .blurred-image {
   filter: blur(2px);
+}
+
+.v-menu__content .v-list-item {
+  background-color: #262626 !important;
 }
 
 .tabs-container {
@@ -403,6 +359,10 @@ export default {
   height: 25px;
   background: rgb(87, 1, 87);
 }
+.custom-autocomplete .v-autocomplete__content {
+  background-color: #262626 !important;
+}
+
 .full-width-tabs {
   width: 100%;
 }

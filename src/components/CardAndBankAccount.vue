@@ -35,7 +35,7 @@
               <v-col cols="12" sm="6">
                 <v-text-field
                   label="CPF"
-                  required
+                  disabled="true"
                   color="purple"
                 ></v-text-field>
               </v-col>

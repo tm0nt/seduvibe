@@ -23,6 +23,16 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-btn
+      class="chat-button"
+      fab
+      large
+      color="purple"
+      dark
+      @click="$router.push('/dashboard')"
+    >
+      <v-icon>mdi-arrow-left</v-icon>
+    </v-btn>
   </v-app>
 </template>
 
@@ -47,6 +57,21 @@ export default {
 };
 </script>
 <style>
+.chat-button {
+  position: fixed;
+  bottom: 16px;
+  right: 85%;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 64px;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+
 .v-btn.withoutupercase {
   text-transform: none !important;
 }
