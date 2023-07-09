@@ -1,12 +1,6 @@
 <template>
   <v-container>
-    <div v-if="vErrorMessage">
-      <error-message
-        v-if="tokenExists"
-        error-message="Você já está logado. Redirecionando..."
-      />
-    </div>
-    <div v-else>
+    <div>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="10">
           <v-alert v-if="isPasswordChanged" type="success"
@@ -188,7 +182,7 @@
 
                                 <v-alert
                                   v-if="showAlert2"
-                                  class="danger"
+                                  class="error"
                                   icon="mdi-close"
                                   dense
                                 >
@@ -207,29 +201,6 @@
                                   class="mt-4"
                                   :rules="rules"
                                 ></v-text-field>
-                                <v-row>
-                                  <v-col cols="6">
-                                    <v-select
-                                      v-model="genero"
-                                      :items="generoOptions"
-                                      label="Gênero"
-                                      color="purple"
-                                      autocomplete="off"
-                                      :rules="rules"
-                                    ></v-select>
-                                  </v-col>
-                                  <v-col cols="6">
-                                    <v-text-field
-                                      label="Celular"
-                                      maxlength="15"
-                                      :rules="[validarNumero]"
-                                      v-model="celular"
-                                      @input="formatarNumero"
-                                      color="purple"
-                                      autocomplete="off"
-                                    ></v-text-field>
-                                  </v-col>
-                                </v-row>
                                 <v-row>
                                   <v-col cols="6">
                                     <v-text-field
@@ -252,8 +223,40 @@
                                     ></v-text-field>
                                   </v-col>
                                 </v-row>
+                                <v-row>
+                                  <v-col cols="6">
+                                    <v-text-field
+                                      label="Data de nascimento"
+                                      maxlength="10"
+                                      v-model="dataNascimento"
+                                      color="purple"
+                                      autocomplete="off"
+                                      :rules="dataNascimentoRules"
+                                      @input="formatarData"
+                                    ></v-text-field>
+                                  </v-col>
+                                  <v-col cols="6">
+                                    <v-text-field
+                                      label="Celular"
+                                      maxlength="15"
+                                      :rules="[validarNumero]"
+                                      v-model="celular"
+                                      @input="formatarNumero"
+                                      color="purple"
+                                      autocomplete="off"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
                               </v-col>
                             </v-row>
+                            <v-select
+                              v-model="genero"
+                              :items="generoOptions"
+                              label="Gênero"
+                              color="purple"
+                              autocomplete="off"
+                              :rules="rules"
+                            ></v-select>
                             <v-row>
                               <v-col cols="12">
                                 <v-text-field
@@ -264,8 +267,21 @@
                                   :append-icon="
                                     mostrarSenha ? 'mdi-eye' : 'mdi-eye-off'
                                   "
-                                  @click:append="toggleMostrarSenha"
-                                  :rules="rules"
+                                  @click:append="toggleMostrarSenha('senha')"
+                                  :rules="rulesSenha"
+                                ></v-text-field>
+                                <v-text-field
+                                  v-model="confirmarSenha"
+                                  label="Confirme a senha"
+                                  color="purple"
+                                  :type="mostrarSenha ? 'text' : 'password'"
+                                  :append-icon="
+                                    mostrarSenha ? 'mdi-eye' : 'mdi-eye-off'
+                                  "
+                                  @click:append="
+                                    toggleMostrarSenha('confirmarSenha')
+                                  "
+                                  :rules="rulesSenha"
                                 ></v-text-field>
                               </v-col>
                             </v-row>
@@ -376,12 +392,43 @@
 </template>
 
 <script>
-import ErrorMessage from "../views/TokenExiste.vue";
 import axios from "axios";
+
+function validarDataNascimento(data) {
+  const partes = data.split("/");
+  const dia = parseInt(partes[0], 10);
+  const mes = parseInt(partes[1], 10);
+  const ano = parseInt(partes[2], 10);
+
+  // Verifica se a data é válida
+  const dataNascimento = new Date(ano, mes - 1, dia);
+  const dataAtual = new Date();
+
+  // Verifica se a pessoa tem pelo menos 18 anos
+  const idadeMinima = 18;
+  const diferencaAnos = dataAtual.getFullYear() - dataNascimento.getFullYear();
+  const mesAtual = dataAtual.getMonth() + 1;
+  const diaAtual = dataAtual.getDate();
+
+  if (
+    diferencaAnos < idadeMinima ||
+    (diferencaAnos === idadeMinima &&
+      (mesAtual < mes || (mesAtual === mes && diaAtual < dia)))
+  ) {
+    return false;
+  }
+
+  return true;
+}
 
 export default {
   data() {
     return {
+      dataNascimento: "",
+      dataNascimentoRules: [
+        (v) => !!v || "A data de nascimento é obrigatória",
+        (v) => validarDataNascimento(v) || "Você deve ter pelo menos 18 anos",
+      ],
       emailSent: true,
       showCodeModalDialog: false,
       recoveryOption: "", // Opção de recuperação selecionada
@@ -408,6 +455,8 @@ export default {
       isFormValid: true,
       showPassword: false,
       opcaoRecuperacao: null,
+      senha: "",
+      confirmarSenha: "",
       senhaConfirmacao: "",
       genero: null,
       generoOptions: [
@@ -426,6 +475,14 @@ export default {
       nome: "",
       celular: "",
       usuario: "",
+      rulesSenha: [
+        (value) => !!value || "A senha é obrigatória",
+        (value) =>
+          (value && value.length >= 8) ||
+          "A senha deve ter pelo menos 8 caracteres",
+        () =>
+          this.senha === this.confirmarSenha || "As senhas não correspondem",
+      ],
       rules: [
         (value) => {
           if (value) return true;
@@ -435,9 +492,9 @@ export default {
       ],
       email: "",
       tokenExists: false,
-      senha: "",
       termosAceitos: false,
       isPasswordChanged: false,
+
       modalCodigoAberto: false,
       codigoVerificacao: "",
       codigoVerificacaoRules: [
@@ -453,16 +510,6 @@ export default {
   },
 
   created() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      this.vErrorMessage = true;
-      this.tokenExists = true;
-      setTimeout(() => {
-        this.$router.push("/profile");
-      }, 2000);
-    }
-    // Redirecione para /profile após 3 segundos
-
     this.logout = this.$route.query.logout || "";
   },
   mounted() {
@@ -471,10 +518,19 @@ export default {
   criadorValue() {
     return this.criador ? 1 : 0;
   },
-  components: {
-    ErrorMessage,
-  },
+  components: {},
+
   methods: {
+    formatarData() {
+      // Formata a data para DD/MM/AAAA
+      if (
+        this.dataNascimento.length === 2 ||
+        this.dataNascimento.length === 5
+      ) {
+        this.dataNascimento += "/";
+      }
+    },
+
     checkRecoveryOption() {
       // Verificar se a opção de recuperação pertence a uma conta
       // Aqui você pode fazer a validação adequada e decidir se a opção é válida ou não
@@ -577,6 +633,7 @@ export default {
             name: this.nome,
             email: this.email,
             user: this.usuario,
+            dateOfBirth: this.dataNascimento,
             creator: this.criadorValue ? "1" : "0",
             phone: this.celular,
             password: this.senha,
@@ -602,17 +659,49 @@ export default {
                 this.showAlert2 = true;
                 this.alertMessage2 =
                   "Erro interno, conta não criada. Tente novamente!";
-                this.startErrorTimer();
+                this.startErrorTimer2();
               }
             })
             .catch((error) => {
               console.log(error);
-              this.showAlert2 = true;
-              this.alertMessage2 =
-                "Erro interno, conta não criada. Tente novamente!";
+              if (
+                error.response &&
+                error.response.status === 422 &&
+                error.response.data
+              ) {
+                const errorData = error.response.data;
+                if (errorData.msg === "Username is already in use") {
+                  this.showAlert2 = true;
+                  this.alertMessage2 = "Usuário já existe";
+                  this.startErrorTimer2();
+                } else if (errorData.msg === "Email is already in use") {
+                  this.showAlert2 = true;
+                  this.alertMessage2 = "E-mail já está em uso";
+                  this.startErrorTimer2();
+                } else if (errorData.msg === "Phone is already in use") {
+                  this.showAlert2 = true;
+                  this.alertMessage2 = "Número de celular já está em uso";
+                  this.startErrorTimer2();
+                } else {
+                  this.showAlert2 = true;
+                  this.alertMessage2 =
+                    "Erro interno, conta não criada. Tente novamente!";
+                  this.startErrorTimer2();
+                }
+              } else {
+                this.showAlert2 = true;
+                this.alertMessage2 =
+                  "Erro interno, conta não criada. Tente novamente!";
+                this.startErrorTimer2();
+              }
             });
         }
       });
+    },
+    startErrorTimer2() {
+      setTimeout(() => {
+        this.showAlert2 = false;
+      }, 3000);
     },
 
     performAutoLogin() {
@@ -648,9 +737,17 @@ export default {
         nextInput.focus();
       }
     },
-    toggleMostrarSenha() {
-      this.mostrarSenha = !this.mostrarSenha;
+    toggleMostrarSenha(campo) {
+      if (campo === "senha") {
+        this.mostrarSenha = !this.mostrarSenha;
+      } else if (campo === "confirmarSenha") {
+        this.mostrarSenha = !this.mostrarSenha;
+      }
     },
+    senhasIguais() {
+      return this.senha === this.confirmarSenha;
+    },
+
     checkSuccessQueryParam() {
       const query = this.$route.query;
       if (query.success && query.success === "true") {

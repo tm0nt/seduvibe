@@ -8,14 +8,15 @@
       lg="3"
       v-for="(vibe, i) in seduvibe"
       :key="i"
-      ><v-app-bar color="rgb(0,0,0,0)" flat></v-app-bar>
+    >
       <v-card class="mx-auto mt-5 rounded-xl" color="#151515">
         <div class="d-flex align-center justify-center" style="height: 100%">
           <v-avatar
             color="white"
             class="circle-avatar"
             size="120"
-            style="position: absolute"
+            style="position: absolute; cursor: pointer"
+            @click="redirectToWebcam"
           >
             <v-img :src="vibe.pic" contain class="circle-image"></v-img>
           </v-avatar>
@@ -23,10 +24,13 @@
         <v-card-title class="text-subtitle-1 text-center ml-3 mt-5 white--text">
         </v-card-title>
         <v-card-text
-          style="text-align: center"
+          style="text-align: center; cursor: pointer"
           class="white--text mt-10 overline"
+          @click="redirectToWebcam"
         >
-          {{ vibe.nome }}
+          {{ vibe.nome }} &nbsp;<v-icon small color="purple"
+            >mdi-check-decagram</v-icon
+          >
         </v-card-text>
         <v-card-text class="white--text caption"
           ><v-icon color="white" size="15">mdi-clock</v-icon>&nbsp;4,5
@@ -41,6 +45,7 @@
     </v-col>
   </v-row>
 </template>
+
 <script>
 export default {
   name: "HomeView",
@@ -78,10 +83,16 @@ export default {
       ],
     };
   },
+  methods: {
+    redirectToWebcam() {
+      window.location.href = "/cam";
+    },
+  },
 };
 </script>
+
 <style scoped>
-.rounded {
+.rounded-xl {
   border-radius: 25px;
 }
 
@@ -93,14 +104,17 @@ export default {
   width: 50px;
   height: 50px;
 }
+
 .circle-avatar {
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid purple !important;
 }
+
 .circle-image {
   border-radius: 50%;
 }
+
 .four {
   width: 50px;
   height: 25px;

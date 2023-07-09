@@ -152,6 +152,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-snackbar v-model="snackbarVisible" bottom :timeout="3000" color="red">
+      {{ snackbarText }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -164,6 +167,7 @@ export default {
   name: "HomeView",
   data: () => ({
     activeTab: 0,
+    selectedTag: null,
     selectedTab: null,
     tags: ["Novinha", "Nerd", "Gamer", "BDSM"],
     modalOpen: false,
@@ -251,6 +255,9 @@ export default {
     },
   },
   computed: {
+    snackbarText() {
+      return this.$store.state.snackbarText;
+    },
     currentComponent() {
       switch (this.selectedTab) {
         case 0:

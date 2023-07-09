@@ -7,6 +7,7 @@ import NovaSenha from "../components/nova_senha/NovaSenhaView.vue";
 import RankingView from "../views/RankingView.vue";
 import VibePlusAssinatura from "../views/AssineVibePlusView.vue";
 import RankingViewUser from "../components/RankingUser.vue";
+import WebCam from "../views/videochamadas/WebCam.vue";
 import PerfilCreator from "../components/PerfilCreator.vue";
 import MyDashCreator from "../components/MyDashCreator.vue";
 import Analytics from "../views/AnalyticsView.vue";
@@ -76,6 +77,12 @@ const routes = [
     component: VibePlus,
     meta: { title: "Vibe+" },
   },
+   {
+    path: "/cam",
+    name: "Webcam",
+    component: WebCam,
+    meta: { title: "Assistindo..." },
+  },
   {
     path: "/noaccount",
     name: "Sem Conta",
@@ -115,6 +122,7 @@ const routes = [
 
   {
     path: "/profile",
+    props: true,
     name: "perfil",
     component: PerfilView,
     meta: { title: "Meu perfil" },
@@ -126,12 +134,12 @@ const routes = [
     component: RankingView,
     meta: { title: "Ranking" },
   },
-  {
-    path: "/creator",
-    name: "creator",
-    component: PerfilCreator,
-    meta: { title: "Laís Alves" },
-  },
+{
+  path: '/@:username',
+  name: 'creator',
+  component: PerfilCreator,
+  meta: { title: "Perfil do Criador" }
+},
   {
     path: "/dashboard",
     name: "dashboardCreator",
