@@ -54,7 +54,6 @@
                   <v-tab class="withoutupercase">Geral</v-tab>
                   <v-tab class="withoutupercase">Info</v-tab>
                   <v-tab class="withoutupercase">Pedidos</v-tab>
-                  <v-tab class="withoutupercase">Agenda</v-tab>
                   <v-tab class="withoutupercase">Mimos</v-tab>
                 </v-tabs>
               </v-app-bar>
@@ -95,7 +94,6 @@
 
 <script>
 import SideBar from "../SideBar.vue";
-import AgendaView from "./tabs/AgendaView.vue";
 import GeralView from "./tabs/GeralView.vue";
 import InfoView from "./tabs/InfoView.vue";
 import MimosView from "./tabs/MimosView.vue";
@@ -106,7 +104,6 @@ export default {
     SideBar,
     GeralView,
     PedidosView,
-    AgendaView,
     MimosView,
     InfoView,
   },
@@ -117,7 +114,6 @@ export default {
         { title: "Geral", component: "GeralView" },
         { title: "Info", component: "InfoView" },
         { title: "Pedidos", component: "PedidosView" },
-        { title: "Agenda", component: "AgendaView" },
         { title: "Mimos", component: "MimosView" },
       ],
       drawer: true,
@@ -149,8 +145,6 @@ export default {
         case 2:
           return "PedidosView";
         case 3:
-          return "AgendaView";
-        case 4:
           return "MimosView";
         default:
           return null;

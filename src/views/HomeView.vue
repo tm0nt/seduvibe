@@ -37,7 +37,7 @@
         <div class="notification-dropdown">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" text>
+              <v-btn v-bind="attrs" v-on="on" class="" text>
                 <v-icon color="white mr-4">mdi-bell</v-icon>
               </v-btn>
             </template>
@@ -63,6 +63,7 @@
               <p class="text-center grey--text overline">VER TUDO</p>
             </v-card>
           </v-menu>
+
           <v-btn color="purple" class="white--text" @click="openModal">
             <v-icon class="{'text-center': isMobile}" size="18"
               >fas fa-filter</v-icon
@@ -72,64 +73,40 @@
           </v-btn>
         </div>
       </v-toolbar>
-      <v-app-bar dark color="rgba(0,0,0,0)" flat class=""> </v-app-bar>
+
+      <v-app-bar
+        dark
+        color="rgba(0,0,0,0)"
+        flat
+        class="mt-4 d-flex justify-center"
+      >
+        <v-tabs
+          v-model="selectedTab"
+          color="purple"
+          centered
+          fixed-tabs
+          show-arrows
+          style="max-width: 100vw"
+        >
+          <v-tabs-slider color="purple"></v-tabs-slider>
+          <v-tab class="withoutupercase">Modelos</v-tab>
+          <v-tab class="withoutupercase">Ao vivo</v-tab>
+        </v-tabs>
+      </v-app-bar>
       <v-divider color="grey"></v-divider>
 
-      <v-row>
-        <v-col
-          cols="12"
-          xs="12"
-          sm="8"
-          md="3"
-          lg="3"
-          v-for="(vibe, i) in seduvibe"
-          :key="i"
-        >
-          <v-card class="mx-auto my-12 rounded-xl" color="#151515">
-            <v-img width="100%" :src="vibe.image" tile class="blurred-image">
-            </v-img>
-            <div
-              class="d-flex align-center justify-center"
-              style="height: 100%"
-            >
-              <v-avatar
-                color="white"
-                class="circle-avatar"
-                size="100"
-                style="position: absolute"
-              >
-                <v-img :src="vibe.pic" contain class="circle-image"></v-img>
-              </v-avatar>
-            </div>
-
-            <v-toolbar color="transparent" class="mt-n7" flat>
-              <v-avatar color="black" rounded class="mr-2" purple>
-                <div class="three">
-                  <div class="four">
-                    <span class="white--text caption">{{ vibe.price }}</span>
-                  </div>
-                  <div class="five">
-                    <span
-                      class="white--text caption mdi mdi-lock-open-variant"
-                    ></span>
-                  </div>
-                </div>
-              </v-avatar>
-            </v-toolbar>
-            <v-card-title
-              class="text-subtitle-1 text-center ml-3 mt-5 white--text"
-            >
-              Taiane Martins&nbsp;
-              <v-icon small color="purple">mdi-check-decagram</v-icon>
-            </v-card-title>
-            <v-card-title
-              class="grey--text text-grey-purple-1 text-center ml-3 caption font-italic"
-            >
-              {{ vibe.descricao }} </v-card-title
-            ><br />
-          </v-card>
-        </v-col>
-      </v-row>
+      <div class="d-flex justify-center flex-column">
+        <v-row v-if="selectedTab === 0">
+          <v-col cols="12" class="tab-content">
+            <component :is="currentComponent" />
+          </v-col>
+        </v-row>
+        <v-row v-if="selectedTab === 1">
+          <v-col cols="12" class="tab-content">
+            <component :is="currentComponent" />
+          </v-col>
+        </v-row>
+      </div>
     </v-container>
     <v-dialog v-model="modalOpen" max-width="500" dark>
       <v-card>
@@ -180,12 +157,14 @@
 
 <script>
 import SideBar from "../components/SideBar.vue";
+import VideoChamadas from "./videochamadas/VideochamadaView.vue";
+import ModelosView from "./ModelosView.vue";
 
 export default {
   name: "HomeView",
   data: () => ({
     activeTab: 0,
-    selectedTag: null,
+    selectedTab: null,
     tags: ["Novinha", "Nerd", "Gamer", "BDSM"],
     modalOpen: false,
     genres: [
@@ -219,41 +198,27 @@ export default {
       },
     ],
     drawer: true,
-    seduvibe: [
-      {
-        image:
-          "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-        pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-        price: "R$ 465",
-        descricao: "1.512.452 Assinantes",
-      },
-      {
-        image:
-          "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-        pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-        price: "R$ 465",
-        descricao: "1.512.452 Assinantes",
-      },
-      {
-        image:
-          "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-        pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-        price: "R$ 465",
-        descricao: "1.512.452 Assinantes",
-      },
-      {
-        image:
-          "https://eql.com.br/wp-content/uploads/2022/02/Abre-JadePicon-BigBrotherBrasil-160222-Divulgacao3-1024x576.jpg",
-        pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-        price: "R$ 465",
-        descricao: "1.512.452 Assinantes",
-      },
-    ],
   }),
   components: {
     SideBar,
+    VideoChamadas,
+    ModelosView,
   },
   methods: {
+    centerSelectedTab() {
+      const tabsContainer = document.querySelector(".v-tabs-bar");
+      const selectedTabElement = document.querySelector(".v-tab--active");
+
+      if (tabsContainer && selectedTabElement) {
+        const containerWidth = tabsContainer.offsetWidth;
+        const tabOffsetLeft = selectedTabElement.offsetLeft;
+        const tabWidth = selectedTabElement.offsetWidth;
+        const scrollOffset =
+          tabOffsetLeft - (containerWidth / 2 - tabWidth / 2);
+
+        tabsContainer.scrollLeft += scrollOffset;
+      }
+    },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
     },
@@ -286,6 +251,16 @@ export default {
     },
   },
   computed: {
+    currentComponent() {
+      switch (this.selectedTab) {
+        case 0:
+          return "ModelosView";
+        case 1:
+          return "VideoChamadas";
+        default:
+          return null;
+      }
+    },
     filteredUsers() {
       return this.users.filter(
         (user) =>
