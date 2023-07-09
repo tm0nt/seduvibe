@@ -94,8 +94,8 @@
         </v-tabs>
       </v-app-bar>
       <v-divider color="grey"></v-divider>
-
-      <div class="d-flex justify-center flex-column">
+      <v-app-bar flat color="rgb(0,0,0,0)"></v-app-bar>
+      <div class="">
         <v-row v-if="selectedTab === 0">
           <v-col cols="12" class="tab-content">
             <component :is="currentComponent" />

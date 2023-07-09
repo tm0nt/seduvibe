@@ -2,9 +2,8 @@
   <v-row>
     <v-col
       cols="12"
-      xs="12"
-      sm="8"
-      md="3"
+      sm="6"
+      md="4"
       lg="3"
       v-for="(vibe, i) in seduvibe"
       :key="i"
@@ -44,58 +43,46 @@
         <v-card-title
           class="grey--text text-grey-purple-1 text-center ml-3 caption font-italic"
         >
-          {{ vibe.descricao }} </v-card-title
-        ><br />
+          {{ vibe.descricao }}
+        </v-card-title>
+        <br />
       </v-card>
     </v-col>
   </v-row>
 </template>
-<script>
-export default {
-  name: "HomeView",
-  data() {
-    return {
-      seduvibe: [
-        {
-          image:
-            "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-          price: "R$ 465",
-          descricao: "1.512.452 Assinantes",
-        },
-        {
-          image:
-            "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-          price: "R$ 465",
-          descricao: "1.512.452 Assinantes",
-        },
-        {
-          image:
-            "https://istoe.com.br/wp-content/uploads/2022/04/jade-picon-1.jpg",
-          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-          price: "R$ 465",
-          descricao: "1.512.452 Assinantes",
-        },
-        {
-          image:
-            "https://eql.com.br/wp-content/uploads/2022/02/Abre-JadePicon-BigBrotherBrasil-160222-Divulgacao3-1024x576.jpg",
-          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
-          price: "R$ 465",
-          descricao: "1.512.452 Assinantes",
-        },
-      ],
-    };
-  },
-};
-</script>
+
 <style scoped>
+.custom-results-list .v-list-item {
+  background-color: #212121 !important;
+  border-radius: 8px;
+}
+
 .rounded {
   border-radius: 25px;
 }
 
+.custom-autocomplete .custom-results-list {
+  background-color: black;
+}
+.v-tab.withoutupercase {
+  text-transform: none !important;
+}
+
 .blurred-image {
   filter: blur(2px);
+}
+
+.v-menu__content .v-list-item {
+  background-color: #262626 !important;
+}
+
+.tabs-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.v-btn.withoutupercase {
+  text-transform: none !important;
 }
 
 .three {
@@ -121,4 +108,52 @@ export default {
   height: 25px;
   background: rgb(87, 1, 87);
 }
+.custom-autocomplete .v-autocomplete__content {
+  background-color: #262626 !important;
+}
+
+.full-width-tabs {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .full-width-tabs {
+    width: unset;
+  }
+}
 </style>
+<script>
+export default {
+  name: "HomeView",
+  data() {
+    return {
+      seduvibe: [
+        {
+          image: "",
+          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
+          price: "R$ 465",
+          descricao: "1.512.452 Assinantes",
+        },
+        {
+          image: "",
+          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
+          price: "R$ 465",
+          descricao: "1.512.452 Assinantes",
+        },
+        {
+          image: "",
+          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
+          price: "R$ 465",
+          descricao: "1.512.452 Assinantes",
+        },
+        {
+          image: "",
+          pic: "https://pm1.narvii.com/6649/f0104fe950ca05cc7216a0ebb0e779f62800734f_00.jpg",
+          price: "R$ 465",
+          descricao: "1.512.452 Assinantes",
+        },
+      ],
+    };
+  },
+};
+</script>
